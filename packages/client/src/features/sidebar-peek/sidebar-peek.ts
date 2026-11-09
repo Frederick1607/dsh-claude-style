@@ -2,7 +2,7 @@ import { RIGHTBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_BESIDE_RIGHTBAR_MIN_PX, SIDEBAR_C
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
 import { findForeground, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
-import { MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
+import { MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
 import { motionMs } from '../../shared/motion'
 import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 
@@ -141,6 +141,8 @@ export function install(ctx: HostContext) {
       frame.removeAttribute(SIDEBAR_PEEK_ATTR)
       frame.style.removeProperty(SIDEBAR_PEEK_RAIL_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_WIDTH_PROPERTY)
+      frame.style.removeProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY)
+      frame.style.removeProperty(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY)
     }
     releaseMenuStart()
     frame = null
@@ -180,6 +182,14 @@ export function install(ctx: HostContext) {
     phase = 'open'
     holdMenuStart()
     box.style.setProperty(SIDEBAR_PEEK_RAIL_PROPERTY, `${center.offsetLeft}px`)
+    // The control the pointer rests on keeps its place: the column's own toggle
+    // takes the opener's box as the layer opens (sidebar-peek.css).
+    const control = findSidebarOpenControl()
+    if (control !== null) {
+      const controlBox = control.getBoundingClientRect()
+      box.style.setProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, `${controlBox.left}px`)
+      box.style.setProperty(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, `${controlBox.top}px`)
+    }
     box.setAttribute(SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_OPEN)
     offFrame = subscribeMutations(box, { attributes: true, attributeFilter: [SIDEBAR_COLLAPSED_ATTRIBUTE] }, onFrameChange)
     hostLayout(ctx).toggleSidebar()

@@ -89,6 +89,14 @@ async function openPeek(page) {
   return opened
 }
 
+/** The box of the control the pointer rests on: the column's own toggle in the web rail, and the same button once the layer stands. */
+const toggleBox = (page) => page.evaluate((peek) => {
+  const button = document.querySelector(peek.toggle)
+  if (button === null) return null
+  const rect = button.getBoundingClientRect()
+  return { left: Math.round(rect.left), top: Math.round(rect.top) }
+}, PEEK)
+
 /** Somewhere in the centre, well clear of the sidebar's open width. */
 async function leave(page) {
   const viewport = page.viewportSize()
@@ -131,8 +139,10 @@ function sidebarPeekScenario({ check }) {
       await waitForSidebar(page, true)
       const before = await settledFrame(page)
 
+      const resting = await toggleBox(page)
       const opened = await openPeek(page)
       const open = await settledFrame(page)
+      const during = await toggleBox(page)
 
       await leave(page)
       const held = centerHeldWhileLeaving(page, before.center)
@@ -160,6 +170,9 @@ function sidebarPeekScenario({ check }) {
         check('鼠标停在收起按钮上，宿主打开侧栏，侧栏以展开宽度浮在页面上方',
           opened && !open.collapsed && open.column !== null && open.column.left === 0 && open.column.width >= OPEN_WIDTH_PX,
           JSON.stringify(open)),
+        check('浮出期间切换按钮留在原处',
+          resting !== null && during !== null && Math.abs(resting.left - during.left) <= 2 && Math.abs(resting.top - during.top) <= 2,
+          JSON.stringify({ resting, during })),
         check('侧栏浮在上方时主区的位置与宽度和收起时一样',
           same(before.center, open.center),
           JSON.stringify({ before: before.center, open: open.center })),

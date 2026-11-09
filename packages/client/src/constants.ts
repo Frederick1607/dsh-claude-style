@@ -50,12 +50,14 @@ export const FOOTER_SEATS = [
 ] as const
 
 /** The host frame's mark while the sidebar stands over the page from a hover (features/sidebar-peek): `open`, then `closing` for the slide back out.
- * The two custom properties carry the collapsed width the centre keeps clear of and the width the slide travels. */
+ * The custom properties carry the collapsed width the centre keeps clear of, the width the slide travels, and the box the control that opened the layer stood in. */
 export const SIDEBAR_PEEK_ATTR = 'data-dsh-claude-sidebar-peek'
 export const SIDEBAR_PEEK_OPEN = 'open'
 export const SIDEBAR_PEEK_CLOSING = 'closing'
 export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
+export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'
+export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
 /** A panel row the reader took off the sidebar's list (features/sidebar-entries); More still reaches it. */
 export const PANEL_HIDDEN_ATTR = 'data-dsh-claude-panel-hidden'
 
