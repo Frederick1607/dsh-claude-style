@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-10",
-  "group": "improvements",
-  "order": 30,
-  "external": false,
-  "zh": "悬停浮出的侧栏底端渐隐到页面，减轻浮层盖住对话的突兀感",
-  "en": "Fade the floating peek sidebar's foot into the page, so the layer covers the conversation less abruptly"
-}

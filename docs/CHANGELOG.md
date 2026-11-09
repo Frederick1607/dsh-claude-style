@@ -2,6 +2,26 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.4] - 2026-11-10
+
+[中文](#cn-0.20.4) | [English](#en-0.20.4)
+
+<h3 id="cn-0.20.4">体验优化</h3>
+
+- 悬停浮出的侧栏底端渐隐到页面，减轻浮层盖住对话的突兀感
+
+### 问题修复
+
+- 修复悬停浮出侧栏时切换按钮跟着侧栏滑走，现在按钮留在指针停下的位置
+
+<h3 id="en-0.20.4">Improvements</h3>
+
+- Fade the floating peek sidebar's foot into the page, so the layer covers the conversation less abruptly
+
+### Bug Fixes
+
+- Fix the collapse toggle sliding away with the peeking sidebar; it now stays where the pointer found it
+
 ## [0.20.3] - 2026-11-10
 
 [中文](#cn-0.20.3) | [English](#en-0.20.3)

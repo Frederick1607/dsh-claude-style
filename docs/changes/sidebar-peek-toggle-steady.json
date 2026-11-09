@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-10",
-  "group": "fixes",
-  "order": 24,
-  "external": false,
-  "zh": "修复悬停浮出侧栏时切换按钮跟着侧栏滑走，现在按钮留在指针停下的位置",
-  "en": "Fix the collapse toggle sliding away with the peeking sidebar; it now stays where the pointer found it"
-}
