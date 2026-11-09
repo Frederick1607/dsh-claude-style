@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.3] - 2026-11-10
+
+[中文](#cn-0.20.3) | [English](#en-0.20.3)
+
+<h3 id="cn-0.20.3">问题修复</h3>
+
+- 修复 macOS 桌面端侧栏收起后悬停顶栏展开按钮无法临时展开侧栏的问题
+
+<h3 id="en-0.20.3">Bug Fixes</h3>
+
+- Fix the collapsed sidebar not opening on hover over the desktop app's top-row opener
+
 ## [0.20.2] - 2026-11-09
 
 [中文](#cn-0.20.2) | [English](#en-0.20.2)
