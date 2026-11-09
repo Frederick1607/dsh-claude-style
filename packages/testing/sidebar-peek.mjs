@@ -25,7 +25,11 @@ const PEEK = {
   frame: part('layout-frame'),
   column: `${part('layout-frame')} > ${part('sidebar-column')}`,
   center: `${part('layout-frame')} > ${part('center-column')}`,
-  toggle: `${part('logo-row')} > ${part('sidebar-toggle')}`,
+  // The host seats the column's own toggle in the desktop caption strip or the
+  // web top row (packages/contracts/src/dom.ts); the desktop opens a collapsed
+  // sidebar from the frame's leading-seat opener, read by the skin's own
+  // resolver (packages/engine/src/host.ts) and outside this web lane.
+  toggle: part('sidebar-toggle'),
   sessionRow: part('session-row'),
 }
 
@@ -137,6 +141,7 @@ function sidebarPeekScenario({ check }) {
       const moved = await held
 
       await openPeek(page)
+      // While the peek stands, the column's own toggle is the control that pins it.
       await page.locator(PEEK.toggle).first().click()
       await leave(page)
       await page.waitForTimeout(800)

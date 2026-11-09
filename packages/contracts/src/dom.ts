@@ -282,8 +282,10 @@ export const SIDEBAR_ROOT_SELECTOR = '[data-slot="sidebar"] > [data-dsh-claude-p
 export const SIDEBAR_BRAND_SELECTOR = '[data-slot="sidebar"] [data-dsh-claude-part~="logo-row"] > [data-dsh-claude-part~="brand-button"]'
 /** The New session button; the skin's standalone search button takes the next row. */
 export const SIDEBAR_NEW_SESSION_SELECTOR = '[data-slot="sidebar"] [data-dsh-claude-part~="new-session"]'
-/** Desktop fixes this toggle into the caption strip; web keeps it in the top row. */
-export const SIDEBAR_TOGGLE_SELECTOR = '[data-slot="sidebar"] [data-dsh-claude-part~="logo-row"] > [data-dsh-claude-part~="sidebar-toggle"]'
+/** The host seats the collapse toggle in the desktop caption strip or the web's top row; the button is read wherever it draws. */
+export const SIDEBAR_TOGGLE_SELECTOR = '[data-slot="sidebar"] [data-dsh-claude-part~="sidebar-toggle"]'
+/** The opener the frame's leading seat mounts while the desktop hides the collapsed column: the control a pointer rests on to open the sidebar there. */
+export const SIDEBAR_OPENER_SELECTOR = '[data-sidebar-opener]'
 /** The host's own composer is replaced by a panel of its own choice; this is that panel's seat. */
 export const CHAIN_OVERLAY_FALLBACK_ATTRIBUTE = 'data-chain-overlay-fallback'
 /** Host modals portal to `<body>`; do not assume they remain near the invoking row. */

@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 23,
+  "external": false,
+  "zh": "修复 macOS 桌面端侧栏收起后悬停顶栏展开按钮无法临时展开侧栏的问题",
+  "en": "Fix the collapsed sidebar not opening on hover over the desktop app's top-row opener"
+}

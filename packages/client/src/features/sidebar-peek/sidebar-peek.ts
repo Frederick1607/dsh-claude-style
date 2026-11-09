@@ -1,6 +1,6 @@
 import { RIGHTBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_BESIDE_RIGHTBAR_MIN_PX, SIDEBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_DRAWER_ATTRIBUTE, WINDOWS_MENU_START_PROPERTY } from '@dsh-claude-style/contracts/dom'
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { findForeground, findSidebarRoot, findSidebarToggle, hostLayout } from '@dsh-claude-style/engine/host'
+import { findForeground, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
 import { MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
 import { motionMs } from '../../shared/motion'
@@ -8,7 +8,9 @@ import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 
 /**
  * The collapsed sidebar opened over the page while the pointer rests on its
- * toggle, the way Claude's app peeks it (D43).
+ * toggle, the way Claude's app peeks it (D43). The control is the frame's
+ * leading-seat opener while the desktop hides the collapsed column, and the
+ * column's own toggle while the rail stands (packages/engine/src/host.ts).
  *
  * The host draws the session list only while its own layout has the sidebar
  * open, so the peek opens it through the host's layout service and keeps the
@@ -206,7 +208,7 @@ export function install(ctx: HostContext) {
 
   function inside() {
     if (pointer === null) return false
-    const toggle = findSidebarToggle()
+    const toggle = findSidebarOpenControl()
     if (toggle !== null && within(toggle.getBoundingClientRect(), pointer)) return true
     const box = column()
     return box !== null && within(box.getBoundingClientRect(), pointer)
@@ -235,7 +237,7 @@ export function install(ctx: HostContext) {
 
   function onPointerOver(event: PointerEvent) {
     if (phase !== 'idle') return
-    const toggle = findSidebarToggle()
+    const toggle = findSidebarOpenControl()
     if (toggle === null || !(event.target instanceof Node) || !toggle.contains(event.target)) return
     const box = frames.all()[0] ?? null
     if (box === null || !canOpen(box)) return
@@ -250,7 +252,7 @@ export function install(ctx: HostContext) {
       judge(false)
     }
     if (phase !== 'waiting') return
-    const toggle = findSidebarToggle()
+    const toggle = findSidebarOpenControl()
     if (toggle !== null && event.relatedTarget instanceof Node && toggle.contains(event.relatedTarget)) return
     window.clearTimeout(openTimer)
     openTimer = undefined
@@ -264,7 +266,7 @@ export function install(ctx: HostContext) {
 
   /** Before the host hears it: a click on the toggle while the sidebar stands over the page keeps it open. */
   function onClickCapture(event: MouseEvent) {
-    const toggle = findSidebarToggle()
+    const toggle = findSidebarOpenControl()
     if (toggle === null || !(event.target instanceof Node) || !toggle.contains(event.target)) return
     if (phase === 'waiting') {
       window.clearTimeout(openTimer)
