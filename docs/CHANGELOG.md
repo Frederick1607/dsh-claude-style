@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.7] - 2026-11-10
+
+[中文](#cn-0.20.7) | [English](#en-0.20.7)
+
+<h3 id="cn-0.20.7">体验优化</h3>
+
+- 会话详情栏新增输出段，列出本次会话交付的文件；上下文段与输出段可以各自折起
+
+<h3 id="en-0.20.7">Improvements</h3>
+
+- Add an outputs section to the session details rail listing the files the session delivered, and let the context and outputs sections fold on their own headers
+
 ## [0.20.6] - 2026-11-10
 
 [中文](#cn-0.20.6) | [English](#en-0.20.6)
