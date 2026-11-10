@@ -460,6 +460,7 @@ edit the JSON, not the table.
 | `--dsh-claude-layer-picker` | `20` | a picker that hangs its card from inside the composer: the permission picker, whose card has to stand over the controls beside it |
 | `--dsh-claude-layer-chrome` | `30` | the window's title row the skin draws into: the header band's title and actions, the titlebar's view tabs, over the host's own header |
 | `--dsh-claude-layer-peek` | `40` | the sidebar opened over the page while the pointer rests on its toggle: over the main window's title row and its own controls, under the floating cards and menus its rows open |
+| `--dsh-claude-layer-peek-control` | `41` | the shell's opener copied into its own box while the peek stands: over the layer that copies it, so the button the pointer rested on keeps that place |
 | `--dsh-claude-layer-float` | `99999` | a floating card or menu over everything the host draws: the popover cards, the hero menu |
 | `--dsh-claude-layer-tooltip` | `100000` | the host's own tooltip bubble while it explains a control inside a card the skin floats: over those cards, under a takeover |
 | `--dsh-claude-layer-takeover` | `2147483000` | a surface that covers the whole window: the account-hold page, the sent message's stand-in in flight |

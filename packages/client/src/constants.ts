@@ -58,6 +58,9 @@ export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
 export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'
 export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
+/** The stand-in for the shell's opener: a copy of that button, and the frame mark that keeps the column's own toggle out of sight while the copy stands. */
+export const SIDEBAR_PEEK_CONTROL_ATTR = 'data-dsh-claude-sidebar-peek-control'
+export const SIDEBAR_PEEK_CONTROL_CLONE = 'clone'
 /** The host's own padding for the conversation's title row while the collapsed column stands hidden (the desktop's caption row); held at its collapsed value for the peek. */
 export const FRAME_LEADING_CLEARANCE_PROPERTY = '--dsh-frame-leading-clearance'
 

@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 29,
+  "external": false,
+  "zh": "修复桌面端悬停浮出侧栏时指针下的开关按钮仍会跳一下的问题，改用宿主 opener 的副本站在原来的盒子里",
+  "en": "Fix the toggle under the pointer still shifting as the desktop peek opens, by standing a copy of the shell's own opener in its box"
+}
