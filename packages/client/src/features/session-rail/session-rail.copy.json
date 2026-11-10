@@ -1,0 +1,20 @@
+{
+  "railTitle": { "zh": "会话详情", "en": "Session details" },
+  "railCollapse": { "zh": "收起会话详情", "en": "Collapse session details" },
+  "railExpand": { "zh": "展开会话详情", "en": "Expand session details" },
+  "railEnvironment": { "zh": "环境", "en": "Environment" },
+  "railContext": { "zh": "上下文", "en": "Context" },
+  "railNoWorkspace": { "zh": "还没有工作区", "en": "No workspace yet" },
+  "railPercentUsed": { "zh": "{percent}% 已用", "en": "{percent}% used" },
+  "railUsed": { "zh": "已用", "en": "Used" },
+  "railFree": { "zh": "剩余", "en": "Free" },
+  "railWindow": { "zh": "上下文窗口", "en": "Context window" },
+  "railUnknown": { "zh": "—", "en": "—" },
+  "railTitleSetting": { "zh": "会话详情栏", "en": "Session details rail" },
+  "railDescSetting": { "zh": "对话右侧常驻一栏，显示工作区与上下文占用。", "en": "Keep a rail beside the conversation with its workspace and context reading." },
+  "railWidthTitle": { "zh": "会话详情栏宽度", "en": "Session details rail width" },
+  "railWidthDesc": { "zh": "选择这一栏占用的宽度，窄窗口下自动收起。", "en": "Pick how wide the rail stands; a narrow window folds it away." },
+  "railWidthNarrow": { "zh": "窄", "en": "Narrow" },
+  "railWidthStandard": { "zh": "标准", "en": "Standard" },
+  "railWidthWide": { "zh": "宽", "en": "Wide" }
+}

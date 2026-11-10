@@ -1,0 +1,230 @@
+/* ---------- Session rail ---------- */
+/* The conversation body's third child, the way Claude's app keeps its Session
+   details beside the messages: the rail takes the body's right band and the
+   scroller keeps what is left (session-rail.ts writes the band's width from the
+   width preference, so a change re-draws the band without rebuilding the rail).
+   The body is the box the column scale already reads, so the widths the host
+   declares inside it follow the room the rail leaves; the header above the body
+   keeps the full width, where the host's own controls stand. The folded strip
+   is 40px wide — the toggle alone stays, so the way back is where the reader
+   left the rail. */
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host] > .dsh-claude-session-rail {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--dsh-claude-layer-control);
+  width: var(--dsh-claude-rail-width, 264px);
+  padding: 4px 0 10px;
+  border-left: 0.5px solid var(--dsh-claude-divider);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  font: 13px/1.5 var(--dsw-font-family);
+}
+
+/* The hero page keeps the rail folded away: the phase root marks the page, and
+   only an active (or settling) page makes room for the band. The rail stays
+   mounted across the swap, so a session's first turn needs no attach. */
+body[data-dsh-claude-style] [data-phase="hero"] > [data-dsh-claude-session-rail-host] > .dsh-claude-session-rail {
+  display: none;
+}
+
+body[data-dsh-claude-style] [data-phase="hero"] > [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail] > [data-conversation-scroll] {
+  margin-right: 0;
+}
+
+/* The scroller keeps the band: the messages, the composer and the mascot all
+   stand inside it, so nothing draws under the rail. */
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="open"] > [data-conversation-scroll] {
+  margin-right: var(--dsh-claude-rail-width, 264px);
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] > .dsh-claude-session-rail {
+  width: 40px;
+  padding-top: 0;
+  align-items: center;
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] > [data-conversation-scroll] {
+  margin-right: 40px;
+}
+
+/* The head: the column's own name, and the fold that leaves the strip. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 10px 10px 16px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-title {
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  cursor: pointer;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-toggle:hover {
+  background: var(--dsh-claude-hover-bg);
+  color: var(--dsw-alias-label-primary);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-toggle:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 1px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-toggle svg {
+  transition: transform var(--dsh-claude-duration-feedback) var(--dsh-claude-ease-standard);
+}
+
+/* The closed strip turns the chevron around: it points back into the page,
+   which is where pressing it draws the rail again. */
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] .dsh-claude-session-rail-toggle svg {
+  transform: rotate(180deg);
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] .dsh-claude-session-rail-head {
+  padding: 4px 0;
+  justify-content: center;
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] :is(.dsh-claude-session-rail-body, .dsh-claude-session-rail-title) {
+  display: none;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+  padding: 0 16px;
+  overflow-y: auto;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-title {
+  margin: 0;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Environment: the workspace's name over the folder it lives in. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-workspace-name {
+  overflow: hidden;
+  color: var(--dsw-alias-label-primary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-workspace-path {
+  overflow: hidden;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Context: the share over the counts, the bar under them, the figures under that. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-reading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-percent {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-tokens {
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-bar {
+  overflow: hidden;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--dsh-claude-divider);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--dsw-alias-brand-primary);
+  transition: width var(--dsh-claude-duration-surface) var(--dsh-claude-ease-standard);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-rows {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 8px;
+  margin: 0;
+  font-size: 12px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-row {
+  display: contents;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-row-label {
+  color: var(--dsw-alias-label-tertiary);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-row-value {
+  margin: 0;
+  color: var(--dsw-alias-label-secondary);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+body[data-dsh-claude-style][data-dsh-claude-motion="reduced"] .dsh-claude-session-rail-fill,
+body[data-dsh-claude-style][data-dsh-claude-motion="reduced"] .dsh-claude-session-rail-toggle svg {
+  transition: none;
+}
+
+/* A page too narrow for the messages and the rail together folds the rail away
+   on the page's own width mark (shared/page-scale.ts; the host's auto-collapse
+   breakpoint sits just above it); widening the page brings it back. */
+body[data-dsh-claude-style][data-dsh-claude-page-under-1000] [data-dsh-claude-session-rail-host] > .dsh-claude-session-rail {
+  display: none;
+}
+
+body[data-dsh-claude-style][data-dsh-claude-page-under-1000] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail] > [data-conversation-scroll] {
+  margin-right: 0;
+}

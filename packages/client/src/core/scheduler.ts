@@ -36,6 +36,7 @@ export interface Handles {
   workspace: FeatureHandle
   search: FeatureHandle
   sidebarPeek: FeatureHandle
+  sessionRail: FeatureHandle
   sidebarStatus: FeatureHandle
   sessionActions: FeatureHandle
   manualUnread: FeatureHandle

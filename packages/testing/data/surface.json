@@ -127,6 +127,10 @@
     { "id": "permissions.trigger", "selector": ".dsh-claude-perm-btn", "feature": "permissions", "sees": "the Claude permission trigger: the words of the tier the composer's session runs, with an icon of the same tier" },
     { "id": "permissions.popover", "selector": ".dsh-claude-perm-popover", "feature": "permissions", "sees": "one permission control's tier card, which stays in the page and opens under its own trigger" },
     { "id": "permissions.auto-mode", "selector": "[data-preset=\"auto-mode\"]", "feature": "permissions", "sees": "the Auto mode row inside a tier card, which writes the preset to the session that card's composer shows" },
-    { "id": "permissions.control", "attribute": "data-dsh-claude-control", "feature": "permissions", "sees": "the host control a skin feature replaces, named by that feature: the access trigger carries `access` while the permission control stands" }
+    { "id": "permissions.control", "attribute": "data-dsh-claude-control", "feature": "permissions", "sees": "the host control a skin feature replaces, named by that feature: the access trigger carries `access` while the permission control stands" },
+    { "id": "session-rail.host", "attribute": "data-dsh-claude-session-rail-host", "feature": "session-rail", "sees": "the conversation body the session rail hangs in: its third child is the rail, and its scroller keeps only the band the rail leaves" },
+    { "id": "session-rail.state", "attribute": "data-dsh-claude-session-rail", "feature": "session-rail", "sees": "whether the rail stands open or folded to its plain strip, which the scroller's band follows while the rail is open" },
+    { "id": "session-rail.part", "attribute": "data-dsh-claude-rail-part", "feature": "session-rail", "sees": "one element the rail draws: its root, the fold control, the body, a section and the figures of its reading" },
+    { "id": "session-rail.section", "attribute": "data-dsh-claude-rail-section", "feature": "session-rail", "sees": "which section a column of the rail draws: the environment the session runs in, or the context it fills" }
   ]
 }

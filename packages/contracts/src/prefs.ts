@@ -147,6 +147,12 @@ export const BAN_LOCALE_ZH = 'zh'
 export const BAN_LOCALE_OFF = 'off'
 export const BAN_LOCALES = [BAN_LOCALE_EN, BAN_LOCALE_ZH, BAN_LOCALE_OFF] as const
 
+/** The session rail's column width: narrow, standard, or wide (features/session-rail). */
+export const SESSION_RAIL_WIDTH_NARROW = 'narrow'
+export const SESSION_RAIL_WIDTH_STANDARD = 'standard'
+export const SESSION_RAIL_WIDTH_WIDE = 'wide'
+export const SESSION_RAIL_WIDTHS = [SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE] as const
+
 /** `off` keeps the host home; `classic` is a centered hero and `studio` a dashboard. */
 export const HOME_LAYOUT_OFF = 'off'
 export const HOME_LAYOUT_CLASSIC = 'classic'
@@ -296,6 +302,10 @@ export const PREFS = {
   searchStyle: { type: 'choice', values: SEARCH_STYLES, default: SEARCH_STYLE_STANDALONE, legacy: { overlay: SEARCH_STYLE_STANDALONE } },
   /** Whether resting the pointer on the collapsed sidebar's toggle opens the sidebar over the page. */
   sidebarPeek: { type: 'boolean', default: true },
+  /** Whether the conversation stands beside the session rail: the environment it runs in and its context reading. */
+  sessionRail: { type: 'boolean', default: true },
+  /** The rail's column width, narrow to wide. */
+  sessionRailWidth: { type: 'choice', values: SESSION_RAIL_WIDTHS, default: SESSION_RAIL_WIDTH_STANDARD },
   /** Whether the panel list carries the More menu's hidden entries and its Edit sidebar dialog. */
   sidebarEntries: { type: 'boolean', default: true },
   /** The panel ids that dialog took off the list; they stay reachable from More. */

@@ -1,6 +1,6 @@
 /** Skin-owned attributes and identities; the build checks stylesheet reads against these writes (D9, D73). */
 export * from '@dsh-claude-style/contracts/prefs'
-import { COMPOSER_SCOPE_ALL, COMPOSER_SCOPE_CONVERSATION, COMPOSER_SCOPE_HERO } from '@dsh-claude-style/contracts/prefs'
+import { COMPOSER_SCOPE_ALL, COMPOSER_SCOPE_CONVERSATION, COMPOSER_SCOPE_HERO, SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE } from '@dsh-claude-style/contracts/prefs'
 import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
 import { PLUGIN_ENTRY_UPDATE_SELECTOR } from '@dsh-claude-style/contracts/dom'
 export { PACKAGE_NAME }
@@ -60,6 +60,22 @@ export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-togg
 export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
 /** The host's own padding for the conversation's title row while the collapsed column stands hidden (the desktop's caption row); held at its collapsed value for the peek. */
 export const FRAME_LEADING_CLEARANCE_PROPERTY = '--dsh-frame-leading-clearance'
+
+/** The content box the session rail stands in (features/session-rail): its host mark, and whether the rail is open or folded away. */
+export const SESSION_RAIL_HOST_ATTR = 'data-dsh-claude-session-rail-host'
+export const SESSION_RAIL_ATTR = 'data-dsh-claude-session-rail'
+export const SESSION_RAIL_OPEN = 'open'
+/** The part a rail element plays: its root, the fold control, the body, a section, the figures. */
+export const SESSION_RAIL_PART_ATTR = 'data-dsh-claude-rail-part'
+export const SESSION_RAIL_CLOSED = 'closed'
+/** The rail's own column width, written from the width preference so the scroller beside it keeps what is left. */
+export const SESSION_RAIL_WIDTH_PROPERTY = '--dsh-claude-rail-width'
+/** How wide each width choice draws the rail, in CSS pixels. */
+export const SESSION_RAIL_WIDTH_PX = {
+  [SESSION_RAIL_WIDTH_NARROW]: 232,
+  [SESSION_RAIL_WIDTH_STANDARD]: 264,
+  [SESSION_RAIL_WIDTH_WIDE]: 304,
+} as const
 /** A panel row the reader took off the sidebar's list (features/sidebar-entries); More still reaches it. */
 export const PANEL_HIDDEN_ATTR = 'data-dsh-claude-panel-hidden'
 

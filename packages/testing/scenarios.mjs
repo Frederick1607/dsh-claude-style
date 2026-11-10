@@ -37,6 +37,7 @@ import { longSessionScenario } from './long-session.mjs'
 import { statsScenarios } from './stats-position.mjs'
 import { sidebarRailScenario } from './sidebar-rail.mjs'
 import { sidebarPeekScenario } from './sidebar-peek.mjs'
+import { sessionRailScenario } from './session-rail.mjs'
 import { remoteSettingsScenario } from './remote-settings.mjs'
 import { customBrandScenario } from './custom-brand.mjs'
 import { dsBotScenario } from './ds-bot.mjs'
@@ -580,6 +581,7 @@ const SCENARIOS = {
   sidebarRail: sidebarRailScenario({ check }),
   /** The collapsed sidebar opened over the page from a hover, the centre kept as it was (sidebar-peek.mjs). */
   sidebarPeek: sidebarPeekScenario({ check }),
+  sessionRail: sessionRailScenario({ check }),
   /** The waiting line and the counted process headers (process-summary.mjs, D74). */
   processSummary: processSummaryScenario({ check }),
   /** The file-change rows of one file read as one row (file-merge.mjs). */

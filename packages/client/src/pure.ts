@@ -98,3 +98,5 @@ export { default as composerSwappingCss } from './shared/swapping-text.css?raw'
 export { setSwappingText, releaseSwappingText } from './shared/swapping-text'
 
 export { default as themePropertiesCss } from './theme/properties.css?raw'
+
+export { railPath, railReading, railWidthPx, railWorkspace } from './features/session-rail/reading'
