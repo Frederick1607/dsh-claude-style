@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.10] - 2026-11-10
+
+[中文](#cn-0.20.10) | [English](#en-0.20.10)
+
+<h3 id="cn-0.20.10">体验优化</h3>
+
+- 把 fork 出来的会话收在源会话下面，带分支线与缩进，源会话可以折起它的分支
+
+<h3 id="en-0.20.10">Improvements</h3>
+
+- Stand forked sessions under their source with a branch line and indent, and let a source fold its branches
+
 ## [0.20.9] - 2026-11-10
 
 [中文](#cn-0.20.9) | [English](#en-0.20.9)
