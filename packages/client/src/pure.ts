@@ -99,4 +99,4 @@ export { setSwappingText, releaseSwappingText } from './shared/swapping-text'
 
 export { default as themePropertiesCss } from './theme/properties.css?raw'
 
-export { railPath, railReading, railWidthPx, railWorkspace } from './features/session-rail/reading'
+export { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './features/session-rail/reading'

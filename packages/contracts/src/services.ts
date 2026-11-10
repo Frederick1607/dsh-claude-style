@@ -322,12 +322,20 @@ export interface HostSessionRenameAnswer {
   error?: { message?: string }
 }
 
+/** One file a `present` call declared: its path and the description the call carried. */
+export interface HostPresentedFile {
+  path: string
+  description?: string
+}
+
 /** Feed events used by the skin; readers must ignore unknown host event types. */
 export type HostSessionEvent =
   | { type: 'turn/end', data: { reason: { kind?: string } } }
   | { type: 'tool/result', data: { message: { isError?: boolean }, error?: { name?: string } } }
   | { type: 'compaction/start', data: { compactionId: string } }
   | { type: 'compaction/end', data: { compactionId: string, error?: unknown } }
+  // A `present` call's declaration: the turn and call it belongs to, and the files it named.
+  | { type: 'deliverables/presented', data: { turn: number, callId: string, files: HostPresentedFile[] } }
 
 /** One entry of a feed window: a live event, or the host's own bookkeeping. */
 export interface HostFeedEntry {

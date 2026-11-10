@@ -2,19 +2,21 @@ import { CONVERSATION_CONTENT_SELECTOR, CONVERSATION_SESSION_ATTRIBUTE } from '@
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
 import { buildElement, setAttributeIfChanged, writeTextInPlace } from '@dsh-claude-style/engine/dom'
 import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { currentSession, currentSessionId, hostUiSession, hostWorkspaces } from '@dsh-claude-style/engine/host'
+import { currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
 import type { HostContextPressureProjection } from '@dsh-claude-style/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
 import { formatCompactTokens } from '../../shared/format'
 import { copy } from './copy'
-import { railPath, railReading, railWidthPx, railWorkspace } from './reading'
+import { railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './reading'
+import type { RailOutput } from './reading'
 
 /**
  * The session rail: the column beside the conversation that names the
- * workspace the session runs in and reads the context it fills, the way
- * Claude's own app keeps its Session details beside the messages.
+ * workspace the session runs in, reads the context it fills, and lists the
+ * files it delivered, the way Claude's own app keeps its Session details
+ * beside the messages.
  *
  * The host draws the conversation body under the page's phase root, its
  * children the scroller and the width handles (`chat.content`, the contract
@@ -28,8 +30,16 @@ import { railPath, railReading, railWidthPx, railWorkspace } from './reading'
  * The rail's pref gates the install; the column width is a preference of its
  * own, so a change re-draws the band without rebuilding the rail. The fold
  * button leaves a narrow strip standing rather than taking the rail away: the
- * way back stays where the reader left it.
+ * way back stays where the reader left it. The context reading and the outputs
+ * list fold on their own headers, the reader's click the only state either
+ * keeps.
  */
+
+interface RailSection {
+  section: HTMLElement
+  toggle: HTMLButtonElement
+  body: HTMLElement
+}
 
 interface RailRefs {
   root: HTMLElement
@@ -37,6 +47,8 @@ interface RailRefs {
   body: HTMLElement
   workspaceName: HTMLElement
   workspacePath: HTMLElement
+  context: RailSection
+  contextTitle: string
   percent: HTMLElement
   tokens: HTMLElement
   bar: HTMLElement
@@ -44,18 +56,27 @@ interface RailRefs {
   used: HTMLElement
   free: HTMLElement
   window: HTMLElement
+  outputs: RailSection
+  outputsTitle: string
+  outputsList: HTMLElement
+  outputsEmpty: HTMLElement
 }
 
-function buildChevron() {
+/**
+ * One chevron: the rail's own fold control, pointing at the column it stands
+ * in, and a section header's, pointing down while the section stands open.
+ *
+ * @param d - the path's drawing.
+ * @param size - its square size in CSS pixels.
+ */
+function buildChevron(d: string, size: number) {
   const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
   icon.setAttribute('viewBox', '0 0 16 16')
-  icon.setAttribute('width', '14')
-  icon.setAttribute('height', '14')
+  icon.setAttribute('width', String(size))
+  icon.setAttribute('height', String(size))
   icon.setAttribute('aria-hidden', 'true')
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-  // The chevron points at the column the rail stands in: right while the rail
-  // is open, left while it is folded to its strip.
-  path.setAttribute('d', 'M6 3.5 10.5 8 6 12.5')
+  path.setAttribute('d', d)
   path.setAttribute('fill', 'none')
   path.setAttribute('stroke', 'currentColor')
   path.setAttribute('stroke-width', '1.5')
@@ -71,6 +92,19 @@ function markPart<T extends HTMLElement>(element: T, part: string) {
   return element
 }
 
+/** One section whose header folds its body: the context reading and the outputs list. */
+function buildFoldedSection(key: string, title: string): RailSection {
+  const section = buildElement('section', 'dsh-claude-session-rail-section')
+  section.setAttribute('data-dsh-claude-rail-section', key)
+  const toggle = markPart(buildElement('button', 'dsh-claude-session-rail-section-toggle'), 'section-toggle')
+  toggle.type = 'button'
+  const titleText = buildElement('span', 'dsh-claude-session-rail-section-title', title)
+  toggle.append(titleText, buildChevron('M4 6.5 8 10.5 12 6.5', 12))
+  const body = markPart(buildElement('div', 'dsh-claude-session-rail-section-body'), 'section-body')
+  section.append(toggle, body)
+  return { section, toggle, body }
+}
+
 function buildRail(): RailRefs {
   const root = markPart(buildElement('aside', 'dsh-claude-session-rail'), 'rail')
   root.setAttribute('aria-label', copy('railTitle'))
@@ -78,11 +112,13 @@ function buildRail(): RailRefs {
   const title = buildElement('span', 'dsh-claude-session-rail-title', copy('railTitle'))
   const toggle = markPart(buildElement('button', 'dsh-claude-session-rail-toggle'), 'toggle')
   toggle.type = 'button'
-  toggle.append(buildChevron())
+  toggle.append(buildChevron('M6 3.5 10.5 8 6 12.5', 14))
   head.append(title, toggle)
 
   const body = markPart(buildElement('div', 'dsh-claude-session-rail-body'), 'body')
 
+  // The environment stays as it stands: it is one row, and folding it would
+  // hide the only line that says where the session runs.
   const environment = buildElement('section', 'dsh-claude-session-rail-section')
   environment.setAttribute('data-dsh-claude-rail-section', 'environment')
   const environmentTitle = buildElement('h2', 'dsh-claude-session-rail-section-title', copy('railEnvironment'))
@@ -92,9 +128,8 @@ function buildRail(): RailRefs {
   workspace.append(workspaceName, workspacePath)
   environment.append(environmentTitle, workspace)
 
-  const context = buildElement('section', 'dsh-claude-session-rail-section')
-  context.setAttribute('data-dsh-claude-rail-section', 'context')
-  const contextTitle = buildElement('h2', 'dsh-claude-session-rail-section-title', copy('railContext'))
+  const contextTitle = copy('railContext')
+  const context = buildFoldedSection('context', contextTitle)
   const reading = buildElement('div', 'dsh-claude-session-rail-reading')
   const percent = markPart(buildElement('span', 'dsh-claude-session-rail-percent'), 'percent')
   const tokens = markPart(buildElement('span', 'dsh-claude-session-rail-tokens'), 'tokens')
@@ -107,12 +142,39 @@ function buildRail(): RailRefs {
   const free = buildRow(rows, copy('railFree'))
   const window = buildRow(rows, copy('railWindow'))
   reading.append(percent, tokens)
-  context.append(contextTitle, reading, bar, rows)
+  context.body.append(reading, bar, rows)
 
-  body.append(environment, context)
+  const outputsTitle = copy('railOutputs')
+  const outputs = buildFoldedSection('outputs', outputsTitle)
+  // The section keeps its own fold: the reader's click is the only state either
+  // section carries, and the next rail remembers it in this instance alone.
+  const outputsList = buildElement('div', 'dsh-claude-session-rail-outputs')
+  const outputsEmpty = markPart(buildElement('span', 'dsh-claude-session-rail-outputs-empty', copy('railNoOutputs')), 'outputs-empty')
+  outputs.body.append(outputsList, outputsEmpty)
+
+  body.append(environment, context.section, outputs.section)
   root.append(head, body)
 
-  return { root, toggle, body, workspaceName, workspacePath, percent, tokens, bar, fill, used, free, window }
+  return {
+    root,
+    toggle,
+    body,
+    workspaceName,
+    workspacePath,
+    context,
+    contextTitle,
+    percent,
+    tokens,
+    bar,
+    fill,
+    used,
+    free,
+    window,
+    outputs,
+    outputsTitle,
+    outputsList,
+    outputsEmpty,
+  }
 }
 
 /** One figure row: its name from the copy, its value written by the refresh. */
@@ -131,6 +193,8 @@ export function install(ctx: HostContext) {
   let queued: (() => void) | null = null
   let released = false
   const refs = buildRail()
+  /** Whether each folded section stands open; the reader's clicks move these. */
+  const sectionOpen = new Map<HTMLElement, boolean>()
 
   /** The source the rail follows, and the one whose subscription is open. */
   let listSource: { subscribe?(listener: () => void): () => void } | null = null
@@ -143,6 +207,12 @@ export function install(ctx: HostContext) {
   let pressureSession: string | null = null
   /** The conversation body's own session mark, which changes when the shell switches sessions. */
   let sessionWatchOff: (() => void) | null = null
+  /** The session feed the outputs list follows, and the entries it has folded so far. */
+  let outputSession: string | null = null
+  let outputOff: (() => void) | null = null
+  let outputs: RailOutput[] = []
+  /** The outputs list drawn last, so an unchanged list is not rebuilt on every read. */
+  let outputSignature = ''
 
   /** Coalesce the writes of one frame: a projection answers on every token, the rail reads once. */
   function schedule() {
@@ -198,6 +268,70 @@ export function install(ctx: HostContext) {
     pressureOff = follow(face, null)
   }
 
+  /**
+   * Follow the shown session's own feed and fold its presentations into the
+   * outputs list. A replace hands the window the host loaded; an append hands
+   * the entries that arrived, so a session's earlier deliveries stay listed
+   * after the live ones join. A binding that is not up yet leaves the session
+   * unbound, and the next write tries again.
+   */
+  function followOutputs() {
+    const sessionId = currentSessionId(ctx)
+    if (sessionId === outputSession) return
+    outputOff?.()
+    outputOff = null
+    outputSession = sessionId
+    outputs = []
+    if (sessionId === null) {
+      writeOutputs()
+      return
+    }
+    const feed = hostSessions(ctx)?.binding(sessionId)?.eventSource ?? null
+    if (feed === null || typeof feed.subscribe !== 'function') {
+      outputSession = null
+      writeOutputs()
+      return
+    }
+    outputs = railOutputs(feed.getSnapshot().entries)
+    writeOutputs()
+    outputOff = feed.subscribe(() => {
+      const latest = feed.getSnapshot()
+      const change = latest.change
+      if (change?.kind === 'replace') outputs = railOutputs(latest.entries)
+      else if (change?.kind === 'append' && Array.isArray(change.entries)) outputs = railOutputsAfter(outputs, change.entries)
+      else return
+      schedule()
+    })
+  }
+
+  /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
+  function writeOutputs() {
+    const signature = outputs.map(output => `${output.path}\u0000${output.description}`).join('\u0001')
+    if (signature !== outputSignature) {
+      outputSignature = signature
+      const rows = outputs.map((output) => {
+        const row = markPart(buildElement('div', 'dsh-claude-session-rail-output'), 'output')
+        row.title = output.path
+        row.append(markPart(buildElement('span', 'dsh-claude-session-rail-output-name', output.name), 'output-name'))
+        if (output.description !== '') row.append(markPart(buildElement('span', 'dsh-claude-session-rail-output-description', output.description), 'output-description'))
+        return row
+      })
+      refs.outputsList.replaceChildren(...rows)
+    }
+    refs.outputsList.hidden = outputs.length === 0
+    refs.outputsEmpty.hidden = outputs.length > 0
+  }
+
+  /** Fold one section to its header or stand it open again; the body carries the native hidden state. */
+  function applySection(section: RailSection, title: string) {
+    const open = sectionOpen.get(section.section) !== false
+    section.body.hidden = !open
+    setAttributeIfChanged(section.toggle, 'aria-expanded', open ? 'true' : 'false')
+    const label = copy(open ? 'railFoldSection' : 'railUnfoldSection', { name: title })
+    section.toggle.setAttribute('aria-label', label)
+    section.toggle.title = label
+  }
+
   /** Fold the rail to its strip or stand it open again; the body and the scroller follow through the attribute. */
   function applyFold() {
     if (host === null) return
@@ -213,11 +347,12 @@ export function install(ctx: HostContext) {
     host.style.setProperty(SESSION_RAIL_WIDTH_PROPERTY, `${railWidthPx(readPrefs().sessionRailWidth)}px`)
   }
 
-  /** Write the reading and the environment: the counts the host answers, its dashes where it answers none. */
+  /** Write the reading, the environment and the outputs: the counts the host answers, its dashes where it answers none. */
   function write() {
     if (host === null) return
     followSources()
     followPressure()
+    followOutputs()
 
     const sessionId = currentSessionId(ctx)
     const workspace = railWorkspace(hostWorkspaces(ctx)?.list.getSnapshot() ?? null, sessionId)
@@ -236,6 +371,7 @@ export function install(ctx: HostContext) {
     writeTextInPlace(refs.used, reading.used === null ? copy('railUnknown') : formatCompactTokens(reading.used))
     writeTextInPlace(refs.free, reading.free === null ? copy('railUnknown') : formatCompactTokens(reading.free))
     writeTextInPlace(refs.window, reading.window === null ? copy('railUnknown') : formatCompactTokens(reading.window))
+    writeOutputs()
   }
 
   /** Take the rail out of the body it hangs in: the host keeps its own children and the prefs keep their values. */
@@ -244,6 +380,11 @@ export function install(ctx: HostContext) {
     pressureOff = null
     pressureSource = null
     pressureSession = null
+    outputOff?.()
+    outputOff = null
+    outputSession = null
+    outputs = []
+    outputSignature = ''
     sessionWatchOff?.()
     sessionWatchOff = null
     listOff?.()
@@ -274,6 +415,8 @@ export function install(ctx: HostContext) {
     host.setAttribute(SESSION_RAIL_HOST_ATTR, '')
     applyWidth()
     applyFold()
+    applySection(refs.context, refs.contextTitle)
+    applySection(refs.outputs, refs.outputsTitle)
     host.append(refs.root)
     // The body carries the shown session: a switch rewrites that mark rather
     // than the body, so the rail hears the switch here.
@@ -291,6 +434,14 @@ export function install(ctx: HostContext) {
     folded = !folded
     applyFold()
   })
+
+  for (const [section, title] of [[refs.context, refs.contextTitle], [refs.outputs, refs.outputsTitle]] as const) {
+    section.toggle.addEventListener('click', () => {
+      const open = sectionOpen.get(section.section) !== false
+      sectionOpen.set(section.section, !open)
+      applySection(section, title)
+    })
+  }
 
   const stopPrefs = subscribePrefs(() => {
     applyWidth()

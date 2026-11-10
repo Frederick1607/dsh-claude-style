@@ -1,5 +1,5 @@
 import { SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_PX, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE } from '../../constants'
-import type { HostContextPressureProjection, HostWorkspaceListSnapshot } from '@dsh-claude-style/contracts/services'
+import type { HostContextPressureProjection, HostFeedEntry, HostWorkspaceListSnapshot } from '@dsh-claude-style/contracts/services'
 
 /**
  * What the session rail draws, worked out without the page: the context
@@ -98,4 +98,55 @@ export function railWidthPx(choice: string | null | undefined) {
   if (choice === SESSION_RAIL_WIDTH_NARROW) return SESSION_RAIL_WIDTH_PX[SESSION_RAIL_WIDTH_NARROW]
   if (choice === SESSION_RAIL_WIDTH_WIDE) return SESSION_RAIL_WIDTH_PX[SESSION_RAIL_WIDTH_WIDE]
   return SESSION_RAIL_WIDTH_PX[SESSION_RAIL_WIDTH_STANDARD]
+}
+
+/** One file the session delivered, as the rail's Outputs section shows it. */
+export interface RailOutput {
+  /** The path the call declared, as the host recorded it. */
+  path: string
+  /** The path's trailing segment, what the row shows at a glance. */
+  name: string
+  /** The description the call carried, or an empty string. */
+  description: string
+}
+
+/** The trailing path segment, slash- or backslash-separated; a trailing separator is the part it closes. */
+export function fileBasename(path: string) {
+  const trimmed = path.trim().replace(/[\\/]+$/, '')
+  if (trimmed === '') return path.trim()
+  const at = Math.max(trimmed.lastIndexOf('/'), trimmed.lastIndexOf('\\'))
+  return at === -1 ? trimmed : trimmed.slice(at + 1)
+}
+
+/**
+ * Fold one feed window's declarations into the outputs the section lists: the
+ * files a `present` call named, in declaration order, with a later declaration
+ * of the same path taking the newer description and its place at the end.
+ * Malformed declarations are dropped rather than guessed.
+ *
+ * @param previous - what the feed loaded before, or nothing on a replace.
+ * @param entries - the window's entries, or only the ones just appended.
+ * @returns the outputs in the order they were last declared.
+ */
+export function railOutputsAfter(previous: readonly RailOutput[] | null | undefined, entries: readonly HostFeedEntry[]): RailOutput[] {
+  const kept = new Map<string, RailOutput>()
+  for (const output of previous ?? []) kept.set(output.path, output)
+  for (const entry of entries) {
+    const event = entry?.event
+    if (event === null || event === undefined || event.type !== 'deliverables/presented') continue
+    const files = event.data?.files
+    if (!Array.isArray(files)) continue
+    for (const file of files) {
+      const path = typeof file?.path === 'string' ? file.path.trim() : ''
+      if (path === '') continue
+      kept.delete(path)
+      kept.set(path, { path, name: fileBasename(path), description: typeof file.description === 'string' ? file.description : '' })
+    }
+  }
+  return [...kept.values()]
+}
+
+/** The outputs one whole feed window declares; a replace reads through this. */
+export function railOutputs(entries: readonly HostFeedEntry[]): RailOutput[] {
+  return railOutputsAfter(null, entries)
 }

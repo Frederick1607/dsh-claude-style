@@ -23,6 +23,9 @@ const SECTION = surfaceAttribute('session-rail.section')
 /** One element the rail draws, by the part it plays. */
 const part = (name) => `[${PART}="${name}"]`
 
+/** One section of the rail, by the section mark it carries. */
+const section = (key) => `[${SECTION}="${key}"]`
+
 const RAIL = {
   host: `[${HOST}]`,
   state: STATE,
@@ -34,6 +37,11 @@ const RAIL = {
   tokens: part('tokens'),
   workspace: part('workspace-name'),
   rows: part('row-value'),
+  section: SECTION,
+  sectionToggle: part('section-toggle'),
+  sectionBody: part('section-body'),
+  output: part('output'),
+  outputsEmpty: part('outputs-empty'),
   scroller: '[data-conversation-scroll]',
 }
 
@@ -42,7 +50,7 @@ const STANDARD_PX = 264
 /** The strip the fold leaves, the toggle alone (session-rail.css). */
 const STRIP_PX = 40
 
-/** Read the rail, its band and the scroller beside it. */
+/** Read the rail, its band, the scroller beside it and the two sections that fold. */
 const readRail = (page) => page.evaluate((rail) => {
   const box = (element) => {
     if (element === null) return null
@@ -52,6 +60,17 @@ const readRail = (page) => page.evaluate((rail) => {
   const text = (selector) => {
     const element = document.querySelector(selector)
     return element === null ? '' : (element.textContent ?? '').trim()
+  }
+  const inside = (key) => `[${rail.section}="${key}"]`
+  const readSection = (key) => {
+    const scope = inside(key)
+    const toggle = document.querySelector(`${scope} ${rail.sectionToggle}`)
+    const body = document.querySelector(`${scope} ${rail.sectionBody}`)
+    return {
+      found: toggle !== null && body !== null,
+      expanded: toggle === null ? null : toggle.getAttribute('aria-expanded'),
+      bodyHidden: body === null ? null : body.hidden,
+    }
   }
   const host = document.querySelector(rail.host)
   const root = document.querySelector(rail.root)
@@ -69,6 +88,12 @@ const readRail = (page) => page.evaluate((rail) => {
     percent: text(rail.percent),
     tokens: text(rail.tokens),
     rows: [...document.querySelectorAll(rail.rows)].map((element) => (element.textContent ?? '').trim()),
+    context: readSection('context'),
+    outputs: {
+      ...readSection('outputs'),
+      empty: text(`${inside('outputs')} ${rail.outputsEmpty}`),
+      rows: document.querySelectorAll(`${inside('outputs')} ${rail.output}`).length,
+    },
   }
 }, RAIL)
 
@@ -97,6 +122,17 @@ function sessionRailScenario({ check }) {
       await page.waitForTimeout(120)
       const back = await readRail(page)
 
+      // The context reading and the outputs list fold on their own headers.
+      await page.locator(`${section('context')} ${RAIL.sectionToggle}`).first().click()
+      await page.waitForTimeout(120)
+      const contextClosed = await readRail(page)
+      await page.locator(`${section('context')} ${RAIL.sectionToggle}`).first().click()
+      await page.waitForTimeout(120)
+      const contextOpen = await readRail(page)
+      await page.locator(`${section('outputs')} ${RAIL.sectionToggle}`).first().click()
+      await page.waitForTimeout(120)
+      const outputsClosed = await readRail(page)
+
       const share = /(\d+%)|—/
       return [
         check('对话正文右侧挂起会话详情栏',
@@ -118,6 +154,17 @@ function sessionRailScenario({ check }) {
         check('再按一次，会话详情栏回到原宽度',
           back.rail !== null && back.rail.width === STANDARD_PX && back.bodyShown && back.margin === STANDARD_PX && back.state === 'open',
           JSON.stringify({ rail: back.rail, margin: back.margin, bodyShown: back.bodyShown, state: back.state })),
+        check('上下文段可以折起，再按一次展开',
+          contextClosed.context.found && contextClosed.context.expanded === 'false' && contextClosed.context.bodyHidden === true &&
+            contextOpen.context.expanded === 'true' && contextOpen.context.bodyHidden === false,
+          JSON.stringify({ closed: contextClosed.context, open: contextOpen.context })),
+        check('输出段列出交付文件，未交付时给出空态',
+          open.outputs.found && open.outputs.expanded === 'true' && open.outputs.bodyHidden === false &&
+            (open.outputs.rows > 0 || open.outputs.empty.length > 0),
+          JSON.stringify(open.outputs)),
+        check('输出段也能折起',
+          outputsClosed.outputs.expanded === 'false' && outputsClosed.outputs.bodyHidden === true,
+          JSON.stringify(outputsClosed.outputs)),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },

@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "improvements",
+  "order": 41,
+  "external": false,
+  "zh": "会话详情栏新增输出段，列出本次会话交付的文件；上下文段与输出段可以各自折起",
+  "en": "Add an outputs section to the session details rail listing the files the session delivered, and let the context and outputs sections fold on their own headers"
+}

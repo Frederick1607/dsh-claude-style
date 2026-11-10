@@ -133,6 +133,91 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-section-title {
   font-weight: 500;
 }
 
+/* A section whose header folds its body: the context reading and the outputs
+   list. The header is a button, so the keyboard reaches the fold; the chevron
+   points down while the body stands open and turns with the fold. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  cursor: pointer;
+  text-align: left;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-toggle:hover {
+  color: var(--dsw-alias-label-primary);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-toggle:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 1px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-toggle svg {
+  flex: none;
+  transition: transform var(--dsh-claude-duration-feedback) var(--dsh-claude-ease-standard);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-toggle[aria-expanded="false"] svg {
+  transform: rotate(-90deg);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-section-body[hidden] {
+  display: none;
+}
+
+/* Outputs: one file per row, its name over the description the call carried. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-outputs[hidden] {
+  display: none;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-output {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-output:hover {
+  background: var(--dsh-claude-hover-bg);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-output-name {
+  overflow: hidden;
+  color: var(--dsw-alias-label-primary);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-outputs-empty {
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 12px;
+}
+
 /* Environment: the workspace's name over the folder it lives in. */
 body[data-dsh-claude-style] .dsh-claude-session-rail-workspace {
   display: flex;
@@ -149,7 +234,8 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-workspace-name {
   white-space: nowrap;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-workspace-path {
+/* The muted second lines share one shape: the workspace's folder and a delivered file's description both run past their column and end in an ellipsis. */
+body[data-dsh-claude-style] :is(.dsh-claude-session-rail-workspace-path, .dsh-claude-session-rail-output-description) {
   overflow: hidden;
   color: var(--dsw-alias-label-tertiary);
   font-size: 12px;

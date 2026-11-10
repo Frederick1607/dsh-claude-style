@@ -14,7 +14,8 @@
  * 'session-rail.section'.
  */
 import { expect, test } from 'vitest'
-import { railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-style/client/pure'
+import { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-style/client/pure'
+import type { HostFeedEntry } from '@dsh-claude-style/contracts/services'
 
 test('the reading carries the share, the held tokens and what the window still holds', () => {
   expect(railReading({ projectedTokens: 250_000, contextWindow: 1_000_000 })).toEqual({
@@ -72,4 +73,49 @@ test('a width choice draws its own column, and an unknown one the standard', () 
   expect(railWidthPx('wide')).toBe(304)
   expect(railWidthPx('huge')).toBe(264)
   expect(railWidthPx(null)).toBe(264)
+})
+
+/** One feed entry presenting files in a turn. */
+function presented(turn: number, files: { path: string, description?: string }[]): HostFeedEntry {
+  return { type: 'event', event: { type: 'deliverables/presented', data: { turn, callId: `call-${turn}`, files } } }
+}
+
+/** One turn start: a feed entry the outputs fold ignores. */
+const opened: HostFeedEntry = { type: 'event', event: { type: 'turn/end', data: { reason: { kind: 'done' } } } }
+
+test('the outputs fold lists delivered files in declaration order, a redeclaration taking the newer description', () => {
+  const outputs = railOutputs([
+    opened,
+    presented(1, [{ path: '/work/report.md', description: 'The report' }, { path: '/work/figures/' }]),
+    presented(2, [{ path: '/work/report.md', description: 'The final report' }]),
+  ])
+  expect(outputs).toEqual([
+    { path: '/work/figures/', name: 'figures', description: '' },
+    { path: '/work/report.md', name: 'report.md', description: 'The final report' },
+  ])
+})
+
+test('an append folds only what arrived, keeping what the window already listed', () => {
+  const start = railOutputs([presented(1, [{ path: '/work/a.md' }])])
+  const grown = railOutputsAfter(start, [presented(2, [{ path: '/work/b.md', description: 'Second' }])])
+  expect(grown).toEqual([
+    { path: '/work/a.md', name: 'a.md', description: '' },
+    { path: '/work/b.md', name: 'b.md', description: 'Second' },
+  ])
+})
+
+test('an entry the fold cannot read is dropped rather than guessed', () => {
+  const entries = [
+    { type: 'event', event: { type: 'deliverables/presented', data: { turn: 1, callId: 'call', files: [{ path: '   ' }, { description: 'no path' }] } } },
+    { type: 'event', event: { type: 'deliverables/presented', data: { turn: 2, callId: 'call', files: 'nope' } } },
+    opened,
+  ] as unknown as HostFeedEntry[]
+  expect(railOutputs(entries)).toEqual([])
+})
+
+test('a path names its trailing segment, whichever separator it uses', () => {
+  expect(fileBasename('/work/figures/plot.png')).toBe('plot.png')
+  expect(fileBasename('C:\\work\\deck.pptx')).toBe('deck.pptx')
+  expect(fileBasename('notes.md')).toBe('notes.md')
+  expect(fileBasename('/work/figures/')).toBe('figures')
 })
