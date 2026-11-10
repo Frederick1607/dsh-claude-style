@@ -146,12 +146,12 @@ body[data-dsh-claude-style] .dsh-claude-settings-tabs > [role="tab"] {
 }
 
 /* Each tab wears its own mark before its label, on the label's line: the strip
-   stays one text line tall, and the mark takes the tab's colour with it. */
+   stays one text line tall, and the mark takes the tab's colour with it. Its
+   optical step is the shared inline-mark rule (theme/typography.css). */
 body[data-dsh-claude-style] .dsh-claude-settings-tabs > [role="tab"] .dsh-claude-settings-tab-icon {
   width: 15px;
   height: 15px;
   margin-right: 6px;
-  vertical-align: -2px;
 }
 
 /* The rows sit in a fieldset so a read-only page disables every control at
@@ -340,6 +340,13 @@ body[data-dsh-claude-style] .dsh-claude-settings-row-desc {
   font-size: calc(12px * var(--dsh-claude-interface-font-scale, 1));
   line-height: 18px;
   color: var(--dsw-alias-label-tertiary);
+}
+
+/* A row's copy wraps to a second line in a narrow column: balance keeps the last
+   line off a single word. A title's one or two lines and a description's
+   sentence both sit inside the few lines balance is for. */
+body[data-dsh-claude-style] :is(.dsh-claude-settings-row-title, .dsh-claude-settings-row-desc) {
+  text-wrap: balance;
 }
 
 /* A row marked experimental carries the host's tag beside its title, on the

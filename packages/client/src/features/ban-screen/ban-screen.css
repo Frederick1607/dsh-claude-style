@@ -355,6 +355,12 @@ body[data-dsh-claude-style] .dsh-claude-ban-lead strong {
   font-weight: 700;
 }
 
+/* The page is one column of copy, so a last line carrying a single word reads
+   as an accident: the hold page's paragraphs keep their lines even. */
+body[data-dsh-claude-style] :is(.dsh-claude-ban-lead, .dsh-claude-ban-step-desc) {
+  text-wrap: balance;
+}
+
 body[data-dsh-claude-style] .dsh-claude-ban-next {
   margin: 32px 0 0;
   font-size: 15px;

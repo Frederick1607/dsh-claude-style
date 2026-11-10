@@ -42,13 +42,14 @@ const GLYPHS: Record<SettingsTabId, React.ReactElement[]> = {
 
 /**
  * The mark one tab wears in the strip: an SVG that inherits the button's
- * colour and sits on its text line (settings.css sets the size).
+ * colour and sits on its text line (settings.css sets the size; the shared
+ * inline-mark rule in theme/typography.css lifts it onto the line's middle).
  */
 export function settingsTabIcon(id: SettingsTabId): React.ReactElement {
   return React.createElement(
     'svg',
     {
-      className: 'dsh-claude-settings-tab-icon',
+      className: 'dsh-claude-settings-tab-icon dsh-claude-inline-mark',
       viewBox: '0 0 24 24',
       'aria-hidden': true,
       focusable: false,

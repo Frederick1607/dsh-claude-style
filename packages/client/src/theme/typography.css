@@ -315,3 +315,24 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="text-mono-label"] {
   font-size: 12px;
   letter-spacing: 0;
 }
+
+/* ---------- figures ---------- */
+/* A reading that moves keeps one digit width, so the line around it does not
+   shift as it counts. The figures a feature sheet draws stay in that sheet — the
+   composer's line and stats block, the context meter, the home dashboard, the
+   waiting line's clock, the billing summary, the process summary's counts — and
+   the settings page's own number field keeps its share in settings-zoom.css. The
+   readouts no feature sheet states take the rule here, once. */
+body[data-dsh-claude-style] :is(.dsh-claude-mascot-bubble-figure, .dsh-claude-home-fun),
+body[data-dsh-claude-style] .dsh-claude-billing-actions > span {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- inline marks ---------- */
+/* A mark drawn inside a line of words is aligned by the bottom of its box, which
+   stands on the text baseline and so reads low beside a CJK glyph's taller face.
+   One optical step of the mark's own em lifts it onto the line's middle; its size
+   and spacing stay with the control that owns it. */
+body[data-dsh-claude-style] .dsh-claude-inline-mark {
+  vertical-align: -0.125em;
+}

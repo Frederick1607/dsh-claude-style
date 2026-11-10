@@ -47,6 +47,15 @@ body[data-dsh-claude-style][data-dsh-claude-home-layout] [data-dsh-claude-part~=
   font-weight: 400;
 }
 
+/* A greeting long enough to wrap keeps its lines even: balance stops the last
+   word from standing alone under the first. The copy writes the line into the
+   group's first span (features/home/greeting-copy.ts), so both the group and
+   its spans take the rule. */
+body[data-dsh-claude-style][data-dsh-claude-home-layout] [data-dsh-claude-part~="hero-headline"] [data-dsh-claude-part~="hero-title-group"],
+body[data-dsh-claude-style][data-dsh-claude-home-layout] [data-dsh-claude-part~="hero-headline"] [data-dsh-claude-part~="hero-title-group"] > span {
+  text-wrap: balance;
+}
+
 /* The headline rises into place as the hero opens: the brand mark first and
    the greeting a beat behind it, each out of a short blur (transitions.dev's
    "Texts reveal", MIT). Both are the host's own nodes, which the reduced
