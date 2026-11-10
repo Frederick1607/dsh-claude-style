@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-10",
-  "group": "fixes",
-  "order": 26,
-  "external": false,
-  "zh": "修复悬停浮出的侧栏面板半透明、下层对话文字透出的问题，实心部分现在完全不透",
-  "en": "Fix the floating peek sidebar reading through to the conversation behind it; its solid part now covers the page fully"
-}

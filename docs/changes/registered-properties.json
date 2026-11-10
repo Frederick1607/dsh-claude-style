@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-10",
-  "group": "improvements",
-  "order": 32,
-  "external": false,
-  "zh": "注册脚本写入、样式表驱动的数值型自定义属性，使努力档位换名、分段控件滑块、输入光标取样与上下文色带能按中间值插值",
-  "en": "Register the numeric custom properties the script writes and the sheets animate, so the effort name swap, the sliding pill, the caret sample and the context colour band interpolate"
-}

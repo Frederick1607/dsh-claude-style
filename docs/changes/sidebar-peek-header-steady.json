@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-10",
-  "group": "fixes",
-  "order": 25,
-  "external": false,
-  "zh": "修复悬停浮出侧栏时对话标题与顶行按钮跟着位移，浮出期间顶行保持原位",
-  "en": "Fix the conversation title and the top-row controls shifting while the sidebar peeks; they stay where they stood"
-}

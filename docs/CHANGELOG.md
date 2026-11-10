@@ -2,6 +2,34 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.5] - 2026-11-10
+
+[中文](#cn-0.20.5) | [English](#en-0.20.5)
+
+<h3 id="cn-0.20.5">体验优化</h3>
+
+- 改善标题与段落的均衡断行、数字读数的等宽与行内图标的光学修正
+- 注册脚本写入、样式表驱动的数值型自定义属性，使努力档位换名、分段控件滑块、输入光标取样与上下文色带能按中间值插值
+
+### 问题修复
+
+- 修复悬停浮出侧栏时对话标题与顶行按钮跟着位移，浮出期间顶行保持原位
+- 修复悬停浮出的侧栏面板半透明、下层对话文字透出的问题，实心部分现在完全不透
+- 修复 npm 包内 README 的截图、架构决策与贡献指南引用
+- 修复 macOS 上 Safari 与 Electron 在输入法选词后立即回车会误发消息的问题
+
+<h3 id="en-0.20.5">Improvements</h3>
+
+- Improve balanced line breaks in the skin's headings and paragraphs, the figures' digit width and the optical correction of its inline marks
+- Register the numeric custom properties the script writes and the sheets animate, so the effort name swap, the sliding pill, the caret sample and the context colour band interpolate
+
+### Bug Fixes
+
+- Fix the conversation title and the top-row controls shifting while the sidebar peeks; they stay where they stood
+- Fix the floating peek sidebar reading through to the conversation behind it; its solid part now covers the page fully
+- Fix the README's screenshots, architecture decisions and contributing guide inside the npm package
+- Fix the Enter that confirms an IME candidate sending the message on Safari and Electron for macOS
+
 ## [0.20.4] - 2026-11-10
 
 [中文](#cn-0.20.4) | [English](#en-0.20.4)
