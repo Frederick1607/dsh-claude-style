@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.8] - 2026-11-10
+
+[中文](#cn-0.20.8) | [English](#en-0.20.8)
+
+<h3 id="cn-0.20.8">体验优化</h3>
+
+- 让侧栏与对话、对话与会话详情栏之间的分界线更清晰
+
+<h3 id="en-0.20.8">Improvements</h3>
+
+- Make the split lines between the sidebar and the conversation, and between the conversation and the session details rail, clearer
+
 ## [0.20.7] - 2026-11-10
 
 [中文](#cn-0.20.7) | [English](#en-0.20.7)
