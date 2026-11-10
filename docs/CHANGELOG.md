@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.6] - 2026-11-10
+
+[中文](#cn-0.20.6) | [English](#en-0.20.6)
+
+<h3 id="cn-0.20.6">体验优化</h3>
+
+- 对话右侧新增会话详情栏，显示工作区与路径、上下文占用与窗口读数，宽度可选窄/标准/宽，可折起只留切换按钮
+
+<h3 id="en-0.20.6">Improvements</h3>
+
+- Add a session details rail beside the conversation with its workspace and folder, the context reading and window, three widths, and a fold that leaves the toggle
+
 ## [0.20.5] - 2026-11-10
 
 [中文](#cn-0.20.5) | [English](#en-0.20.5)
