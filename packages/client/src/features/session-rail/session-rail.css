@@ -19,7 +19,7 @@ body[data-dsh-claude-style] [data-dsh-claude-session-rail-host] > .dsh-claude-se
   z-index: var(--dsh-claude-layer-control);
   width: var(--dsh-claude-rail-width, 264px);
   padding: 4px 0 10px;
-  border-left: 0.5px solid var(--dsh-claude-divider);
+  border-left: 0.5px solid var(--dsw-alias-border-l2);
   background: transparent;
   color: var(--dsw-alias-label-primary);
   font: 13px/1.5 var(--dsw-font-family);

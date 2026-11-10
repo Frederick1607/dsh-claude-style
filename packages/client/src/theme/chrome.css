@@ -28,7 +28,7 @@ body[data-dsh-claude-style][data-dsh-claude-palette="claude"]:not([data-we-wallp
    and the 0.5px the product itself states (docs/STYLE.md "Shapes") is one there.
    This is the dark half; theme/tokens.css states the light one. */
 body[data-dsh-claude-style] :is([data-pane="sidebar"], [data-dsh-claude-part~="sidebar-column"], .dshDesktopSidebarSurface) {
-  border-right: 0.5px solid var(--dsw-alias-border-l1);
+  border-right: 0.5px solid var(--dsw-alias-border-l2);
 }
 
 body[data-dsh-claude-style][data-dsh-claude-palette="claude"]:not([data-we-wallpaper]) :is([data-pane="conversation"], [data-dsh-claude-part~="center-column"]) {
@@ -87,7 +87,7 @@ html[data-windows-titlebar] body[data-dsh-claude-style] [data-dsh-claude-part~="
   left: 3px;
   bottom: 100%;
   height: var(--dsh-windows-titlebar-height);
-  border-left: 0.5px solid var(--dsw-alias-border-l1);
+  border-left: 0.5px solid var(--dsw-alias-border-l2);
   pointer-events: none;
 }
 

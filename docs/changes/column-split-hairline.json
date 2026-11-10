@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "improvements",
+  "order": 42,
+  "external": false,
+  "zh": "让侧栏与对话、对话与会话详情栏之间的分界线更清晰",
+  "en": "Make the split lines between the sidebar and the conversation, and between the conversation and the session details rail, clearer"
+}
