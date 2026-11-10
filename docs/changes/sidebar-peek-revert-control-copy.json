@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 31,
+  "external": false,
+  "zh": "修复悬停浮出侧栏会闪一下再直接展开的问题，撤销上次替换按钮的做法，恢复浮出期间只钉住原按钮",
+  "en": "Fix the hover peek flickering and then opening the sidebar outright, withdrawing the copied control and pinning the button itself again"
+}

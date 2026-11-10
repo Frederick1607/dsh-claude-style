@@ -1,8 +1,8 @@
 import { RIGHTBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_BESIDE_RIGHTBAR_MIN_PX, SIDEBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_DRAWER_ATTRIBUTE, WINDOWS_MENU_START_PROPERTY } from '@dsh-claude-style/contracts/dom'
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { findForeground, findSidebarOpener, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
+import { findForeground, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
-import { FRAME_LEADING_CLEARANCE_PROPERTY, MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_CONTROL_ATTR, SIDEBAR_PEEK_CONTROL_CLONE, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
+import { FRAME_LEADING_CLEARANCE_PROPERTY, MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
 import { motionMs } from '../../shared/motion'
 import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 
@@ -20,12 +20,6 @@ import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
  * and the column, or picking a session, a new session or a panel in it, closes
  * it the same way; a click on the toggle while it is open keeps the sidebar open
  * as the click always has, and the page then makes room as usual.
- *
- * Where the shell stands its opener in the window chrome (the desktop's hidden
- * column), the column's own toggle is a different button, drawn in a different
- * row: the peek copies the opener instead, in the frame's own coordinates and
- * under the same mark, so the hover changes nothing under the hand and the
- * press that keeps the sidebar reaches the resolver exactly as it always does.
  *
  * A narrow layout may already stand the collapsed column out of the frame's own
  * flow as a drawer, holding its own room and dimming the page behind a backdrop
@@ -71,8 +65,6 @@ export function install(ctx: HostContext) {
   /** Whether the host has opened the sidebar since the peek asked it to. */
   let opened = false
   let offFrame: (() => void) | null = null
-  /** A copy of the shell's opener, standing in that button's box while the desktop column hides it. */
-  let controlCopy: HTMLElement | null = null
   /** The inline value the document element carried before the peek held the menu's start, or null while nothing is held. */
   let menuBefore: string | null = null
   /** The frame's own inline leading clearance before the peek held it, or null while nothing is held. */
@@ -168,13 +160,8 @@ export function install(ctx: HostContext) {
     clearTimers()
     if (offFrame !== null) offFrame()
     offFrame = null
-    if (controlCopy !== null) {
-      controlCopy.remove()
-      controlCopy = null
-    }
     if (frame !== null) {
       frame.removeAttribute(SIDEBAR_PEEK_ATTR)
-      frame.removeAttribute(SIDEBAR_PEEK_CONTROL_ATTR)
       frame.style.removeProperty(SIDEBAR_PEEK_RAIL_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_WIDTH_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY)
@@ -227,32 +214,6 @@ export function install(ctx: HostContext) {
       const controlBox = control.getBoundingClientRect()
       box.style.setProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, `${controlBox.left}px`)
       box.style.setProperty(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, `${controlBox.top}px`)
-    }
-    // Where the shell stands its opener in the window chrome (the desktop's
-    // hidden column), the column's own toggle is a different button: a copy of
-    // the opener keeps the glyph, its paint and its box exactly as they were,
-    // and the column's toggle stays out of sight until the click that keeps the
-    // sidebar (sidebar-peek.css).
-    const opener = findSidebarOpener()
-    if (opener !== null && opener === control) {
-      const openerBox = opener.getBoundingClientRect()
-      // The copy keeps the shell's own mark: while it stands it is the opener —
-      // the delegated hover judge and click already read the control through
-      // the resolver, so a press keeps the sidebar with no handler of its own.
-      // The copy stands in the frame's own coordinates, the space the opener
-      // was measured in: page zoom and the window's chrome scale one copy and
-      // its original alike, and the frame outlives the seat that held the
-      // opener.
-      const frameBox = box.getBoundingClientRect()
-      const copy = opener.cloneNode(true) as HTMLElement
-      copy.setAttribute(SIDEBAR_PEEK_CONTROL_ATTR, '')
-      copy.style.left = `${openerBox.left - frameBox.left}px`
-      copy.style.top = `${openerBox.top - frameBox.top}px`
-      copy.style.width = `${openerBox.width}px`
-      copy.style.height = `${openerBox.height}px`
-      box.append(copy)
-      controlCopy = copy
-      box.setAttribute(SIDEBAR_PEEK_CONTROL_ATTR, SIDEBAR_PEEK_CONTROL_CLONE)
     }
     box.setAttribute(SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_OPEN)
     offFrame = subscribeMutations(box, { attributes: true, attributeFilter: [SIDEBAR_COLLAPSED_ATTRIBUTE] }, onFrameChange)

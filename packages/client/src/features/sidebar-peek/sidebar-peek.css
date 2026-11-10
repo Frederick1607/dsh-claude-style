@@ -36,21 +36,6 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-clau
   top: var(--dsh-claude-sidebar-peek-toggle-top, auto);
   margin: 0;
 }
-/* The stand-in for the shell's opener (sidebar-peek.ts): a copy of that button
-   in the same box, standing above the layer, so the hover that opens the column
-   changes nothing under the hand — same glyph, same paint, same place. */
-body[data-dsh-claude-style] [data-dsh-claude-sidebar-peek-control] {
-  position: absolute;
-  z-index: var(--dsh-claude-layer-peek-control);
-  margin: 0;
-}
-
-/* Where the copy stands, the column's own toggle stays out of sight: it is a
-   different button, and the swap would read as a jump under the pointer. */
-body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-claude-sidebar-peek][data-dsh-claude-sidebar-peek-control="clone"] [data-dsh-claude-part~="sidebar-toggle"] {
-  visibility: hidden;
-}
-
 body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-claude-sidebar-peek] > [data-dsh-claude-part~="center-column"] {
   grid-column: 1 / span 2;
   margin-left: var(--dsh-claude-sidebar-peek-rail);

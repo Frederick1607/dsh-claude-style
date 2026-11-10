@@ -65,9 +65,6 @@ export const FORK_COLLAPSED_ATTR = 'data-dsh-claude-fork-collapsed'
 export const FORK_HIDDEN_ATTR = 'data-dsh-claude-fork-hidden'
 export const FORK_TOGGLE_ATTR = 'data-dsh-claude-fork-toggle'
 export const FORK_DEPTH_PROPERTY = '--dsh-claude-fork-depth'
-/** The stand-in for the shell's opener: a copy of that button, and the frame mark that keeps the column's own toggle out of sight while the copy stands. */
-export const SIDEBAR_PEEK_CONTROL_ATTR = 'data-dsh-claude-sidebar-peek-control'
-export const SIDEBAR_PEEK_CONTROL_CLONE = 'clone'
 /** The host's own padding for the conversation's title row while the collapsed column stands hidden (the desktop's caption row); held at its collapsed value for the peek. */
 export const FRAME_LEADING_CLEARANCE_PROPERTY = '--dsh-frame-leading-clearance'
 
