@@ -37,6 +37,7 @@ export interface Handles {
   search: FeatureHandle
   sidebarPeek: FeatureHandle
   sessionRail: FeatureHandle
+  forkTree: FeatureHandle
   sidebarStatus: FeatureHandle
   sessionActions: FeatureHandle
   manualUnread: FeatureHandle

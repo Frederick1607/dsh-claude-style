@@ -100,3 +100,5 @@ export { setSwappingText, releaseSwappingText } from './shared/swapping-text'
 export { default as themePropertiesCss } from './theme/properties.css?raw'
 
 export { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './features/session-rail/reading'
+
+export { forkDepths, forkOrder, forkPairs, forkSourceTitles } from './features/fork-tree/tree'

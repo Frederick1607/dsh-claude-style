@@ -131,6 +131,10 @@
     { "id": "session-rail.host", "attribute": "data-dsh-claude-session-rail-host", "feature": "session-rail", "sees": "the conversation body the session rail hangs in: its third child is the rail, and its scroller keeps only the band the rail leaves" },
     { "id": "session-rail.state", "attribute": "data-dsh-claude-session-rail", "feature": "session-rail", "sees": "whether the rail stands open or folded to its plain strip, which the scroller's band follows while the rail is open" },
     { "id": "session-rail.part", "attribute": "data-dsh-claude-rail-part", "feature": "session-rail", "sees": "one element the rail draws: its root, the fold control, the body, a section and the figures of its reading" },
-    { "id": "session-rail.section", "attribute": "data-dsh-claude-rail-section", "feature": "session-rail", "sees": "which section a column of the rail draws: the environment the session runs in, or the context it fills" }
+    { "id": "session-rail.section", "attribute": "data-dsh-claude-rail-section", "feature": "session-rail", "sees": "which section a column of the rail draws: the environment the session runs in, or the context it fills" },
+    { "id": "fork-tree.parent", "attribute": "data-dsh-claude-fork-parent", "feature": "fork-tree", "sees": "the session row a fork came from: the row carries the fold control and its branches stand indented behind it" },
+    { "id": "fork-tree.child", "attribute": "data-dsh-claude-fork-child", "feature": "fork-tree", "sees": "a forked session's row: indented under its source behind a branch line, its value the depth the branch stands at" },
+    { "id": "fork-tree.toggle", "attribute": "data-dsh-claude-fork-toggle", "feature": "fork-tree", "sees": "the fold control inside a source row, whose pressed state folds the branches away and opens them again" },
+    { "id": "fork-tree.hidden", "attribute": "data-dsh-claude-fork-hidden", "feature": "fork-tree", "sees": "a branch row its source keeps out of sight while the source is folded" }
   ]
 }

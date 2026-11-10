@@ -7,6 +7,7 @@ import type { HostContext } from '@dsh-claude-style/engine/host'
 import type { HostContextPressureProjection } from '@dsh-claude-style/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
+import { buildChevron } from '../../shared/chevron'
 import { formatCompactTokens } from '../../shared/format'
 import { copy } from './copy'
 import { railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './reading'
@@ -60,30 +61,6 @@ interface RailRefs {
   outputsTitle: string
   outputsList: HTMLElement
   outputsEmpty: HTMLElement
-}
-
-/**
- * One chevron: the rail's own fold control, pointing at the column it stands
- * in, and a section header's, pointing down while the section stands open.
- *
- * @param d - the path's drawing.
- * @param size - its square size in CSS pixels.
- */
-function buildChevron(d: string, size: number) {
-  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  icon.setAttribute('viewBox', '0 0 16 16')
-  icon.setAttribute('width', String(size))
-  icon.setAttribute('height', String(size))
-  icon.setAttribute('aria-hidden', 'true')
-  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-  path.setAttribute('d', d)
-  path.setAttribute('fill', 'none')
-  path.setAttribute('stroke', 'currentColor')
-  path.setAttribute('stroke-width', '1.5')
-  path.setAttribute('stroke-linecap', 'round')
-  path.setAttribute('stroke-linejoin', 'round')
-  icon.append(path)
-  return icon
 }
 
 /** The part mark each element of the rail carries, so a lane reads the element it means without spelling a class name. */

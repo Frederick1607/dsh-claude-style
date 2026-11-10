@@ -1,6 +1,6 @@
 import { COMPOSER_CARD_SELECTOR, COMPOSER_INPUT_SELECTOR, COMPOSER_PLACEHOLDER_SELECTOR, COMPOSER_SELECTOR, COMPOSER_STACK_SELECTOR, COMPOSER_STAT_SELECTOR, COMPOSER_VARIANT_ATTRIBUTE, CONVERSATION_SCROLL_SELECTOR, CONVERSATION_SESSION_ATTRIBUTE, CONVERSATION_SESSION_SELECTOR, CONVERSATION_VIEW_STORAGE_PREFIX, DIALOG_TRIGGER_SELECTOR, FOOT_AREA_SELECTOR, FOREGROUND_SELECTOR, MENU_ROLE_SELECTOR, MODAL_DIALOG_SELECTOR, MODEL_SLOT_SELECTOR, PERMISSION_TRIGGER_SELECTOR, PHASE_ATTRIBUTE, RIGHTBAR_TOGGLE_SELECTOR, SIDEBAR_BRAND_SELECTOR, SIDEBAR_CHAT_SELECTOR, SIDEBAR_NEW_SESSION_SELECTOR, SIDEBAR_OPENER_SELECTOR, SIDEBAR_ROOT_SELECTOR, SIDEBAR_TOGGLE_SELECTOR, WINDOWS_MENU_SELECTOR } from '@dsh-claude-style/contracts/dom'
 import type { HostAccountService } from '@dsh-claude-style/contracts/account'
-import type { HostAssistantStep, HostBundleListAnswer, HostChatSnapshot, HostChatTarget, HostConfigFormsService, HostConversationService, HostInventoryAnswer, HostLocaleService, HostModelDirectoriesService, HostPluginBundle, HostServiceLookup, HostOutlineTurn, HostRunningCall, HostSession, HostSessionsService, HostSessionRenameAnswer, HostShortcutsService, HostSlotOptions, HostSlotsService, HostTurn, HostUiConversationService, HostUiSessionService, HostWorkspacesService, HostWorkspaceViewStore } from '@dsh-claude-style/contracts/services'
+import type { HostAssistantStep, HostBundleListAnswer, HostChatSnapshot, HostChatTarget, HostConfigFormsService, HostConversationService, HostInventoryAnswer, HostLocaleService, HostModelDirectoriesService, HostPluginBundle, HostServiceLookup, HostOutlineTurn, HostRunningCall, HostSession, HostSessionsService, HostSessionListSnapshot, HostSessionRenameAnswer, HostShortcutsService, HostSlotOptions, HostSlotsService, HostTurn, HostUiConversationService, HostUiSessionService, HostWorkspacesService, HostWorkspaceViewStore } from '@dsh-claude-style/contracts/services'
 import { observeMatches, subscribeMutations } from './bus'
 import { closestFrom, shown } from './dom'
 
@@ -426,6 +426,25 @@ export function turnForSeq(outline: HostOutlineTurn[] | undefined, seq: number):
 export function hostSessions(lookup: HostServiceLookup | null | undefined): HostSessionsService | null {
   const sessions = lookup?.get('sessions') as HostSessionsService | undefined
   return sessions ?? null
+}
+
+/**
+ * The session list's snapshot, or null while the host serves none. A list whose
+ * read answers with an error is unavailable at this boundary (D12): a frame
+ * task that read it would otherwise fail the page, and the callers draw no rows
+ * rather than a failure.
+ *
+ * @param lookup - the page's service lookup, or a scope's.
+ * @returns the list's snapshot, or null.
+ */
+export function hostSessionList(lookup: HostServiceLookup | null | undefined): HostSessionListSnapshot | null {
+  const list = hostSessions(lookup)?.list
+  if (typeof list?.getSnapshot !== 'function') return null
+  try {
+    return list.getSnapshot() ?? null
+  } catch {
+    return null
+  }
 }
 
 /** The shown session's own state: which session it is, and how its turn is going. */

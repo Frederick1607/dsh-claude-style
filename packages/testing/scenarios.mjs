@@ -38,6 +38,7 @@ import { statsScenarios } from './stats-position.mjs'
 import { sidebarRailScenario } from './sidebar-rail.mjs'
 import { sidebarPeekScenario } from './sidebar-peek.mjs'
 import { sessionRailScenario } from './session-rail.mjs'
+import { forkTreeScenario } from './fork-tree.mjs'
 import { remoteSettingsScenario } from './remote-settings.mjs'
 import { customBrandScenario } from './custom-brand.mjs'
 import { dsBotScenario } from './ds-bot.mjs'
@@ -576,6 +577,7 @@ const SCENARIOS = {
       ]
     },
   },
+  forkTree: forkTreeScenario({ check }),
   ...statsScenarios({ check }),
   /** The collapsed rail as one icon column, its chip centred on it (sidebar-rail.mjs). */
   sidebarRail: sidebarRailScenario({ check }),

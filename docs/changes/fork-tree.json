@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "improvements",
+  "order": 43,
+  "external": false,
+  "zh": "把 fork 出来的会话收在源会话下面，带分支线与缩进，源会话可以折起它的分支",
+  "en": "Stand forked sessions under their source with a branch line and indent, and let a source fold its branches"
+}

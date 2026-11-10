@@ -1,0 +1,6 @@
+{
+  "forkTreeTitle": { "zh": "分支会话缩进显示", "en": "Indent forked sessions" },
+  "forkTreeDesc": { "zh": "把 fork 出来的会话收在源会话下面，带一条分支线；源会话可以折起它的分支。", "en": "Stand a forked session under its source with a branch line, and let the source fold its branches." },
+  "forkFold": { "zh": "折起分支", "en": "Fold branches" },
+  "forkUnfold": { "zh": "展开分支", "en": "Unfold branches" }
+}

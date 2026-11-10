@@ -58,6 +58,13 @@ export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
 export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'
 export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
+/** The fork lineage's marks (features/fork-tree): the source row, the child row, its depth, the fold, and the rows a folded source keeps out of sight. */
+export const FORK_PARENT_ATTR = 'data-dsh-claude-fork-parent'
+export const FORK_CHILD_ATTR = 'data-dsh-claude-fork-child'
+export const FORK_COLLAPSED_ATTR = 'data-dsh-claude-fork-collapsed'
+export const FORK_HIDDEN_ATTR = 'data-dsh-claude-fork-hidden'
+export const FORK_TOGGLE_ATTR = 'data-dsh-claude-fork-toggle'
+export const FORK_DEPTH_PROPERTY = '--dsh-claude-fork-depth'
 /** The stand-in for the shell's opener: a copy of that button, and the frame mark that keeps the column's own toggle out of sight while the copy stands. */
 export const SIDEBAR_PEEK_CONTROL_ATTR = 'data-dsh-claude-sidebar-peek-control'
 export const SIDEBAR_PEEK_CONTROL_CLONE = 'clone'

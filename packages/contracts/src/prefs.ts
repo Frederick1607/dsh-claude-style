@@ -306,6 +306,8 @@ export const PREFS = {
   sessionRail: { type: 'boolean', default: true },
   /** The rail's column width, narrow to wide. */
   sessionRailWidth: { type: 'choice', values: SESSION_RAIL_WIDTHS, default: SESSION_RAIL_WIDTH_STANDARD },
+  /** Whether a forked session stands indented under its source in the sidebar, with the source's fold. */
+  forkTree: { type: 'boolean', default: true },
   /** Whether the panel list carries the More menu's hidden entries and its Edit sidebar dialog. */
   sidebarEntries: { type: 'boolean', default: true },
   /** The panel ids that dialog took off the list; they stay reachable from More. */

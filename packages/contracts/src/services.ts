@@ -29,6 +29,8 @@ export interface HostSessionSummary {
   /** A placeholder the host never prompted. */
   blank?: boolean
   displayTitle: string
+  /** The title projection the host's rename writes; a fork's child is renamed to the source's title with its counter moved on. */
+  title?: string
   updatedAt: number
 }
 

@@ -1,0 +1,69 @@
+/* ---------- Fork tree ---------- */
+/* The sidebar's own list is flat: a fork's child stands wherever its creation
+   left it, and the host keeps no parent field beside the title the fork's
+   rename moved on (features/fork-tree/tree.ts). The feature moves the child's
+   seat under its source and marks both rows; the source carries a chevron that
+   folds its branches, and every child is indented behind its branch line, one
+   step per level. */
+body[data-dsh-claude-style] .dsh-claude-fork-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--dsw-alias-label-tertiary);
+  cursor: pointer;
+}
+
+body[data-dsh-claude-style] .dsh-claude-fork-toggle:hover {
+  color: var(--dsw-alias-label-primary);
+}
+
+body[data-dsh-claude-style] .dsh-claude-fork-toggle:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: 1px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-fork-toggle svg {
+  transition: transform var(--dsh-claude-duration-feedback) var(--dsh-claude-ease-standard);
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-fork-parent][data-dsh-claude-fork-collapsed] .dsh-claude-fork-toggle svg {
+  transform: rotate(-90deg);
+}
+
+/* A child's text starts one step in, and the step is the branch's own: the line
+   runs down the step's edge and turns into the row at its middle. */
+body[data-dsh-claude-style] [data-dsh-claude-fork-child] {
+  position: relative;
+  padding-inline-start: calc(var(--dsh-sidebar-row-padding, 8px) + var(--dsh-claude-fork-indent, 18px) * var(--dsh-claude-fork-depth, 1));
+}
+
+body[data-dsh-claude-style] [data-dsh-claude-fork-child]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 50%;
+  left: calc(var(--dsh-sidebar-row-padding, 8px) + var(--dsh-claude-fork-indent, 18px) * (var(--dsh-claude-fork-depth, 1) - 1) + 3px);
+  width: 10px;
+  border-left: 1px solid var(--dsw-alias-border-l2);
+  border-bottom: 1px solid var(--dsw-alias-border-l2);
+  border-bottom-left-radius: 5px;
+  pointer-events: none;
+}
+
+/* A folded source keeps its whole lineage out of sight; the reader's own click
+   is the only state this survives. */
+body[data-dsh-claude-style] [data-dsh-claude-fork-child][data-dsh-claude-fork-hidden] {
+  display: none;
+}
+
+body[data-dsh-claude-style][data-dsh-claude-motion="reduced"] .dsh-claude-fork-toggle svg {
+  transition: none;
+}
