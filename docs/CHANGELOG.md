@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.12] - 2026-11-10
+
+[中文](#cn-0.20.12) | [English](#en-0.20.12)
+
+<h3 id="cn-0.20.12">问题修复</h3>
+
+- 修复悬停浮出侧栏会闪一下再直接展开的问题，撤销上次替换按钮的做法，恢复浮出期间只钉住原按钮
+
+<h3 id="en-0.20.12">Bug Fixes</h3>
+
+- Fix the hover peek flickering and then opening the sidebar outright, withdrawing the copied control and pinning the button itself again
+
 ## [0.20.11] - 2026-11-10
 
 [中文](#cn-0.20.11) | [English](#en-0.20.11)
