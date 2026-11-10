@@ -27,6 +27,17 @@ const HIDDEN = surfaceAttribute('fork-tree.hidden')
 /** The sidebar's session rows: the host's own key attribute, `session:` and the id. */
 const ROW = '[data-row-key^="session:"]'
 
+/** Read where the section header stands against the rows: the workspace's title keeps its place above them. */
+const readHeader = (page) => page.evaluate((marks) => {
+  const header = document.querySelector(`[${marks.part}~="section-header"]`)
+  const rows = [...document.querySelectorAll(marks.row)]
+  if (header === null) return { header: false, above: [] }
+  return {
+    header: true,
+    above: rows.map((row) => (header.compareDocumentPosition(row) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0),
+  }
+}, { part: PART, row: ROW })
+
 /** Read the rows the sidebar draws, and what the lineage marked on them. */
 const readRows = (page) => page.evaluate((marks) => [...document.querySelectorAll(marks.row)].map((row) => {
   const title = row.querySelector(`[${marks.part}~="row-title"]`)
@@ -61,6 +72,7 @@ function forkTreeScenario({ check }) {
       await page.waitForTimeout(400)
 
       const forked = await readRows(page)
+      const header = await readHeader(page)
       const childIndex = forked.findIndex((row) => row.child)
       const parentIndex = forked.findIndex((row) => row.parent)
       const child = forked[childIndex] ?? null
@@ -84,6 +96,9 @@ function forkTreeScenario({ check }) {
         check('再按一下分支回来',
           unfolded[childIndex]?.hidden === false && unfolded[parentIndex]?.expanded === 'true',
           JSON.stringify({ unfolded: unfolded[childIndex] })),
+        check('分叉之后会话仍留在工作区标题下面',
+          header.header && header.above.length > 0 && header.above.every(Boolean) && header.above.length === forked.length,
+          JSON.stringify({ header: header.header, above: header.above })),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },

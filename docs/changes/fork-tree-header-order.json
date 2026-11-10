@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 30,
+  "external": false,
+  "zh": "修复 fork 分支收拢会把工作区标题挤到会话下面，会话仍排在标题下面",
+  "en": "Fix the fork tree pushing a workspace's title below its sessions, which now stay under the title"
+}

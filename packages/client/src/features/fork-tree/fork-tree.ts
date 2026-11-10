@@ -93,18 +93,27 @@ export function install(ctx: HostContext) {
     return lists
   }
 
-  /** Stand one list's seats in the lineage's order: a source, then its branches, each branch's own below it. */
+  /**
+   * Stand one list's seats in the lineage's order: a source, then its branches,
+   * each branch's own below it.
+   *
+   * The seats move among the slots the list already gives them. The list's
+   * other children — the workspace's own header above them, its "show more" row
+   * below — are not seats, and keep their places: a seat written in front of the
+   * list's first child would stand over the workspace's title.
+   */
   function orderList(list: HTMLElement, seats: Seat[], pairs: ReadonlyMap<string, string>) {
     const byId = new Map(seats.map((seat) => [seat.id, seat]))
     const desired = forkOrder(seats.map((seat) => seat.id), pairs).map((id) => byId.get(id)?.seat)
-    let cursor: ChildNode | null = list.firstChild
-    for (const seat of desired) {
-      if (seat === undefined) continue
-      if (seat === cursor) {
-        cursor = cursor.nextSibling
-        continue
-      }
-      list.insertBefore(seat, cursor)
+    const slots = new Set(seats.map((seat) => seat.seat))
+    const current = [...list.children].filter((child): child is HTMLElement => child instanceof HTMLElement && slots.has(child))
+    for (let at = 0; at < desired.length; at += 1) {
+      const want = desired[at]
+      if (want === undefined || current[at] === want) continue
+      list.insertBefore(want, current[at] ?? null)
+      const from = current.indexOf(want)
+      if (from !== -1) current.splice(from, 1)
+      current.splice(at, 0, want)
     }
   }
 
