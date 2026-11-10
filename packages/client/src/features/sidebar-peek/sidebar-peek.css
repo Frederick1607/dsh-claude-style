@@ -16,6 +16,10 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-clau
   left: 0;
   z-index: var(--dsh-claude-layer-peek);
   width: max-content;
+  /* The layer stands for the sidebar, so its own canvas is opaque: nothing of
+     the conversation behind it reads through the solid part of the foot's fade
+     (the host paints the floating column with translucent fills of its own). */
+  background: var(--dsh-claude-sidebar-canvas);
   --dsh-claude-sidebar-peek-fade: 42%;
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--dsh-claude-sidebar-peek-fade)), transparent 100%);
   mask-image: linear-gradient(to bottom, #000 calc(100% - var(--dsh-claude-sidebar-peek-fade)), transparent 100%);

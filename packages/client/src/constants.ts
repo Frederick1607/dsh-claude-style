@@ -58,6 +58,8 @@ export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
 export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'
 export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
+/** The host's own padding for the conversation's title row while the collapsed column stands hidden (the desktop's caption row); held at its collapsed value for the peek. */
+export const FRAME_LEADING_CLEARANCE_PROPERTY = '--dsh-frame-leading-clearance'
 /** A panel row the reader took off the sidebar's list (features/sidebar-entries); More still reaches it. */
 export const PANEL_HIDDEN_ATTR = 'data-dsh-claude-panel-hidden'
 

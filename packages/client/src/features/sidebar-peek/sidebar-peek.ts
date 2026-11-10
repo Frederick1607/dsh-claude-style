@@ -2,7 +2,7 @@ import { RIGHTBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_BESIDE_RIGHTBAR_MIN_PX, SIDEBAR_C
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
 import { findForeground, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
-import { MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
+import { FRAME_LEADING_CLEARANCE_PROPERTY, MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
 import { motionMs } from '../../shared/motion'
 import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 
@@ -67,6 +67,8 @@ export function install(ctx: HostContext) {
   let offFrame: (() => void) | null = null
   /** The inline value the document element carried before the peek held the menu's start, or null while nothing is held. */
   let menuBefore: string | null = null
+  /** The frame's own inline leading clearance before the peek held it, or null while nothing is held. */
+  let clearanceBefore: string | null = null
   let pointer: Point | null = null
   let openTimer: number | undefined
   let leaveTimer: number | undefined
@@ -123,6 +125,27 @@ export function install(ctx: HostContext) {
     menuBefore = null
   }
 
+  /**
+   * The desktop frame pads the conversation's title row by the collapsed
+   * column's clearance (the host's own property while the column stands
+   * hidden). Opening the column drops that padding and slides the title and
+   * the controls beside it, so the peek holds the value it opened with: a
+   * hover moves nothing but the layer.
+   */
+  function holdClearance(box: HTMLElement) {
+    const value = getComputedStyle(box).getPropertyValue(FRAME_LEADING_CLEARANCE_PROPERTY).trim()
+    if (value === '') return
+    clearanceBefore = box.style.getPropertyValue(FRAME_LEADING_CLEARANCE_PROPERTY)
+    box.style.setProperty(FRAME_LEADING_CLEARANCE_PROPERTY, value)
+  }
+
+  function releaseClearance(box: HTMLElement) {
+    if (clearanceBefore === null) return
+    if (clearanceBefore === '') box.style.removeProperty(FRAME_LEADING_CLEARANCE_PROPERTY)
+    else box.style.setProperty(FRAME_LEADING_CLEARANCE_PROPERTY, clearanceBefore)
+    clearanceBefore = null
+  }
+
   function clearTimers() {
     window.clearTimeout(openTimer)
     window.clearTimeout(leaveTimer)
@@ -144,6 +167,7 @@ export function install(ctx: HostContext) {
       frame.style.removeProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY)
     }
+    if (frame !== null) releaseClearance(frame)
     releaseMenuStart()
     frame = null
     opened = false
@@ -181,6 +205,7 @@ export function install(ctx: HostContext) {
     frame = box
     phase = 'open'
     holdMenuStart()
+    holdClearance(box)
     box.style.setProperty(SIDEBAR_PEEK_RAIL_PROPERTY, `${center.offsetLeft}px`)
     // The control the pointer rests on keeps its place: the column's own toggle
     // takes the opener's box as the layer opens (sidebar-peek.css).
