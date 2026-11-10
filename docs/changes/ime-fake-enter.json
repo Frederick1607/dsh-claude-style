@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 28,
+  "external": false,
+  "zh": "修复 macOS 上 Safari 与 Electron 在输入法选词后立即回车会误发消息的问题",
+  "en": "Fix the Enter that confirms an IME candidate sending the message on Safari and Electron for macOS"
+}

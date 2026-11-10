@@ -12,6 +12,7 @@ import type manifest from './composer.manifest'
 import { closestFrom, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
 import { writeScroll } from '@dsh-claude-style/engine/scroll-owner'
 import { captureComposerCaret, composerComposing, focusKeepingComposerCaret } from '../../shared/composer-caret'
+import { installCompositionEnterGuard } from './composition-enter'
 import { createPlaceholderCopy } from './placeholder-copy'
 import { installWindowBlurMirror } from './selection-mirror'
 import { createComposerResponsive } from './responsive'
@@ -69,6 +70,8 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   const markedTiles = new Set<Element>(document.querySelectorAll(`[data-dsh-claude-attachment]`))
   /** The window-blur mirror the selection paints key on */
   const stopWindowBlur = installWindowBlurMirror()
+  /** The Enter a composition that just ended still owns (composition-enter.ts). */
+  const stopCompositionEnter = installCompositionEnterGuard()
 
   /**
    * A composition has landed: the hint's writes were held back while one was in
@@ -494,6 +497,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
     active = false
     heroCard = null
     stopWindowBlur()
+    stopCompositionEnter()
     document.removeEventListener('compositionend', onCompositionEnd, true)
     placeholderCopy.dispose()
     responsive.dispose()
