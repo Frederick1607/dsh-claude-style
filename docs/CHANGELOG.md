@@ -2,6 +2,20 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.13] - 2026-11-10
+
+[中文](#cn-0.20.13) | [English](#en-0.20.13)
+
+<h3 id="cn-0.20.13">问题修复</h3>
+
+- 分支按钮挪到标题后面，叉出来的会话不再把标题挤得比别的会话靠右
+- 浮出侧栏收起时留一份按钮的静态影子到原按钮挂回来，按钮不会再闪一下消失
+
+<h3 id="en-0.20.13">Bug Fixes</h3>
+
+- Stand the branch fold behind the title, so a forked session no longer pushes its title past the other rows
+- Keep a still copy of the toggle in its box until the host mounts the real one, so the button no longer blinks out on close
+
 ## [0.20.12] - 2026-11-10
 
 [中文](#cn-0.20.12) | [English](#en-0.20.12)
