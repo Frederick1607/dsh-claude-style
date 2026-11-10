@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.9] - 2026-11-10
+
+[中文](#cn-0.20.9) | [English](#en-0.20.9)
+
+<h3 id="cn-0.20.9">问题修复</h3>
+
+- 修复桌面端悬停浮出侧栏时指针下的开关按钮仍会跳一下的问题，改用宿主 opener 的副本站在原来的盒子里
+
+<h3 id="en-0.20.9">Bug Fixes</h3>
+
+- Fix the toggle under the pointer still shifting as the desktop peek opens, by standing a copy of the shell's own opener in its box
+
 ## [0.20.8] - 2026-11-10
 
 [中文](#cn-0.20.8) | [English](#en-0.20.8)
