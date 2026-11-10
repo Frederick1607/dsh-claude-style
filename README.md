@@ -50,16 +50,16 @@
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="./docs/gifs/idle.gif" width="120" alt="空闲" /><br />空闲</td>
-    <td align="center" width="25%"><img src="./docs/gifs/thinking.gif" width="120" alt="思考" /><br />思考</td>
-    <td align="center" width="25%"><img src="./docs/gifs/typing.gif" width="120" alt="写回答、调用工具" /><br />写回答、调用工具</td>
-    <td align="center" width="25%"><img src="./docs/gifs/conducting.gif" width="120" alt="指挥子代理" /><br />指挥子代理</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/idle.gif" width="120" alt="空闲" /><br />空闲</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/thinking.gif" width="120" alt="思考" /><br />思考</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/typing.gif" width="120" alt="写回答、调用工具" /><br />写回答、调用工具</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/conducting.gif" width="120" alt="指挥子代理" /><br />指挥子代理</td>
   </tr>
   <tr>
-    <td align="center" width="25%"><img src="./docs/gifs/notification.gif" width="120" alt="等你操作" /><br />等你操作</td>
-    <td align="center" width="25%"><img src="./docs/gifs/error.gif" width="120" alt="失败" /><br />失败</td>
-    <td align="center" width="25%"><img src="./docs/gifs/happy.gif" width="120" alt="完成" /><br />完成</td>
-    <td align="center" width="25%"><img src="./docs/gifs/sleeping.gif" width="120" alt="睡着" /><br />睡着</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/notification.gif" width="120" alt="等你操作" /><br />等你操作</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/error.gif" width="120" alt="失败" /><br />失败</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/happy.gif" width="120" alt="完成" /><br />完成</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/sleeping.gif" width="120" alt="睡着" /><br />睡着</td>
   </tr>
 </table>
 ## 安装

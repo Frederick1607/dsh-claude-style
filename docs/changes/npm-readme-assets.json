@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 27,
+  "external": false,
+  "zh": "修复 npm 包内 README 的截图、架构决策与贡献指南引用",
+  "en": "Fix the README's screenshots, architecture decisions and contributing guide inside the npm package"
+}

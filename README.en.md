@@ -52,16 +52,16 @@ The settings page switches between the two palettes; light and dark follow the s
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="./docs/gifs/idle.gif" width="120" alt="Idle" /><br />Idle</td>
-    <td align="center" width="25%"><img src="./docs/gifs/thinking.gif" width="120" alt="Thinking" /><br />Thinking</td>
-    <td align="center" width="25%"><img src="./docs/gifs/typing.gif" width="120" alt="Answering and calling tools" /><br />Answering and calling tools</td>
-    <td align="center" width="25%"><img src="./docs/gifs/conducting.gif" width="120" alt="Conducting subagents" /><br />Conducting subagents</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/idle.gif" width="120" alt="Idle" /><br />Idle</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/thinking.gif" width="120" alt="Thinking" /><br />Thinking</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/typing.gif" width="120" alt="Answering and calling tools" /><br />Answering and calling tools</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/conducting.gif" width="120" alt="Conducting subagents" /><br />Conducting subagents</td>
   </tr>
   <tr>
-    <td align="center" width="25%"><img src="./docs/gifs/notification.gif" width="120" alt="Waiting on you" /><br />Waiting on you</td>
-    <td align="center" width="25%"><img src="./docs/gifs/error.gif" width="120" alt="Failed" /><br />Failed</td>
-    <td align="center" width="25%"><img src="./docs/gifs/happy.gif" width="120" alt="Finished" /><br />Finished</td>
-    <td align="center" width="25%"><img src="./docs/gifs/sleeping.gif" width="120" alt="Asleep" /><br />Asleep</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/notification.gif" width="120" alt="Waiting on you" /><br />Waiting on you</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/error.gif" width="120" alt="Failed" /><br />Failed</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/happy.gif" width="120" alt="Finished" /><br />Finished</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/sleeping.gif" width="120" alt="Asleep" /><br />Asleep</td>
   </tr>
 </table>
 
@@ -119,7 +119,7 @@ The Sodium rendering engine is licensed under the [PolyForm Shield License 1.0.0
 
 - "Sodium" (钠) is named after Minecraft's [Sodium](https://github.com/CaffeineMC/sodium) rendering mod; this plugin is not affiliated with it.
 - The message navigator follows SherUnlocked-4869's [dsh-plugin-msg-nav](https://github.com/SherUnlocked-4869/dsh-plugin-msg-nav) (MIT).
-- The animation frames of Deepy the pixel whale come from the Deepy whale theme pack drawn by calmly-eating-bugs ([@wp3171216237](https://github.com/wp3171216237)), and ship with the plugin by the author's permission; GIFs of all 20 animations are in [docs/gifs/](docs/gifs/).
+- The animation frames of Deepy the pixel whale come from the Deepy whale theme pack drawn by calmly-eating-bugs ([@wp3171216237](https://github.com/wp3171216237)), and ship with the plugin by the author's permission; GIFs of all 20 animations are in [docs/gifs/](https://github.com/Frederick1607/dsh-claude-style/tree/master/docs/gifs).
 - The whale girl pixel emoji set came with issue #224.
 - The enhanced animations in the chat area are modified from [dsh-chat-ux](https://github.com/alm-allen/dsh-chat-ux) (MIT).
 - Clawd is a character of Anthropic. Its frames are not covered by the MIT license (see [LICENSE](LICENSE)). This plugin is an unofficial fan work, not affiliated with or endorsed by Anthropic.
