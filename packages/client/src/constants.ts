@@ -54,6 +54,7 @@ export const FOOTER_SEATS = [
 export const SIDEBAR_PEEK_ATTR = 'data-dsh-claude-sidebar-peek'
 export const SIDEBAR_PEEK_OPEN = 'open'
 export const SIDEBAR_PEEK_CLOSING = 'closing'
+export const SIDEBAR_PEEK_GHOST_ATTR = 'data-dsh-claude-sidebar-peek-ghost'
 export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
 export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'

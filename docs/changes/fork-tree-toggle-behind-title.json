@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 32,
+  "external": false,
+  "zh": "分支按钮挪到标题后面，叉出来的会话不再把标题挤得比别的会话靠右",
+  "en": "Stand the branch fold behind the title, so a forked session no longer pushes its title past the other rows"
+}

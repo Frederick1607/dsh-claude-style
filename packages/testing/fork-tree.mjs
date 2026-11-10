@@ -38,6 +38,22 @@ const readHeader = (page) => page.evaluate((marks) => {
   }
 }, { part: PART, row: ROW })
 
+/** Read the title and the chevron of a row: the running title's shimmer matches the title only as the row's own child. */
+const readTitleShape = (page) => page.evaluate((marks) => {
+  const row = document.querySelector(`[data-row-key^="session:"]:has([${marks.child}])`)?.previousElementSibling
+  const first = document.querySelector(`[data-row-key^="session:"]`)
+  const source = row ?? first
+  if (source === null) return null
+  const title = source.querySelector(`[${marks.part}~="row-title"]`)
+  const toggle = source.querySelector(`[${marks.toggle}]`)
+  if (title === null || toggle === null) return null
+  return {
+    titleDirect: title.parentElement === source,
+    toggleDirect: toggle.parentElement === source,
+    titleHoldsToggle: title.contains(toggle),
+  }
+}, { part: PART, child: CHILD, toggle: TOGGLE })
+
 /** Read the rows the sidebar draws, and what the lineage marked on them. */
 const readRows = (page) => page.evaluate((marks) => [...document.querySelectorAll(marks.row)].map((row) => {
   const title = row.querySelector(`[${marks.part}~="row-title"]`)
@@ -73,6 +89,7 @@ function forkTreeScenario({ check }) {
 
       const forked = await readRows(page)
       const header = await readHeader(page)
+      const shape = await readTitleShape(page)
       const childIndex = forked.findIndex((row) => row.child)
       const parentIndex = forked.findIndex((row) => row.parent)
       const child = forked[childIndex] ?? null
@@ -99,6 +116,9 @@ function forkTreeScenario({ check }) {
         check('分叉之后会话仍留在工作区标题下面',
           header.header && header.above.length > 0 && header.above.every(Boolean) && header.above.length === forked.length,
           JSON.stringify({ header: header.header, above: header.above })),
+        check('分支按钮不挡住进行中标题的动效',
+          shape !== null && shape.titleDirect && shape.toggleDirect && !shape.titleHoldsToggle,
+          JSON.stringify(shape)),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },

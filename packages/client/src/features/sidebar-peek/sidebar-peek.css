@@ -36,6 +36,16 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-clau
   top: var(--dsh-claude-sidebar-peek-toggle-top, auto);
   margin: 0;
 }
+/* The copy of the opener the close leaves standing while the host mounts the
+   real one (sidebar-peek.ts): painted in the box the control kept, never a
+   target, so the button is on screen in every frame of the close. */
+body[data-dsh-claude-style] [data-dsh-claude-sidebar-peek-ghost] {
+  position: fixed;
+  z-index: var(--dsh-claude-layer-peek);
+  margin: 0;
+  pointer-events: none;
+}
+
 body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-claude-sidebar-peek] > [data-dsh-claude-part~="center-column"] {
   grid-column: 1 / span 2;
   margin-left: var(--dsh-claude-sidebar-peek-rail);

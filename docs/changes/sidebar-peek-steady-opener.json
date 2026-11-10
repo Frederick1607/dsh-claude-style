@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-10",
+  "group": "fixes",
+  "order": 33,
+  "external": false,
+  "zh": "浮出侧栏收起时留一份按钮的静态影子到原按钮挂回来，按钮不会再闪一下消失",
+  "en": "Keep a still copy of the toggle in its box until the host mounts the real one, so the button no longer blinks out on close"
+}

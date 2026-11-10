@@ -132,7 +132,14 @@ export function install(ctx: HostContext) {
         else folded.add(source)
         schedule()
       })
-      row.insertBefore(toggle, row.firstChild)
+      // The chevron stands behind the title, the way Claude's own disclosure
+      // does: a control in front of it would push this row's title past the
+      // titles of the rows that have no branches, and the list would read as
+      // misaligned. Behind it, the title keeps the column every row agrees on,
+      // and the running title's own shimmer keeps the box it always had.
+      const title = row.querySelector('[data-dsh-claude-part~="row-title"]')
+      if (title !== null) title.insertAdjacentElement('afterend', toggle)
+      else row.append(toggle)
     }
     const open = !folded.has(source)
     const label = copy(open ? 'forkFold' : 'forkUnfold')

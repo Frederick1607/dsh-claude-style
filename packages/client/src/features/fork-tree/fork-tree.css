@@ -12,7 +12,8 @@ body[data-dsh-claude-style] .dsh-claude-fork-toggle {
   box-sizing: border-box;
   width: 16px;
   height: 16px;
-  margin-inline-end: 4px;
+  margin-inline-start: 2px;
+  margin-inline-end: 2px;
   padding: 0;
   border: 0;
   border-radius: 4px;

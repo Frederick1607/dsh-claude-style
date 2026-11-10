@@ -1,8 +1,9 @@
 import { RIGHTBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_BESIDE_RIGHTBAR_MIN_PX, SIDEBAR_COLLAPSED_ATTRIBUTE, SIDEBAR_DRAWER_ATTRIBUTE, WINDOWS_MENU_START_PROPERTY } from '@dsh-claude-style/contracts/dom'
 import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { findForeground, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
+import { SIDEBAR_OPENER_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { findForeground, findSidebarOpener, findSidebarOpenControl, findSidebarRoot, hostLayout } from '@dsh-claude-style/engine/host'
 import type { HostContext } from '@dsh-claude-style/engine/host'
-import { FRAME_LEADING_CLEARANCE_PROPERTY, MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
+import { FRAME_LEADING_CLEARANCE_PROPERTY, MOTION_ATTR, MOTION_REDUCED, SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_CLOSING, SIDEBAR_PEEK_GHOST_ATTR, SIDEBAR_PEEK_OPEN, SIDEBAR_PEEK_RAIL_PROPERTY, SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, SIDEBAR_PEEK_WIDTH_PROPERTY } from '../../constants'
 import { motionMs } from '../../shared/motion'
 import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 
@@ -32,6 +33,15 @@ import { FRAME_SELECTOR } from '../../shared/page-scale-columns'
 const OPEN_DELAY_MS = 120
 /** How long the pointer may stand outside the toggle and the column before the sidebar closes: the Windows caption strip between the two hands the pointer to the shell for a moment. */
 const LEAVE_DELAY_MS = 300
+/**
+ * How long the copy of the opener waits for the host to mount the real one
+ * after the collapse: the collapse is the host's own render, so the wait only
+ * covers the frames between the column leaving and the leading seat arriving.
+ * A host that never brings the opener back does not keep a copy standing.
+ */
+const GHOST_MS = 800
+/** The opener's mark, read off the selector the contract names it by: the copy stands without it, so no reader takes the copy for the control. */
+const OPENER_ATTRIBUTE = SIDEBAR_OPENER_SELECTOR.slice(1, -1)
 
 /** A click on one of these in the open column leaves for another view, and the peek closes behind it; the row's own menu button stays inside. */
 const NAVIGATION_SELECTOR = ':is([data-dsh-claude-part~="session-row"], [data-dsh-claude-part~="new-session"], [data-dsh-claude-part~="panel-row"])'
@@ -70,6 +80,11 @@ export function install(ctx: HostContext) {
   /** The frame's own inline leading clearance before the peek held it, or null while nothing is held. */
   let clearanceBefore: string | null = null
   let pointer: Point | null = null
+  /** A copy of the opener the close leaves standing while the host mounts the real one, so the button never blinks out. */
+  let ghost: HTMLElement | null = null
+  /** The opener's own copy, taken while the desktop column still hides it: the glyph the ghost stands. */
+  let openerTemplate: HTMLElement | null = null
+  let ghostFrame = 0
   let openTimer: number | undefined
   let leaveTimer: number | undefined
   let closeTimer: number | undefined
@@ -146,6 +161,47 @@ export function install(ctx: HostContext) {
     clearanceBefore = null
   }
 
+  /** Take the standing copy down. */
+  function unmountGhost() {
+    if (ghostFrame !== 0) window.cancelAnimationFrame(ghostFrame)
+    ghostFrame = 0
+    ghost?.remove()
+    ghost = null
+  }
+
+  /**
+   * Stand a copy of the opener in the box the control kept, until the host
+   * mounts the real one. The copy carries no opener mark and no pointer
+   * events: nothing reads it as the control, and a click passes through it as
+   * if it were not there.
+   *
+   * @param left - the control's box as the close left it, in viewport pixels.
+   * @param top - the same box's top.
+   */
+  function mountGhost(left: string, top: string) {
+    unmountGhost()
+    if (openerTemplate === null || frame === null) return
+    const copy = openerTemplate.cloneNode(true) as HTMLElement
+    copy.setAttribute(SIDEBAR_PEEK_GHOST_ATTR, '')
+    copy.style.position = 'fixed'
+    if (left !== '') copy.style.left = left
+    if (top !== '') copy.style.top = top
+    copy.style.margin = '0'
+    frame.append(copy)
+    ghost = copy
+    const until = Date.now() + GHOST_MS
+    const poll = () => {
+      ghostFrame = 0
+      if (ghost === null) return
+      if (findSidebarOpener() !== null || !ghost.isConnected || Date.now() > until) {
+        unmountGhost()
+        return
+      }
+      ghostFrame = window.requestAnimationFrame(poll)
+    }
+    ghostFrame = window.requestAnimationFrame(poll)
+  }
+
   function clearTimers() {
     window.clearTimeout(openTimer)
     window.clearTimeout(leaveTimer)
@@ -161,6 +217,16 @@ export function install(ctx: HostContext) {
     if (offFrame !== null) offFrame()
     offFrame = null
     if (frame !== null) {
+      // The host brings the opener back with its collapse: hold the box it kept
+      // with the copy taken while it stood, so the control never leaves the
+      // frame. A pin leaves the column open, and the toggle it keeps needs no
+      // copy behind it.
+      if (frame.hasAttribute(SIDEBAR_COLLAPSED_ATTRIBUTE)) {
+        mountGhost(
+          frame.style.getPropertyValue(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY),
+          frame.style.getPropertyValue(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY),
+        )
+      }
       frame.removeAttribute(SIDEBAR_PEEK_ATTR)
       frame.style.removeProperty(SIDEBAR_PEEK_RAIL_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_WIDTH_PROPERTY)
@@ -209,11 +275,22 @@ export function install(ctx: HostContext) {
     box.style.setProperty(SIDEBAR_PEEK_RAIL_PROPERTY, `${center.offsetLeft}px`)
     // The control the pointer rests on keeps its place: the column's own toggle
     // takes the opener's box as the layer opens (sidebar-peek.css).
+    unmountGhost()
     const control = findSidebarOpenControl()
     if (control !== null) {
       const controlBox = control.getBoundingClientRect()
       box.style.setProperty(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY, `${controlBox.left}px`)
       box.style.setProperty(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY, `${controlBox.top}px`)
+      // The desktop keeps the opener in the frame's leading seat, outside the
+      // column; the web's control is the column's own toggle, and a copy of that
+      // toggle would stand for nothing.
+      const col = column()
+      if (col === null || !col.contains(control)) {
+        openerTemplate = control.cloneNode(true) as HTMLElement
+        openerTemplate.removeAttribute(OPENER_ATTRIBUTE)
+        openerTemplate.setAttribute('aria-hidden', 'true')
+        openerTemplate.setAttribute('tabindex', '-1')
+      }
     }
     box.setAttribute(SIDEBAR_PEEK_ATTR, SIDEBAR_PEEK_OPEN)
     offFrame = subscribeMutations(box, { attributes: true, attributeFilter: [SIDEBAR_COLLAPSED_ATTRIBUTE] }, onFrameChange)
@@ -342,5 +419,6 @@ export function install(ctx: HostContext) {
     if ((phase === 'open' || phase === 'closing') && frame !== null && !collapsed(frame)) hostLayout(ctx).toggleSidebar()
     finish()
     frames.release()
+    unmountGhost()
   }
 }
