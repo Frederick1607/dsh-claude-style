@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.11] - 2026-11-10
+
+[中文](#cn-0.20.11) | [English](#en-0.20.11)
+
+<h3 id="cn-0.20.11">问题修复</h3>
+
+- 修复 fork 分支收拢会把工作区标题挤到会话下面，会话仍排在标题下面
+
+<h3 id="en-0.20.11">Bug Fixes</h3>
+
+- Fix the fork tree pushing a workspace's title below its sessions, which now stay under the title
+
 ## [0.20.10] - 2026-11-10
 
 [中文](#cn-0.20.10) | [English](#en-0.20.10)
