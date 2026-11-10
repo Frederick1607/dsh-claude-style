@@ -88,6 +88,7 @@ export { default as MANUAL_UNREAD_SHEET } from './features/manual-unread/manual-
 
 export { createComposerResponsive } from './features/composer/responsive'
 export { composerViewportGap } from './features/composer/visual-viewport'
+export { IME_COMMIT_WINDOW_MS, isAppleWebKitOnMac, swallowsCompositionEnter } from './features/composer/ime-enter'
 export { default as composerInlineCss } from './features/composer/inline.css?raw'
 export { default as composerInlineBarCss } from './features/composer/inline-bar.css?raw'
 export { default as composerResponsiveCss } from './features/composer/responsive.css?raw'
@@ -95,3 +96,5 @@ export { default as composerModelCss } from './features/model/model-picker.css?r
 export { default as composerVarsCss } from './features/composer/vars.css?raw'
 export { default as composerSwappingCss } from './shared/swapping-text.css?raw'
 export { setSwappingText, releaseSwappingText } from './shared/swapping-text'
+
+export { default as themePropertiesCss } from './theme/properties.css?raw'

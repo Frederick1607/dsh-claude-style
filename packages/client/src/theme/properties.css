@@ -1,0 +1,71 @@
+/* The numeric custom properties the script writes and the stylesheet turns into
+   motion, registered so each is a number, a length or a percentage the browser
+   resolves and interpolates; unregistered, the same write is an opaque token
+   stream, and a transition on it can only step between the two ends
+   (docs/STYLE.md). Every reader here is a descendant or a pseudo-element of the
+   element the write lands on, so `inherits: true` keeps the reading each rule
+   had before registration; every initial value is written in its own syntax. */
+
+/* The effort slider's name swap: features/effort/name-swap.ts writes the two
+   shares while the knob travels, features/effort/effort-picker.css reads them
+   into the two name layers' opacity, translate and blur, whose release
+   transition settles from the last share. The values are declared on
+   .dsh-claude-effort and read on the layers inside it. */
+@property --dsh-claude-effort-swap-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --dsh-claude-effort-swap-rest {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+/* The shared sliding pill: shared/sliding-pill.ts writes the active item's box
+   on the control, shared/sliding-pill.css reads it on the control's ::before,
+   and the slide is that pseudo-element's transform and size transition. A
+   pseudo-element inherits from the element it belongs to, which is what carries
+   the four lengths across. */
+@property --dsh-claude-pill-x {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --dsh-claude-pill-y {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --dsh-claude-pill-w {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --dsh-claude-pill-h {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* The caret preview's sample line: features/caret/caret.settings.ts writes each
+   place the caret reaches, and features/settings/settings-cards.css reads it as
+   the drawn caret's transform, which glides there on the typing card and arrives
+   at once on the other. The property stands on the preview and is read on the
+   card's bar, a descendant. */
+@property --dsh-claude-caret-x {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* The reading's place inside a colour band: features/context-stats/stats-ramp.ts
+   writes it on each projection frame while a turn streams, and
+   features/context-stats/meter-ring.css and features/composer/inline-bar.css mix
+   the band's two stops with it (color-mix, in oklch). The number and the arc
+   that read it are inside the ring that carries it. */
+@property --dsh-claude-ramp-position {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}

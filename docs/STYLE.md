@@ -346,6 +346,15 @@ edit; the build refuses a time or a curve written anywhere else.
   highlight band and a colour wash). A feature that needs its own effect reads
   the tokens and keeps its own keyframes.
 
+A numeric custom property that the script writes and a stylesheet animates is
+registered in `packages/client/src/theme/properties.css`, so the browser holds it
+as a number, a length or a percentage and a transition can cross the values in
+between; unregistered, the same write is an opaque token stream and the
+transition flips at its midpoint instead. A registration keeps `inherits: true`
+where the reader is a descendant or a pseudo-element of the element the script
+writes, because `inherits: false` would hand that reader the initial value
+instead of the write; every initial value is written in the syntax it declares.
+
 The table below is generated from `packages/client/src/theme/tokens.json` by `npm run build`;
 edit the JSON, not the table.
 

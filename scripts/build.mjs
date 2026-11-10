@@ -55,6 +55,9 @@ const ICON_FILE = 'claude-mark.svg'
 const THEME_SHEETS = [
   // Generated from packages/client/src/theme/tokens.json (scripts/css.mjs).
   { file: TOKEN_SHEET, rank: 5 },
+  // The custom properties the script writes and the sheets animate, registered
+  // before anything reads them (docs/STYLE.md, Motion).
+  { file: 'theme/properties.css', rank: 8 },
   { file: 'theme/tokens.css', rank: 10 },
   { file: 'theme/typography.css', rank: 20 },
   // Shared parts rank before every feature: a feature's own rule wins at equal specificity.
