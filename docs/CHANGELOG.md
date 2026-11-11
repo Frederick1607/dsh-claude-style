@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.3] - 2026-11-12
+
+[中文](#cn-0.22.3) | [English](#en-0.22.3)
+
+<h3 id="cn-0.22.3">新增功能</h3>
+
+- 右栏上下文段给出「上下文」与「团队」两个入口，各自只在对话标签条里出现对应视图时显示，点一下由宿主把对话切过去
+
+<h3 id="en-0.22.3">New Features</h3>
+
+- Stand Context and Team entries in the right rail's context section, each shown only while the conversation carries that view tab and handing the conversation to it when pressed
+
 ## [0.22.2] - 2026-11-12
 
 [中文](#cn-0.22.2) | [English](#en-0.22.2)

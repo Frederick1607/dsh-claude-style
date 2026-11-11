@@ -110,5 +110,9 @@
   "railContextView": {
     "zh": "上下文",
     "en": "Context"
+  },
+  "railTeamView": {
+    "zh": "团队",
+    "en": "Team"
   }
 }

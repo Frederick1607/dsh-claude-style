@@ -43,6 +43,13 @@ interface RailSection {
   body: HTMLElement
 }
 
+/** One entry to a view the conversation carries in its own tabs: the button, and the tab names it looks for. */
+interface ViewLink {
+  button: HTMLButtonElement
+  kind: 'context' | 'team'
+  names: string[]
+}
+
 interface RailRefs {
   root: HTMLElement
   toggle: HTMLButtonElement
@@ -57,7 +64,7 @@ interface RailRefs {
   window: HTMLElement
   contextCells: HTMLElement[]
   legendValues: Map<string, HTMLElement>
-  contextLink: HTMLButtonElement
+  viewLinks: ViewLink[]
   outputs: RailSection
   outputsTitle: string
   outputsList: HTMLElement
@@ -81,6 +88,15 @@ function buildFoldedSection(key: string, title: string): RailSection {
   const body = markPart(buildElement('div', 'dsh-claude-session-rail-section-body'), 'section-body')
   section.append(toggle, body)
   return { section, toggle, body }
+}
+
+/** One view entry: its own mark names the kind, its text names the view. */
+function viewLinkButton(kind: 'context' | 'team', label: string) {
+  const button = markPart(buildElement('button', 'dsh-claude-session-rail-view-link'), 'view-link')
+  button.type = 'button'
+  button.setAttribute('data-dsh-claude-view-link', kind)
+  button.textContent = label
+  return button
 }
 
 function buildRail(): RailRefs {
@@ -143,13 +159,16 @@ function buildRail(): RailRefs {
     legend.append(item)
     legendValues.set(key, value)
   }
-  // The context view the context plugin registers in the conversation's own
-  // tabs is that plugin's React view: the rail cannot draw it, so the section
-  // stands an entry to it and lets the host switch the conversation over.
-  const contextLink = markPart(buildElement('button', 'dsh-claude-session-rail-context-link'), 'context-link')
-  contextLink.type = 'button'
-  contextLink.textContent = copy('railOpenContext')
-  context.body.append(reading, matrix, legend, rows, contextLink)
+  // The context and team views live in the conversation's own tabs, as that
+  // plugin's React views: the rail cannot draw them, so the section stands one
+  // entry per view and lets the host switch the conversation over.
+  const links = markPart(buildElement('div', 'dsh-claude-session-rail-view-links'), 'view-links')
+  const viewLinks: ViewLink[] = [
+    { button: viewLinkButton('context', copy('railContextView')), kind: 'context', names: [copy('railContextView'), '上下文', 'Context'] },
+    { button: viewLinkButton('team', copy('railTeamView')), kind: 'team', names: [copy('railTeamView'), '编队', '团队', 'Fleet', 'Team'] },
+  ]
+  for (const link of viewLinks) links.append(link.button)
+  context.body.append(reading, matrix, legend, rows, links)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)
@@ -176,7 +195,7 @@ function buildRail(): RailRefs {
     window,
     contextCells,
     legendValues,
-    contextLink,
+    viewLinks,
     outputs,
     outputsTitle,
     outputsList,
@@ -200,7 +219,7 @@ export function install(ctx: HostContext) {
   let queued: (() => void) | null = null
   let released = false
   const refs = buildRail()
-  refs.contextLink.addEventListener('click', openContextView)
+  for (const link of refs.viewLinks) link.button.addEventListener('click', () => openView(link))
   /** Whether each folded section stands open; the reader's clicks move these. */
   const sectionOpen = new Map<HTMLElement, boolean>()
 
@@ -315,29 +334,28 @@ export function install(ctx: HostContext) {
   /** The conversation's own tablist, resolved once per batch (engine/host.ts). */
   const tabsSeat = cacheFirstMatch<HTMLElement>(CONVERSATION_TABS_SELECTOR)
 
-  /** The conversation's own view tab that opens the context plugin's view, or null while that tab is not there. */
-  function contextTab(): HTMLElement | null {
+  /** The conversation's own tab for one view, or null while that tab is not there. The tab is the host's, labelled in the host's language; the skin's copy answers in the skin's, so known spellings of both are read. */
+  function viewTab(link: ViewLink): HTMLElement | null {
     const seat = tabsSeat()
     if (seat === null) return null
-    // The tab is the host's, labelled in the host's language; the skin's own copy
-    // answers in the skin's. Both spellings are known, so either side may lead.
-    const names = new Set([copy('railContextView').trim(), '上下文', 'Context'])
+    const names = new Set(link.names.map((name) => name.trim()))
     for (const tab of seat.querySelectorAll<HTMLElement>('[role="tab"]')) {
       if (names.has((tab.textContent ?? '').trim())) return tab
     }
     return null
   }
 
-  /** Hand the reader to the plugin's own view: the tab is the host's switch, so a press on it is the switch. */
-  function openContextView() {
-    const tab = contextTab()
-    if (tab !== null) tab.click()
+  /** Hand the reader to the view's own tab: the tab is the host's switch, so a press on it is the switch. */
+  function openView(link: ViewLink) {
+    viewTab(link)?.click()
   }
 
-  /** Show the entry only while the plugin's tab is in the conversation's tablist. */
-  function applyContextLink() {
-    const available = contextTab() !== null
-    if (refs.contextLink.hidden === available) refs.contextLink.hidden = !available
+  /** Show each entry only while its view's tab is in the conversation's tablist. */
+  function applyViewLinks() {
+    for (const link of refs.viewLinks) {
+      const available = viewTab(link) !== null
+      if (link.button.hidden === available) link.button.hidden = !available
+    }
   }
 
   /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
@@ -410,7 +428,7 @@ export function install(ctx: HostContext) {
     // holds are conversation, and the rest is free.
     const parts = railContextParts(reading.used, breakdown)
       ?? (reading.used === null || reading.used <= 0 ? null : { system: 0, tools: 0, conversation: reading.used })
-    applyContextLink()
+    applyViewLinks()
     const cells = railMatrixCells(parts, reading.window)
     for (const [at, cell] of refs.contextCells.entries()) {
       const key = cells[at] ?? 'free'

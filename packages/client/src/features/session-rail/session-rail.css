@@ -375,25 +375,31 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-legend-value {
   font-variant-numeric: tabular-nums;
 }
 
-/* The entry to the context plugin's own conversation view: the rail names it,
-   the host's tab switches to it. Shown only while that tab is in the tablist. */
-body[data-dsh-claude-style] .dsh-claude-session-rail-context-link {
-  align-self: start;
-  margin: 8px 0 0;
+/* Entries to the views the conversation carries in its own tabs (the context
+   plugin's context and team views): the rail names them, the host's tab
+   switches to them. Shown only while that tab is in the tablist. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-view-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: 8px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-view-link {
   padding: 0;
   border: 0;
   background: none;
   color: var(--dsw-alias-state-business-primary);
   font-size: 11px;
   line-height: 14px;
-  text-align: start;
   cursor: pointer;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-context-link:hover {
+body[data-dsh-claude-style] .dsh-claude-session-rail-view-link:hover {
   text-decoration: underline;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-context-link[hidden] {
+body[data-dsh-claude-style] .dsh-claude-session-rail-view-link[hidden] {
   display: none;
 }
+
