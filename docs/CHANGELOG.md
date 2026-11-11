@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.1] - 2026-11-12
+
+[中文](#cn-0.22.1) | [English](#en-0.22.1)
+
+<h3 id="cn-0.22.1">移除</h3>
+
+- 撤回上下文段的拼块改版，右栏恢复窗口矩阵与图例
+
+<h3 id="en-0.22.1">Removals</h3>
+
+- Revert the context section's tile strip, restoring the window matrix and its legend
+
 ## [0.21.6] - 2026-11-11
 
 [中文](#cn-0.21.6) | [English](#en-0.21.6)
