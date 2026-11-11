@@ -1,8 +1,0 @@
-{
-  "at": "2026-11-11",
-  "group": "improvements",
-  "order": 44,
-  "external": false,
-  "zh": "分支会话的缩进从 18px 收到 12px，和 Claude 的分支一样浅",
-  "en": "Draw the fork branch one step shallower, at twelve pixels like Claude"
-}

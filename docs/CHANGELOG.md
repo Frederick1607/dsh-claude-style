@@ -2,6 +2,26 @@
 
 All notable changes to `dsh-claude-style` are documented here, newest first.
 
+## [0.20.14] - 2026-11-11
+
+[中文](#cn-0.20.14) | [English](#en-0.20.14)
+
+<h3 id="cn-0.20.14">体验优化</h3>
+
+- 分支会话的缩进从 18px 收到 12px，和 Claude 的分支一样浅
+
+### 问题修复
+
+- 悬停浮出时按钮从出现到收起都由同一份按钮的画面接住，展开和收起不再闪一下
+
+<h3 id="en-0.20.14">Improvements</h3>
+
+- Draw the fork branch one step shallower, at twelve pixels like Claude
+
+### Bug Fixes
+
+- Keep one button painting from the hover through the close, so neither the open nor the collapse blinks
+
 ## [0.20.13] - 2026-11-10
 
 [中文](#cn-0.20.13) | [English](#en-0.20.13)
