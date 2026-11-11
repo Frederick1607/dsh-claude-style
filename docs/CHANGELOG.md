@@ -2,6 +2,26 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.5] - 2026-11-11
+
+[中文](#cn-0.21.5) | [English](#en-0.21.5)
+
+<h3 id="cn-0.21.5">新增功能</h3>
+
+- 右栏上下文段多了一块窗口矩阵，每格是窗口的四十分之一，按 token 类型上色（系统提示词、工具、会话内容、剩余空间），下面配图例；宿主没给出组成时只按已占用与剩余上色
+
+### 体验优化
+
+- 浮出侧栏的渐隐改成从左往右，最右保留一半实度，底部的文字不再被虚化到看不清
+
+<h3 id="en-0.21.5">New Features</h3>
+
+- Add a window matrix to the right rail's context section, one cell per fortieth of the window coloured by token kind (system prompt, tools, conversation, free) with a legend, falling back to used-and-free when the host prices no composition
+
+### Improvements
+
+- Fade the floating sidebar from left to right and keep half its paint at the far edge, so the rows near the bottom stay readable
+
 ## [0.21.4] - 2026-11-11
 
 [中文](#cn-0.21.4) | [English](#en-0.21.4)

@@ -135,6 +135,8 @@
     { "id": "fork-tree.parent", "attribute": "data-dsh-claude-fork-parent", "feature": "fork-tree", "sees": "the session row a fork came from: the row carries the fold control and its branches stand indented behind it" },
     { "id": "fork-tree.child", "attribute": "data-dsh-claude-fork-child", "feature": "fork-tree", "sees": "a forked session's row: indented under its source behind a branch line, its value the depth the branch stands at" },
     { "id": "fork-tree.toggle", "attribute": "data-dsh-claude-fork-toggle", "feature": "fork-tree", "sees": "the fold control inside a source row, whose pressed state folds the branches away and opens them again" },
-    { "id": "fork-tree.hidden", "attribute": "data-dsh-claude-fork-hidden", "feature": "fork-tree", "sees": "a branch row its source keeps out of sight while the source is folded" }
+    { "id": "fork-tree.hidden", "attribute": "data-dsh-claude-fork-hidden", "feature": "fork-tree", "sees": "a branch row its source keeps out of sight while the source is folded" },
+    { "id": "session-rail.cell", "attribute": "data-dsh-claude-rail-cell", "feature": "session-rail", "sees": "the kind of token one cell of the context matrix stands for: the system prompt, the tools, the conversation, or the window still free" },
+    { "id": "session-rail.legend", "attribute": "data-dsh-claude-rail-legend", "feature": "session-rail", "sees": "one legend item under the context matrix, naming the colour its key stands for" }
   ]
 }

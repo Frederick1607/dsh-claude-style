@@ -19,6 +19,8 @@ const HOST = surfaceAttribute('session-rail.host')
 const STATE = surfaceAttribute('session-rail.state')
 const PART = surfaceAttribute('session-rail.part')
 const SECTION = surfaceAttribute('session-rail.section')
+const CELL = surfaceAttribute('session-rail.cell')
+const LEGEND = surfaceAttribute('session-rail.legend')
 
 /** One element the rail draws, by the part it plays. */
 const part = (name) => `[${PART}="${name}"]`
@@ -40,6 +42,9 @@ const RAIL = {
   section: SECTION,
   sectionToggle: part('section-toggle'),
   sectionBody: part('section-body'),
+  matrix: part('context-matrix'),
+  cell: CELL,
+  legend: LEGEND,
   output: part('output'),
   outputsEmpty: part('outputs-empty'),
   scroller: '[data-conversation-scroll]',
@@ -134,6 +139,11 @@ function sessionRailScenario({ check }) {
       const outputsClosed = await readRail(page)
 
       const share = /(\d+%)|—/
+      const matrix = await page.evaluate((marks) => {
+        const cells = [...document.querySelectorAll(marks.matrix + ' > [' + marks.cell + ']')].map((cell) => cell.getAttribute(marks.cell))
+        const legend = [...document.querySelectorAll('[' + marks.legend + ']')].map((item) => item.getAttribute(marks.legend))
+        return { cells: cells.length, kinds: [...new Set(cells)], legend }
+      }, RAIL)
       return [
         check('对话正文右侧挂起会话详情栏',
           open.present && open.rail !== null && open.hostBox !== null &&
@@ -165,6 +175,12 @@ function sessionRailScenario({ check }) {
         check('输出段也能折起',
           outputsClosed.outputs.expanded === 'false' && outputsClosed.outputs.bodyHidden === true,
           JSON.stringify(outputsClosed.outputs)),
+        check('上下文段画出窗口组成的矩阵，图例说明每种颜色',
+          matrix.cells === 40 &&
+            matrix.kinds.every((kind) => ['system', 'tools', 'conversation', 'free'].includes(kind)) &&
+            matrix.kinds.includes('free') &&
+            matrix.legend.length === 4,
+          JSON.stringify(matrix)),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },

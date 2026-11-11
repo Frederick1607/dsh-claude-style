@@ -4,13 +4,14 @@ import { buildElement, setAttributeIfChanged, writeTextInPlace } from '@dsh-clau
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
-import type { HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
+import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
+import type { HostContextBreakdownProjection, HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
 import { buildChevron } from '../../shared/chevron'
 import { formatCompactTokens } from '../../shared/format'
 import { copy } from './copy'
-import { railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './reading'
+import { railContextParts, railMatrixCells, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace, RAIL_MATRIX_COLUMNS, RAIL_MATRIX_ROWS } from './reading'
 import type { RailOutput } from './reading'
 
 /**
@@ -57,6 +58,8 @@ interface RailRefs {
   used: HTMLElement
   free: HTMLElement
   window: HTMLElement
+  contextCells: HTMLElement[]
+  legendValues: Map<string, HTMLElement>
   outputs: RailSection
   outputsTitle: string
   outputsList: HTMLElement
@@ -119,7 +122,33 @@ function buildRail(): RailRefs {
   const free = buildRow(rows, copy('railFree'))
   const window = buildRow(rows, copy('railWindow'))
   reading.append(percent, tokens)
-  context.body.append(reading, bar, rows)
+  // The matrix: one cell per fortieth of the window, coloured by the kind of
+  // token that fills it (session-rail.css reads the cell's own key), so the
+  // section says what the window holds, not only how much of it.
+  const matrix = markPart(buildElement('div', 'dsh-claude-session-rail-matrix'), 'context-matrix')
+  matrix.setAttribute('role', 'img')
+  matrix.setAttribute('aria-label', copy('railMatrixLabel'))
+  const contextCells: HTMLElement[] = []
+  for (let at = 0; at < RAIL_MATRIX_COLUMNS * RAIL_MATRIX_ROWS; at += 1) {
+    const cell = markPart(buildElement('span', 'dsh-claude-session-rail-cell'), 'context-cell')
+    cell.setAttribute(SESSION_RAIL_CELL_ATTR, 'free')
+    matrix.append(cell)
+    contextCells.push(cell)
+  }
+  // The legend names each colour and the tokens it stands for.
+  const legend = markPart(buildElement('dl', 'dsh-claude-session-rail-legend'), 'context-legend')
+  const legendValues = new Map<string, HTMLElement>()
+  for (const [key, label] of [['system', copy('railSystem')], ['tools', copy('railTools')], ['conversation', copy('railConversation')], ['free', copy('railFree')]] as const) {
+    const item = buildElement('div', 'dsh-claude-session-rail-legend-item')
+    item.setAttribute(SESSION_RAIL_LEGEND_ATTR, key)
+    const swatch = buildElement('span', 'dsh-claude-session-rail-legend-swatch')
+    const term = buildElement('dt', 'dsh-claude-session-rail-legend-label', label)
+    const value = buildElement('dd', 'dsh-claude-session-rail-legend-value', copy('railUnknown'))
+    item.append(swatch, term, value)
+    legend.append(item)
+    legendValues.set(key, value)
+  }
+  context.body.append(reading, bar, rows, matrix, legend)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)
@@ -147,6 +176,8 @@ function buildRail(): RailRefs {
     used,
     free,
     window,
+    contextCells,
+    legendValues,
     outputs,
     outputsTitle,
     outputsList,
@@ -348,6 +379,27 @@ export function install(ctx: HostContext) {
     writeTextInPlace(refs.used, reading.used === null ? copy('railUnknown') : formatCompactTokens(reading.used))
     writeTextInPlace(refs.free, reading.free === null ? copy('railUnknown') : formatCompactTokens(reading.free))
     writeTextInPlace(refs.window, reading.window === null ? copy('railUnknown') : formatCompactTokens(reading.window))
+    const breakdown = currentSession(ctx)?.projections?.faceOf('contextBreakdown')?.getSnapshot() as HostContextBreakdownProjection | null | undefined
+    // The host prices the composition in a projection the client may not carry;
+    // without it the matrix still says what it knows: the tokens the reading
+    // holds are conversation, and the rest is free.
+    const parts = railContextParts(reading.used, breakdown)
+      ?? (reading.used === null || reading.used <= 0 ? null : { system: 0, tools: 0, conversation: reading.used })
+    const cells = railMatrixCells(parts, reading.window)
+    for (const [at, cell] of refs.contextCells.entries()) {
+      const key = cells[at] ?? 'free'
+      if (cell.getAttribute(SESSION_RAIL_CELL_ATTR) !== key) cell.setAttribute(SESSION_RAIL_CELL_ATTR, key)
+    }
+    const figures = {
+      system: parts?.system ?? null,
+      tools: parts?.tools ?? null,
+      conversation: parts?.conversation ?? null,
+      free: reading.free,
+    }
+    for (const [key, value] of Object.entries(figures)) {
+      const target = refs.legendValues.get(key)
+      if (target !== undefined) writeTextInPlace(target, value === null ? copy('railUnknown') : formatCompactTokens(value))
+    }
     writeOutputs()
   }
 

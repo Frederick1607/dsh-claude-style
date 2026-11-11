@@ -86,5 +86,21 @@
   "railUnfoldSection": {
     "zh": "展开{name}",
     "en": "Expand {name}"
+  },
+  "railSystem": {
+    "zh": "系统提示词",
+    "en": "System prompt"
+  },
+  "railTools": {
+    "zh": "工具",
+    "en": "Tools"
+  },
+  "railConversation": {
+    "zh": "会话内容",
+    "en": "Conversation"
+  },
+  "railMatrixLabel": {
+    "zh": "上下文窗口的组成",
+    "en": "What the context window holds"
   }
 }

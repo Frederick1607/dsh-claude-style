@@ -73,6 +73,9 @@ export const SESSION_RAIL_ATTR = 'data-dsh-claude-session-rail'
 export const SESSION_RAIL_OPEN = 'open'
 /** The part a rail element plays: its root, the fold control, the body, a section, the figures. */
 export const SESSION_RAIL_PART_ATTR = 'data-dsh-claude-rail-part'
+/** The kind of token a cell of the context matrix stands for, and the legend item that names it. */
+export const SESSION_RAIL_CELL_ATTR = 'data-dsh-claude-rail-cell'
+export const SESSION_RAIL_LEGEND_ATTR = 'data-dsh-claude-rail-legend'
 export const SESSION_RAIL_CLOSED = 'closed'
 /** The rail's own column width, written from the width preference so the scroller beside it keeps what is left. */
 export const SESSION_RAIL_WIDTH_PROPERTY = '--dsh-claude-rail-width'

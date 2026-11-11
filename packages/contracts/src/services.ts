@@ -593,6 +593,13 @@ export interface HostTokenUsageProjection {
   outputTokens: number
 }
 
+/** The token meter's composition of the current surface: the system prompt, the request's tool schemas, and the messages, each priced with the host's fixed density heuristic. */
+export interface HostContextBreakdownProjection {
+  systemTokens: number
+  toolsTokens: number
+  messageTokens: number
+}
+
 /** Host context-pressure reading; prefer `projectedTokens` over `pressureTokens` when both exist. */
 export interface HostContextPressureProjection {
   projectedTokens?: number

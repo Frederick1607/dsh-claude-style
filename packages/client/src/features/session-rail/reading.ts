@@ -1,5 +1,5 @@
 import { SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_PX, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE } from '../../constants'
-import type { HostContextPressureProjection, HostFeedEntry, HostWorkspaceListSnapshot } from '@dsh-claude-ui/contracts/services'
+import type { HostContextBreakdownProjection, HostContextPressureProjection, HostFeedEntry, HostWorkspaceListSnapshot } from '@dsh-claude-ui/contracts/services'
 
 /**
  * What the session rail draws, worked out without the page: the context
@@ -149,4 +149,84 @@ export function railOutputsAfter(previous: readonly RailOutput[] | null | undefi
 /** The outputs one whole feed window declares; a replace reads through this. */
 export function railOutputs(entries: readonly HostFeedEntry[]): RailOutput[] {
   return railOutputsAfter(null, entries)
+}
+
+/** The context matrix's four parts: the three the host prices, and the window still free. */
+export type RailCell = 'system' | 'tools' | 'conversation' | 'free'
+
+/** The context's own composition, in the reading's tokens: what the window holds, by the kind of thing it holds. */
+export interface RailParts {
+  system: number
+  tools: number
+  conversation: number
+}
+
+/**
+ * The composition the host's breakdown projection carries, scaled to the
+ * reading's own used figure so the matrix and the meter above it speak of the
+ * same total. A breakdown the host carries none of answers null, and the matrix
+ * draws only free space.
+ *
+ * @param used - the tokens the reading says are held, or null while unknown.
+ * @param breakdown - the token meter's composition of the surface.
+ * @returns the three priced parts scaled to `used`, or null without a breakdown.
+ */
+export function railContextParts(used: number | null, breakdown: HostContextBreakdownProjection | null | undefined): RailParts | null {
+  if (breakdown === null || breakdown === undefined) return null
+  const count = (value: unknown) => (typeof value === 'number' && Number.isFinite(value) && value > 0 ? value : 0)
+  const system = count(breakdown.systemTokens)
+  const tools = count(breakdown.toolsTokens)
+  const conversation = count(breakdown.messageTokens)
+  const total = system + tools + conversation
+  if (total <= 0) return null
+  if (used === null || used <= 0 || Math.round(used) === Math.round(total)) {
+    return { system: Math.round(system), tools: Math.round(tools), conversation: Math.round(conversation) }
+  }
+  const scale = used / total
+  const parts = {
+    system: Math.round(system * scale),
+    tools: Math.round(tools * scale),
+    conversation: Math.round(conversation * scale),
+  }
+  // Rounding may leave the parts a token or two off the total the meter shows;
+  // the conversation part takes the difference, being the largest and last.
+  const drift = Math.round(used) - (parts.system + parts.tools + parts.conversation)
+  parts.conversation = Math.max(0, parts.conversation + drift)
+  return parts
+}
+
+/** The matrix's shape: ten columns and four rows, a cell worth one fortieth of the window. */
+export const RAIL_MATRIX_COLUMNS = 10
+export const RAIL_MATRIX_ROWS = 4
+
+/**
+ * The matrix's cells, in reading order: each cell stands for one part of the
+ * window, from the system prompt through the messages and on into the free
+ * space, so the reader reads the composition left to right and top to bottom.
+ *
+ * @param parts - the composition railContextParts answered, or null.
+ * @param window - the window's size, or null while unknown.
+ * @param cells - how many cells the matrix draws; the last one is never a
+ *   fraction, the window being one whole.
+ * @returns one part per cell.
+ */
+export function railMatrixCells(parts: RailParts | null, window: number | null, cells: number = RAIL_MATRIX_COLUMNS * RAIL_MATRIX_ROWS): RailCell[] {
+  const count = Math.max(1, Math.floor(cells))
+  const free = new Array<RailCell>(count).fill('free')
+  if (parts === null || window === null || !Number.isFinite(window) || window <= 0) return free
+  const system = Math.max(0, parts.system)
+  const tools = Math.max(0, parts.tools)
+  const conversation = Math.max(0, parts.conversation)
+  const held = Math.min(window, system + tools + conversation)
+  if (held <= 0) return free
+  const step = window / count
+  const cellsOut: RailCell[] = []
+  for (let at = 0; at < count; at += 1) {
+    const centre = (at + 0.5) * step
+    if (centre <= system) cellsOut.push('system')
+    else if (centre <= system + tools) cellsOut.push('tools')
+    else if (centre <= held) cellsOut.push('conversation')
+    else cellsOut.push('free')
+  }
+  return cellsOut
 }

@@ -10,11 +10,11 @@
  * @risk A reading that treats a missing window as zero divides by nothing and draws a share the host never measured, or hides a count it does know; a workspace lookup that scans the wrong row names a workspace the session never joined.
  *
  * The lane reads the rail's marks through the surface table:
- * 'session-rail.host', 'session-rail.part', 'session-rail.state' and
- * 'session-rail.section'.
+ * 'session-rail.host', 'session-rail.part', 'session-rail.state',
+ * 'session-rail.section', 'session-rail.cell' and 'session-rail.legend'.
  */
 import { expect, test } from 'vitest'
-import { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-ui/client/pure'
+import { fileBasename, railContextParts, railMatrixCells, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-ui/client/pure'
 import type { HostFeedEntry } from '@dsh-claude-ui/contracts/services'
 
 test('the reading carries the share, the held tokens and what the window still holds', () => {
@@ -118,4 +118,32 @@ test('a path names its trailing segment, whichever separator it uses', () => {
   expect(fileBasename('C:\\work\\deck.pptx')).toBe('deck.pptx')
   expect(fileBasename('notes.md')).toBe('notes.md')
   expect(fileBasename('/work/figures/')).toBe('figures')
+})
+
+test('the composition is scaled to the meter above it, so the matrix and the reading speak of one total', () => {
+  const parts = railContextParts(500, { systemTokens: 100, toolsTokens: 50, messageTokens: 200 })
+  expect(parts).toEqual({ system: expect.any(Number), tools: expect.any(Number), conversation: expect.any(Number) })
+  expect(parts!.system + parts!.tools + parts!.conversation).toBe(500)
+  expect(railContextParts(350, { systemTokens: 100, toolsTokens: 50, messageTokens: 200 })).toEqual({ system: 100, tools: 50, conversation: 200 })
+})
+
+test('a missing or empty breakdown leaves the matrix to the free space', () => {
+  expect(railContextParts(500, null)).toBeNull()
+  expect(railContextParts(500, { systemTokens: 0, toolsTokens: 0, messageTokens: 0 })).toBeNull()
+  expect(railMatrixCells(null, 1000)).toEqual(new Array(40).fill('free'))
+  expect(railMatrixCells({ system: 1, tools: 1, conversation: 1 }, null)).toEqual(new Array(40).fill('free'))
+})
+
+test('the matrix fills from the system prompt through the messages into the free space', () => {
+  const cells = railMatrixCells({ system: 100, tools: 100, conversation: 300 }, 1000)
+  expect(cells).toHaveLength(40)
+  expect(cells.slice(0, 4)).toEqual(['system', 'system', 'system', 'system'])
+  expect(cells[10]).toBe('conversation')
+  expect(cells[39]).toBe('free')
+  expect(cells[0]).toBe('system')
+})
+
+test('a held total larger than the window fills the window and leaves no free cell', () => {
+  const cells = railMatrixCells({ system: 100, tools: 100, conversation: 2000 }, 1000)
+  expect(cells.every((cell) => cell !== 'free')).toBe(true)
 })

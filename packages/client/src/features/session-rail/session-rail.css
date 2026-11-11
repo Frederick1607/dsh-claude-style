@@ -314,3 +314,80 @@ body[data-dsh-claude-style][data-dsh-claude-page-under-1000] [data-dsh-claude-se
 body[data-dsh-claude-style][data-dsh-claude-page-under-1000] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail] > [data-conversation-scroll] {
   margin-right: 0;
 }
+
+/* ---------- Context matrix ---------- */
+/* One cell per fortieth of the window, coloured by the kind of token that fills
+   it: the section says what the context holds, not only how much (reading.ts).
+   The legend under it names each colour and the tokens it stands for. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-matrix {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 3px;
+  margin-top: 10px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--dsh-claude-context-free);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="system"] {
+  background: var(--dsh-claude-context-system);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="tools"] {
+  background: var(--dsh-claude-context-tools);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="conversation"] {
+  background: var(--dsh-claude-context-conversation);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-swatch {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--dsh-claude-context-free);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-item[data-dsh-claude-rail-legend="system"] .dsh-claude-session-rail-legend-swatch {
+  background: var(--dsh-claude-context-system);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-item[data-dsh-claude-rail-legend="tools"] .dsh-claude-session-rail-legend-swatch {
+  background: var(--dsh-claude-context-tools);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-item[data-dsh-claude-rail-legend="conversation"] .dsh-claude-session-rail-legend-swatch {
+  background: var(--dsh-claude-context-conversation);
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-label {
+  color: var(--dsw-alias-label-secondary);
+  font-size: 11px;
+  line-height: 14px;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-legend-value {
+  margin-inline-start: auto;
+  color: var(--dsw-alias-label-tertiary);
+  font-size: 11px;
+  line-height: 14px;
+  font-variant-numeric: tabular-nums;
+}

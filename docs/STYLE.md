@@ -190,6 +190,10 @@ card leaves unset.
 | `--dsh-claude-chip` | `chip` | `#f9f9f9` | — | `#f5f6f9` | — | `var(--dsw-specific-selector)` | segmented control and switch at rest |
 | `--dsh-claude-meter-peak` | literal | `#a4621d` | `#e2a45f` | `#a4621d` | `#e2a45f` | `var(--dsw-alias-state-warn-label)` | the peak rate badge: the expensive end of a provider's own billing clock |
 | `--dsh-claude-meter-valley` | literal | `#3d7550` | `#8cbf96` | `#3d7550` | `#8cbf96` | `var(--dsw-alias-state-success-primary)` | the off-peak rate badge, and the dated promotions priced below it |
+| `--dsh-claude-context-system` | literal | `#8b6cf0` | `#9d84f7` | `#8b6cf0` | `#9d84f7` | `#8b6cf0` | the context matrix's system-prompt cells, the smallest and fixed part of the window |
+| `--dsh-claude-context-tools` | literal | `#3f9b96` | `#4fb3ad` | `#3f9b96` | `#4fb3ad` | `#3f9b96` | the context matrix's tool-schema cells, priced from the request's own tool list |
+| `--dsh-claude-context-conversation` | literal | `#5f7fe8` | `#7a97f2` | `#5f7fe8` | `#7a97f2` | `#5f7fe8` | the context matrix's conversation cells, the messages the session holds |
+| `--dsh-claude-context-free` | literal | `#e9e7e2` | `#34343a` | `#e9e7e2` | `#34343a` | `#e9e7e2` | the context matrix's cells the window still holds, quiet so the filled part reads first |
 <!-- /generated:tokens -->
 
 ## Two palettes · 两套配色归属

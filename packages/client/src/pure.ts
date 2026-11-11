@@ -104,3 +104,5 @@ export { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, rai
 export { forkDepths, forkOrder, forkPairs, forkSourceTitles } from './features/fork-tree/tree'
 
 export { rememberedWidth, restoredWidth, SIDEBAR_DEFAULT_WIDTH, SIDEBAR_MAX_WIDTH, SIDEBAR_MIN_WIDTH } from './features/sidebar-width/widths'
+
+export { railContextParts, railMatrixCells, RAIL_MATRIX_COLUMNS, RAIL_MATRIX_ROWS } from './features/session-rail/reading'
