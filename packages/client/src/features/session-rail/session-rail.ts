@@ -90,12 +90,20 @@ function buildFoldedSection(key: string, title: string): RailSection {
   return { section, toggle, body }
 }
 
-/** One view entry: its own mark names the kind, its text names the view. */
+/** The icon one view entry wears: layers for the context view, two people for the team view. */
+const VIEW_ICONS: Record<'context' | 'team', string> = {
+  context: 'M3 5.5 8 3l5 2.5-5 2.5-5-2.5Zm0 5 5 2.5 5-2.5',
+  team: 'M6.2 7.4a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Zm-3.7 5.2c0-1.8 1.7-3 3.7-3s3.7 1.2 3.7 3M10.6 7.2a1.8 1.8 0 1 0 0-3.6M12.4 12.6c0-1.4-.8-2.4-2-2.8',
+}
+
+/** One view entry: its own mark names the kind, its icon and accessible name the view. */
 function viewLinkButton(kind: 'context' | 'team', label: string) {
   const button = markPart(buildElement('button', 'dsh-claude-session-rail-view-link'), 'view-link')
   button.type = 'button'
   button.setAttribute('data-dsh-claude-view-link', kind)
-  button.textContent = label
+  button.setAttribute('aria-label', label)
+  button.title = label
+  button.append(buildChevron(VIEW_ICONS[kind], 14))
   return button
 }
 
@@ -132,7 +140,13 @@ function buildRail(): RailRefs {
   const used = buildRow(rows, copy('railUsed'))
   const free = buildRow(rows, copy('railFree'))
   const window = buildRow(rows, copy('railWindow'))
-  reading.append(tokens)
+  const viewLinks: ViewLink[] = [
+    { button: viewLinkButton('context', copy('railContextView')), kind: 'context', names: [copy('railContextView'), '上下文', 'Context'] },
+    { button: viewLinkButton('team', copy('railTeamView')), kind: 'team', names: [copy('railTeamView'), '编队', '团队', 'Fleet', 'Team'] },
+  ]
+  const links = markPart(buildElement('span', 'dsh-claude-session-rail-view-links'), 'view-links')
+  for (const link of viewLinks) links.append(link.button)
+  reading.append(tokens, links)
   // The matrix: one cell per fortieth of the window, coloured by the kind of
   // token that fills it (session-rail.css reads the cell's own key), so the
   // section says what the window holds, not only how much of it.
@@ -159,16 +173,7 @@ function buildRail(): RailRefs {
     legend.append(item)
     legendValues.set(key, value)
   }
-  // The context and team views live in the conversation's own tabs, as that
-  // plugin's React views: the rail cannot draw them, so the section stands one
-  // entry per view and lets the host switch the conversation over.
-  const links = markPart(buildElement('div', 'dsh-claude-session-rail-view-links'), 'view-links')
-  const viewLinks: ViewLink[] = [
-    { button: viewLinkButton('context', copy('railContextView')), kind: 'context', names: [copy('railContextView'), '上下文', 'Context'] },
-    { button: viewLinkButton('team', copy('railTeamView')), kind: 'team', names: [copy('railTeamView'), '编队', '团队', 'Fleet', 'Team'] },
-  ]
-  for (const link of viewLinks) links.append(link.button)
-  context.body.append(reading, matrix, legend, rows, links)
+  context.body.append(reading, matrix, legend, rows)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)

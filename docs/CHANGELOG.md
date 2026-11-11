@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.4] - 2026-11-12
+
+[中文](#cn-0.22.4) | [English](#en-0.22.4)
+
+<h3 id="cn-0.22.4">体验优化</h3>
+
+- 上下文与团队两个入口挪到读数那一行的右端靠右排列，改用图标代替文字，名称留给读屏与悬停提示
+
+<h3 id="en-0.22.4">Improvements</h3>
+
+- Seat the Context and Team entries at the right end of the reading line as icons, keeping their names for assistive readers and hover hints
+
 ## [0.22.3] - 2026-11-12
 
 [中文](#cn-0.22.3) | [English](#en-0.22.3)

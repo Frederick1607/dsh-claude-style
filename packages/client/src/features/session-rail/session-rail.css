@@ -86,7 +86,7 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-toggle:hover {
   color: var(--dsw-alias-label-primary);
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-toggle:focus-visible {
+body[data-dsh-claude-style] :is(.dsh-claude-session-rail-toggle, .dsh-claude-session-rail-view-link):focus-visible {
   outline: 2px solid var(--dsw-alias-brand-primary);
   outline-offset: 1px;
 }
@@ -376,30 +376,35 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-legend-value {
 }
 
 /* Entries to the views the conversation carries in its own tabs (the context
-   plugin's context and team views): the rail names them, the host's tab
-   switches to them. Shown only while that tab is in the tablist. */
+   plugin's context and team views), seated at the reading line's right end as
+   icons: the rail names them for assistive readers, the host's tab switches to
+   them. Shown only while that tab is in the tablist. */
 body[data-dsh-claude-style] .dsh-claude-session-rail-view-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-inline-start: auto;
 }
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-view-link {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
   padding: 0;
   border: 0;
+  border-radius: 4px;
   background: none;
-  color: var(--dsw-alias-state-business-primary);
-  font-size: 11px;
-  line-height: 14px;
+  color: var(--dsw-alias-label-tertiary);
   cursor: pointer;
 }
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-view-link:hover {
-  text-decoration: underline;
+  color: var(--dsw-alias-label-primary);
 }
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-view-link[hidden] {
   display: none;
 }
+
 
