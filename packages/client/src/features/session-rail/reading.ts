@@ -195,166 +195,38 @@ export function railContextParts(used: number | null, breakdown: HostContextBrea
   return parts
 }
 
-/** The host's fixed text density: the token meter prices the same content the same way (dsh-token-meter). */
-const CHARS_PER_TOKEN = 4
-
-/** The turns the treemap draws as tiles itself; older ones join one tile that sums them. */
-const TREEMAP_TURNS = 5
-
-/** One turn's share of the conversation, priced from the log the rail reads. */
-export interface RailTurnBudget {
-  turn: number
-  tokens: number
-}
-
-/** What the session's log says fills the window: the system prompt, the tool schemas, and the conversation, by turn. */
-export interface RailComposition {
-  system: number
-  tools: number
-  turns: RailTurnBudget[]
-}
-
-/** One tile of the context treemap: a kind of token, the turn it belongs to, and its tokens. */
-export interface RailTile {
-  key: 'system' | 'tools' | 'conversation' | 'free'
-  /** The turn a conversation tile speaks for; null for every other kind. */
-  turn: number | null
-  /** How many turns a grouped conversation tile sums; 1 for one turn. */
-  group: number
-  tokens: number
-}
-
-function priceText(text: string) {
-  return Math.ceil(text.length / CHARS_PER_TOKEN)
-}
-
-/** Price one content-block list the way the host's estimate does: text by density, the rest by its JSON. */
-function priceBlocks(content: unknown) {
-  if (!Array.isArray(content)) return 0
-  let tokens = 0
-  for (const block of content) {
-    const shape = block as { type?: unknown, text?: unknown }
-    if (shape.type === 'text' || shape.type === 'reasoning') tokens += priceText(typeof shape.text === 'string' ? shape.text : '')
-    else tokens += priceText(JSON.stringify(block))
-  }
-  return tokens
-}
+/** The matrix's shape: ten columns and four rows, a cell worth one fortieth of the window. */
+export const RAIL_MATRIX_COLUMNS = 10
+export const RAIL_MATRIX_ROWS = 4
 
 /**
- * The composition of the window, priced from the session's own log: the last
- * system prompt the host sent, the last request's tool schemas, and the
- * messages under the turn they belong to. A log the rail has not loaded yet
- * answers nothing, and the section says so.
+ * The matrix's cells, in reading order: each cell stands for one part of the
+ * window, from the system prompt through the messages and on into the free
+ * space, so the reader reads the composition left to right and top to bottom.
  *
- * @param entries - the feed window the rail holds.
- * @returns the priced parts, each turn's own tokens summed.
+ * @param parts - the composition railContextParts answered, or null.
+ * @param window - the window's size, or null while unknown.
+ * @param cells - how many cells the matrix draws; the last one is never a
+ *   fraction, the window being one whole.
+ * @returns one part per cell.
  */
-export function railComposition(entries: readonly HostFeedEntry[] | null | undefined): RailComposition {
-  return railCompositionAfter(null, entries)
-}
-
-/**
- * The composition after a feed window: a replace hands the whole window, an
- * append only the entries that arrived, so a rail that folds as the session
- * runs keeps every turn it has already priced.
- *
- * @param previous - the composition the rail holds, or null for a fresh window.
- * @param entries - the entries the feed handed: a replace, or the arrival.
- * @returns the composition grown by those entries.
- */
-export function railCompositionAfter(previous: RailComposition | null, entries: readonly HostFeedEntry[] | null | undefined): RailComposition {
-  const held = previous ?? { system: 0, tools: 0, turns: [] }
-  const merged = new Map<number, number>()
-  for (const budget of held.turns) merged.set(budget.turn, budget.tokens)
-  let system = held.system
-  let tools = held.tools
-  // A log that opens on messages without a `turn/start` still belongs to the
-  // session's first turn: pricing it under turn zero would drop it.
-  let turn = held.turns.length === 0 ? 1 : held.turns[held.turns.length - 1]!.turn
-  const turns = merged
-  for (const entry of entries ?? []) {
-    const event = entry?.event as { type?: string, data?: Record<string, unknown> } | null | undefined
-    if (event === null || event === undefined || typeof event.type !== 'string') continue
-    const data = event.data ?? {}
-    if (typeof data.turn === 'number' && Number.isFinite(data.turn) && data.turn > 0) turn = data.turn
-    if (event.type === 'turn/start' || event.type === 'turn/end') continue
-    if (event.type === 'system/message') {
-      const message = data.message as { content?: unknown } | undefined
-      system = Math.max(system, priceBlocks(message?.content))
-      continue
-    }
-    if (event.type === 'request/header') {
-      const header = data.header as { tools?: unknown } | undefined
-      tools = header?.tools === undefined ? tools : priceText(JSON.stringify(header.tools))
-      continue
-    }
-    if (event.type !== 'user/message' && event.type !== 'assistant/message' && event.type !== 'tool/result' && event.type !== 'assistant/reasoning') continue
-    if (turn <= 0) turn = 1
-    const content = event.type === 'tool/result' ? (data.message as { content?: unknown } | undefined)?.content : data.content
-    const priced = priceBlocks(content)
-    if (priced > 0) turns.set(turn, (turns.get(turn) ?? 0) + priced)
+export function railMatrixCells(parts: RailParts | null, window: number | null, cells: number = RAIL_MATRIX_COLUMNS * RAIL_MATRIX_ROWS): RailCell[] {
+  const count = Math.max(1, Math.floor(cells))
+  const free = new Array<RailCell>(count).fill('free')
+  if (parts === null || window === null || !Number.isFinite(window) || window <= 0) return free
+  const system = Math.max(0, parts.system)
+  const tools = Math.max(0, parts.tools)
+  const conversation = Math.max(0, parts.conversation)
+  const held = Math.min(window, system + tools + conversation)
+  if (held <= 0) return free
+  const step = window / count
+  const cellsOut: RailCell[] = []
+  for (let at = 0; at < count; at += 1) {
+    const centre = (at + 0.5) * step
+    if (centre <= system) cellsOut.push('system')
+    else if (centre <= system + tools) cellsOut.push('tools')
+    else if (centre <= held) cellsOut.push('conversation')
+    else cellsOut.push('free')
   }
-  return {
-    system,
-    tools,
-    turns: [...turns].sort(([left], [right]) => left - right).map(([turnNumber, tokens]) => ({ turn: turnNumber, tokens })),
-  }
-}
-
-/**
- * The treemap's tiles, in reading order: the system prompt, the tool schemas,
- * the most recent turns (the older ones folded into one tile), and the window
- * still free.
- *
- * @param composition - the log's own composition.
- * @param conversation - the conversation's total as the host's breakdown priced it, when it did.
- * @param free - the tokens the window still holds, when the host reports them.
- * @returns the tiles, each worth its tokens.
- */
-export function railTreemapTiles(composition: RailComposition, conversation: number | null, free: number | null): RailTile[] {
-  const tiles: RailTile[] = []
-  if (composition.system > 0) tiles.push({ key: 'system', turn: null, group: 1, tokens: composition.system })
-  if (composition.tools > 0) tiles.push({ key: 'tools', turn: null, group: 1, tokens: composition.tools })
-  const turns = composition.turns
-  const recent = turns.slice(-TREEMAP_TURNS)
-  const older = turns.slice(0, -TREEMAP_TURNS)
-  for (const budget of recent) tiles.push({ key: 'conversation', turn: budget.turn, group: 1, tokens: budget.tokens })
-  if (older.length > 0) tiles.push({ key: 'conversation', turn: null, group: older.length, tokens: older.reduce((sum, budget) => sum + budget.tokens, 0) })
-  const priced = tiles.reduce((sum, tile) => sum + tile.tokens, 0)
-  const held = conversation === null ? priced : Math.max(conversation, priced)
-  if (held > priced) tiles.push({ key: 'conversation', turn: null, group: 0, tokens: held - priced })
-  if (free !== null && free > 0) tiles.push({ key: 'free', turn: null, group: 1, tokens: free })
-  return tiles
-}
-
-/**
- * The tiles in rows: the larger a tile, the more of its row it takes. Tiles keep
- * their reading order, and the rows are balanced by tokens so no row stands
- * nearly empty.
- *
- * @param tiles - the treemap's tiles, in reading order.
- * @param rows - how many rows the treemap draws.
- * @returns one array of tiles per row.
- */
-export function railTreemapRows(tiles: readonly RailTile[], rows: number): RailTile[][] {
-  const count = Math.max(1, Math.floor(rows))
-  if (tiles.length === 0) return []
-  if (count === 1) return [[...tiles]]
-  const total = tiles.reduce((sum, tile) => sum + Math.max(0, tile.tokens), 0) || tiles.length
-  const out: RailTile[][] = []
-  let row: RailTile[] = []
-  let running = 0
-  for (const [at, tile] of tiles.entries()) {
-    row.push(tile)
-    running += Math.max(0, tile.tokens)
-    const left = tiles.length - at - 1
-    const rowsLeft = count - out.length
-    const boundary = total * (out.length + 1) / count
-    if (rowsLeft > 1 && running >= boundary && left >= rowsLeft - 1) {
-      out.push(row)
-      row = []
-    }
-  }
-  if (row.length > 0) out.push(row)
-  return out
+  return cellsOut
 }

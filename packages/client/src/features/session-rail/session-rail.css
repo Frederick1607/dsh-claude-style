@@ -298,72 +298,33 @@ body[data-dsh-claude-style][data-dsh-claude-page-under-1000] [data-dsh-claude-se
   margin-right: 0;
 }
 
-/* ---------- Context treemap ---------- */
-/* One tile per priced part and per turn, its width the share of the window it
-   takes (reading.ts lays the tiles into two balanced rows); the free tile is
-   hatched so it never reads as content. */
-body[data-dsh-claude-style] .dsh-claude-session-rail-treemap {
+/* ---------- Context matrix ---------- */
+/* One cell per fortieth of the window, coloured by the kind of token that fills
+   it: the section says what the context holds, not only how much (reading.ts).
+   The legend under it names each colour and the tokens it stands for. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-matrix {
   display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
   gap: 3px;
   margin-top: 10px;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-treemap-row {
-  display: flex;
-  gap: 3px;
-  min-height: 34px;
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--dsh-claude-context-free);
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1px;
-  min-width: 0;
-  padding: 4px 6px;
-  border-radius: 5px;
-  border: 1px solid color-mix(in oklch, var(--dsh-claude-context-free) 55%, transparent);
-  background: color-mix(in oklch, var(--dsh-claude-context-conversation) 16%, var(--dsw-alias-bg-base));
-  color: var(--dsw-alias-label-secondary);
-  overflow: hidden;
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="system"] {
+  background: var(--dsh-claude-context-system);
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile[data-dsh-claude-rail-cell="system"] {
-  border-color: color-mix(in oklch, var(--dsh-claude-context-system) 55%, transparent);
-  background: color-mix(in oklch, var(--dsh-claude-context-system) 16%, var(--dsw-alias-bg-base));
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="tools"] {
+  background: var(--dsh-claude-context-tools);
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile[data-dsh-claude-rail-cell="tools"] {
-  border-color: color-mix(in oklch, var(--dsh-claude-context-tools) 55%, transparent);
-  background: color-mix(in oklch, var(--dsh-claude-context-tools) 16%, var(--dsw-alias-bg-base));
-}
-
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile[data-dsh-claude-rail-cell="free"] {
-  border-style: dashed;
-  background: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in oklch, var(--dsw-alias-label-tertiary) 10%, transparent) 6px 7px);
-}
-
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile-label,
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile-value {
-  min-width: 0;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  font-size: 10px;
-  line-height: 13px;
-}
-
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile-value {
-  color: var(--dsw-alias-label-tertiary);
-  font-variant-numeric: tabular-nums;
-}
-
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile[data-dsh-claude-rail-cell="system"] .dsh-claude-session-rail-tile-label {
-  color: var(--dsh-claude-context-system);
-}
-
-body[data-dsh-claude-style] .dsh-claude-session-rail-tile[data-dsh-claude-rail-cell="tools"] .dsh-claude-session-rail-tile-label {
-  color: var(--dsh-claude-context-tools);
+body[data-dsh-claude-style] .dsh-claude-session-rail-cell[data-dsh-claude-rail-cell="conversation"] {
+  background: var(--dsh-claude-context-conversation);
 }
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-legend {

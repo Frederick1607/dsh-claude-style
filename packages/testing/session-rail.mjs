@@ -41,7 +41,7 @@ const RAIL = {
   section: SECTION,
   sectionToggle: part('section-toggle'),
   sectionBody: part('section-body'),
-  matrix: part('context-treemap'),
+  matrix: part('context-matrix'),
   cell: CELL,
   legend: LEGEND,
   output: part('output'),
@@ -138,7 +138,7 @@ function sessionRailScenario({ check }) {
 
       const share = /(\d+%)|—/
       const matrix = await page.evaluate((marks) => {
-        const cells = [...document.querySelectorAll(marks.matrix + ' [' + marks.cell + ']')].map((cell) => cell.getAttribute(marks.cell))
+        const cells = [...document.querySelectorAll(marks.matrix + ' > [' + marks.cell + ']')].map((cell) => cell.getAttribute(marks.cell))
         const legend = [...document.querySelectorAll('[' + marks.legend + ']')].map((item) => item.getAttribute(marks.legend))
         return { cells: cells.length, kinds: [...new Set(cells)], legend }
       }, RAIL)
@@ -173,9 +173,10 @@ function sessionRailScenario({ check }) {
         check('输出段也能折起',
           outputsClosed.outputs.expanded === 'false' && outputsClosed.outputs.bodyHidden === true,
           JSON.stringify(outputsClosed.outputs)),
-        check('上下文段画出窗口组成的拼块，图例说明每种颜色',
-          matrix.cells >= 1 &&
+        check('上下文段画出窗口组成的矩阵，图例说明每种颜色',
+          matrix.cells === 40 &&
             matrix.kinds.every((kind) => ['system', 'tools', 'conversation', 'free'].includes(kind)) &&
+            matrix.kinds.includes('free') &&
             matrix.legend.length === 4,
           JSON.stringify(matrix)),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),

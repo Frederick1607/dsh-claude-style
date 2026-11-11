@@ -102,13 +102,5 @@
   "railMatrixLabel": {
     "zh": "上下文窗口的组成",
     "en": "What the context window holds"
-  },
-  "railTurn": {
-    "zh": "第 {turn} 轮",
-    "en": "Turn {turn}"
-  },
-  "railEarlier": {
-    "zh": "更早的 {count} 轮",
-    "en": "{count} earlier turns"
   }
 }

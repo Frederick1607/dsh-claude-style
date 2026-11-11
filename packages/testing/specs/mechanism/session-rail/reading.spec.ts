@@ -14,7 +14,7 @@
  * 'session-rail.section', 'session-rail.cell' and 'session-rail.legend'.
  */
 import { expect, test } from 'vitest'
-import { fileBasename, railComposition, railCompositionAfter, railContextParts, railOutputs, railOutputsAfter, railPath, railReading, railTreemapRows, railTreemapTiles, railWidthPx, railWorkspace } from '@dsh-claude-ui/client/pure'
+import { fileBasename, railContextParts, railMatrixCells, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-ui/client/pure'
 import type { HostFeedEntry } from '@dsh-claude-ui/contracts/services'
 
 test('the reading carries the share, the held tokens and what the window still holds', () => {
@@ -127,38 +127,23 @@ test('the composition is scaled to the meter above it, so the matrix and the rea
   expect(railContextParts(350, { systemTokens: 100, toolsTokens: 50, messageTokens: 200 })).toEqual({ system: 100, tools: 50, conversation: 200 })
 })
 
-test('a missing or empty breakdown leaves the composition to the log and the free space', () => {
+test('a missing or empty breakdown leaves the matrix to the free space', () => {
   expect(railContextParts(500, null)).toBeNull()
   expect(railContextParts(500, { systemTokens: 0, toolsTokens: 0, messageTokens: 0 })).toBeNull()
-  expect(railTreemapRows([], 2)).toEqual([])
-  expect(railTreemapTiles({ system: 0, tools: 0, turns: [] }, null, 400)).toEqual([{ key: 'free', turn: null, group: 1, tokens: 400 }])
+  expect(railMatrixCells(null, 1000)).toEqual(new Array(40).fill('free'))
+  expect(railMatrixCells({ system: 1, tools: 1, conversation: 1 }, null)).toEqual(new Array(40).fill('free'))
 })
 
-test('the treemap prices the log the way the host meter does, and folds older turns into one tile', () => {
-  const entries = [
-    { type: 'user/message', event: { type: 'turn/start', data: { turn: 1 } } },
-    { type: 'user/message', event: { type: 'user/message', data: { turn: 1, content: [{ type: 'text', text: 'abcd'.repeat(10) }] } } },
-    { type: 'user/message', event: { type: 'system/message', data: { message: { content: [{ type: 'text', text: 'x'.repeat(400) }] } } } },
-    { type: 'user/message', event: { type: 'request/header', data: { header: { tools: [{ name: 'bash' }] } } } },
-  ] as never
-  const composition = railComposition(entries)
-  expect(composition.system).toBe(100)
-  expect(composition.tools).toBeGreaterThan(0)
-  expect(composition.turns).toEqual([{ turn: 1, tokens: 10 }])
-  const more = railCompositionAfter(composition, [
-    { type: 'user/message', event: { type: 'user/message', data: { turn: 2, content: [{ type: 'text', text: 'y'.repeat(40) }] } } },
-  ] as never)
-  expect(more.turns).toEqual([{ turn: 1, tokens: 10 }, { turn: 2, tokens: 10 }])
+test('the matrix fills from the system prompt through the messages into the free space', () => {
+  const cells = railMatrixCells({ system: 100, tools: 100, conversation: 300 }, 1000)
+  expect(cells).toHaveLength(40)
+  expect(cells.slice(0, 4)).toEqual(['system', 'system', 'system', 'system'])
+  expect(cells[10]).toBe('conversation')
+  expect(cells[39]).toBe('free')
+  expect(cells[0]).toBe('system')
 })
 
-test('the tiles keep their reading order and the rows balance by tokens', () => {
-  const tiles = [
-    { key: 'system' as const, turn: null, group: 1, tokens: 100 },
-    { key: 'conversation' as const, turn: 3, group: 1, tokens: 400 },
-    { key: 'free' as const, turn: null, group: 1, tokens: 500 },
-  ]
-  const rows = railTreemapRows(tiles, 2)
-  expect(rows.flat()).toEqual(tiles)
-  expect(rows.length).toBe(2)
+test('a held total larger than the window fills the window and leaves no free cell', () => {
+  const cells = railMatrixCells({ system: 100, tools: 100, conversation: 2000 }, 1000)
+  expect(cells.every((cell) => cell !== 'free')).toBe(true)
 })
-
