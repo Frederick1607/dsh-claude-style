@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.6] - 2026-11-12
+
+[中文](#cn-0.22.6) | [English](#en-0.22.6)
+
+<h3 id="cn-0.22.6">问题修复</h3>
+
+- 右栏一挂上就收起对话的视图标签条，不再等入口是否可见，也不再每趟重写页面标记，标签条不会反复闪
+
+<h3 id="en-0.22.6">Bug Fixes</h3>
+
+- Stand the conversation's view tab strip aside as soon as the rail is attached, whatever the entries show, and write the page mark once instead of on every pass, so the strip no longer flickers
+
 ## [0.22.5] - 2026-11-12
 
 [中文](#cn-0.22.5) | [English](#en-0.22.5)

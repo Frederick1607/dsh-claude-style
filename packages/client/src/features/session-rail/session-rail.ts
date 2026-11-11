@@ -374,14 +374,10 @@ export function install(ctx: HostContext) {
    * then, and the strip above the conversation would say the same thing twice.
    */
   function applyViewLinks() {
-    let shown = false
     for (const link of refs.viewLinks) {
       const available = viewTab(link) !== null
-      if (available) shown = true
       if (link.button.hidden === available) link.button.hidden = !available
     }
-    if (shown) document.body.setAttribute(SESSION_RAIL_HIDES_TABS_ATTR, '')
-    else document.body.removeAttribute(SESSION_RAIL_HIDES_TABS_ATTR)
   }
 
   /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
@@ -492,6 +488,7 @@ export function install(ctx: HostContext) {
     sessionOff?.()
     sessionOff = null
     sessionSource = null
+    document.body.removeAttribute(SESSION_RAIL_HIDES_TABS_ATTR)
     if (host !== null) {
       refs.root.remove()
       host.removeAttribute(SESSION_RAIL_HOST_ATTR)
@@ -517,6 +514,10 @@ export function install(ctx: HostContext) {
     applySection(refs.context, refs.contextTitle)
     applySection(refs.outputs, refs.outputsTitle)
     host.append(refs.root)
+    // The entry to a view the rail stands (the context and team entries) is the
+    // switch, so the conversation's own tab strip stands aside for as long as the
+    // rail does: the same row of names above the chat would say it twice.
+    document.body.setAttribute(SESSION_RAIL_HIDES_TABS_ATTR, '')
     // The body carries the shown session: a switch rewrites that mark rather
     // than the body, so the rail hears the switch here.
     sessionWatchOff = subscribeMutations(host, { attributes: true, attributeFilter: [CONVERSATION_SESSION_ATTRIBUTE] }, schedule)

@@ -184,6 +184,12 @@ function sessionRailScenario({ check }) {
         check('对话里没有上下文与团队视图时，两个入口都藏起来',
           matrix.links.length === 2 && matrix.links.every((hidden) => hidden === true),
           JSON.stringify({ links: matrix.links })),
+        check('会话详情栏挂上后，对话的视图标签条让位',
+          await page.evaluate(() => {
+            const strip = document.querySelector('[data-conversation-tabs]')
+            return strip === null || getComputedStyle(strip).display === 'none'
+          }),
+          'the view tab strip still stands'),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },
