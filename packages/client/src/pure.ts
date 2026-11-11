@@ -105,4 +105,4 @@ export { forkDepths, forkOrder, forkPairs, forkSourceTitles } from './features/f
 
 export { rememberedWidth, restoredWidth, SIDEBAR_DEFAULT_WIDTH, SIDEBAR_MAX_WIDTH, SIDEBAR_MIN_WIDTH } from './features/sidebar-width/widths'
 
-export { railContextParts, railMatrixCells, RAIL_MATRIX_COLUMNS, RAIL_MATRIX_ROWS } from './features/session-rail/reading'
+export { railComposition, railCompositionAfter, railContextParts, railTreemapRows, railTreemapTiles } from './features/session-rail/reading'

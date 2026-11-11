@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.0] - 2026-11-12
+
+[中文](#cn-0.22.0) | [English](#en-0.22.0)
+
+<h3 id="cn-0.22.0">新增功能</h3>
+
+- 右栏上下文段按 context 插件的拼块样式重做，系统提示词、工具、最近几轮与剩余空间各占一块，宽度按 token 占比，更早的轮合成一块，宿主没给的组成由会话日志按同一密度估算
+
+<h3 id="en-0.22.0">New Features</h3>
+
+- Rebuild the right rail's context section as the context plugin's tile strip, with the system prompt, the tools, the recent turns and the free space each taking a block sized by its tokens, older turns folded into one, and the log pricing whatever composition the host does not give
+
 ## [0.21.6] - 2026-11-11
 
 [中文](#cn-0.21.6) | [English](#en-0.21.6)

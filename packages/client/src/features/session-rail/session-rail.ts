@@ -5,13 +5,14 @@ import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
+import type { RailComposition, RailParts } from './reading'
 import type { HostContextBreakdownProjection, HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
 import { buildChevron } from '../../shared/chevron'
 import { formatCompactTokens } from '../../shared/format'
 import { copy } from './copy'
-import { railContextParts, railMatrixCells, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace, RAIL_MATRIX_COLUMNS, RAIL_MATRIX_ROWS } from './reading'
+import { railComposition, railCompositionAfter, railContextParts, railOutputs, railOutputsAfter, railPath, railReading, railTreemapRows, railTreemapTiles, railWidthPx, railWorkspace } from './reading'
 import type { RailOutput } from './reading'
 
 /**
@@ -55,7 +56,8 @@ interface RailRefs {
   used: HTMLElement
   free: HTMLElement
   window: HTMLElement
-  contextCells: HTMLElement[]
+  treemap: HTMLElement
+  treemapSignature: string
   legendValues: Map<string, HTMLElement>
   outputs: RailSection
   outputsTitle: string
@@ -116,19 +118,12 @@ function buildRail(): RailRefs {
   const free = buildRow(rows, copy('railFree'))
   const window = buildRow(rows, copy('railWindow'))
   reading.append(tokens)
-  // The matrix: one cell per fortieth of the window, coloured by the kind of
-  // token that fills it (session-rail.css reads the cell's own key), so the
-  // section says what the window holds, not only how much of it.
-  const matrix = markPart(buildElement('div', 'dsh-claude-session-rail-matrix'), 'context-matrix')
-  matrix.setAttribute('role', 'img')
-  matrix.setAttribute('aria-label', copy('railMatrixLabel'))
-  const contextCells: HTMLElement[] = []
-  for (let at = 0; at < RAIL_MATRIX_COLUMNS * RAIL_MATRIX_ROWS; at += 1) {
-    const cell = markPart(buildElement('span', 'dsh-claude-session-rail-cell'), 'context-cell')
-    cell.setAttribute(SESSION_RAIL_CELL_ATTR, 'free')
-    matrix.append(cell)
-    contextCells.push(cell)
-  }
+  // The treemap: one tile per kind of token and per turn, its width the share
+  // of the window it takes (reading.ts lays the tiles into rows, session-rail.css
+  // reads each tile's own key), so the section says what the window holds.
+  const treemap = markPart(buildElement('div', 'dsh-claude-session-rail-treemap'), 'context-treemap')
+  treemap.setAttribute('role', 'img')
+  treemap.setAttribute('aria-label', copy('railMatrixLabel'))
   // The legend names each colour and the tokens it stands for.
   const legend = markPart(buildElement('dl', 'dsh-claude-session-rail-legend'), 'context-legend')
   const legendValues = new Map<string, HTMLElement>()
@@ -142,7 +137,7 @@ function buildRail(): RailRefs {
     legend.append(item)
     legendValues.set(key, value)
   }
-  context.body.append(reading, matrix, legend, rows)
+  context.body.append(reading, treemap, legend, rows)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)
@@ -167,7 +162,8 @@ function buildRail(): RailRefs {
     used,
     free,
     window,
-    contextCells,
+    treemap,
+    treemapSignature: '',
     legendValues,
     outputs,
     outputsTitle,
@@ -210,6 +206,8 @@ export function install(ctx: HostContext) {
   let outputSession: string | null = null
   let outputOff: (() => void) | null = null
   let outputs: RailOutput[] = []
+  /** The composition the feed has priced so far: the system prompt, the tools and each turn's messages. */
+  let composition: RailComposition = { system: 0, tools: 0, turns: [] }
   /** The outputs list drawn last, so an unchanged list is not rebuilt on every read. */
   let outputSignature = ''
 
@@ -281,6 +279,7 @@ export function install(ctx: HostContext) {
     outputOff = null
     outputSession = sessionId
     outputs = []
+    composition = { system: 0, tools: 0, turns: [] }
     if (sessionId === null) {
       writeOutputs()
       return
@@ -291,16 +290,53 @@ export function install(ctx: HostContext) {
       writeOutputs()
       return
     }
-    outputs = railOutputs(feed.getSnapshot().entries)
+    const window = feed.getSnapshot().entries
+    outputs = railOutputs(window)
+    composition = railComposition(window)
     writeOutputs()
     outputOff = feed.subscribe(() => {
       const latest = feed.getSnapshot()
       const change = latest.change
-      if (change?.kind === 'replace') outputs = railOutputs(latest.entries)
-      else if (change?.kind === 'append' && Array.isArray(change.entries)) outputs = railOutputsAfter(outputs, change.entries)
-      else return
+      if (change?.kind === 'replace') {
+        outputs = railOutputs(latest.entries)
+        composition = railComposition(latest.entries)
+      } else if (change?.kind === 'append' && Array.isArray(change.entries)) {
+        outputs = railOutputsAfter(outputs, change.entries)
+        composition = railCompositionAfter(composition, change.entries)
+      } else return
       schedule()
     })
+  }
+
+  /**
+   * Draw the treemap: one tile per priced part and per turn, its width the share
+   * of the window it takes, laid into two balanced rows. The tiles are rebuilt
+   * only when their own figures change.
+   */
+  function writeTreemap(parts: RailParts | null, free: number | null) {
+    const tiles = railTreemapTiles(composition, parts?.conversation ?? null, free)
+    const rows = railTreemapRows(tiles, 2)
+    const signature = rows.map((row) => row.map((tile) => `${tile.key}:${tile.turn ?? ''}:${tile.group}:${tile.tokens}`).join(',')).join('|')
+    if (signature === refs.treemapSignature) return
+    refs.treemapSignature = signature
+    refs.treemap.replaceChildren(...rows.map((tilesOfRow) => {
+      const row = buildElement('div', 'dsh-claude-session-rail-treemap-row')
+      for (const tile of tilesOfRow) {
+        const element = buildElement('div', 'dsh-claude-session-rail-tile')
+        element.setAttribute(SESSION_RAIL_CELL_ATTR, tile.key)
+        element.style.flexGrow = String(Math.max(1, tile.tokens))
+        const label = tile.key === 'system' ? copy('railSystem')
+          : tile.key === 'tools' ? copy('railTools')
+            : tile.key === 'free' ? copy('railFree')
+              : tile.group > 1 ? copy('railEarlier', { count: tile.group })
+                : copy('railTurn', { turn: tile.turn ?? 0 })
+        element.title = `${label} · ${formatCompactTokens(tile.tokens)}`
+        element.append(buildElement('span', 'dsh-claude-session-rail-tile-label', label))
+        element.append(buildElement('span', 'dsh-claude-session-rail-tile-value', formatCompactTokens(tile.tokens)))
+        row.append(element)
+      }
+      return row
+    }))
   }
 
   /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
@@ -368,16 +404,8 @@ export function install(ctx: HostContext) {
     writeTextInPlace(refs.free, reading.free === null ? copy('railUnknown') : formatCompactTokens(reading.free))
     writeTextInPlace(refs.window, reading.window === null ? copy('railUnknown') : formatCompactTokens(reading.window))
     const breakdown = currentSession(ctx)?.projections?.faceOf('contextBreakdown')?.getSnapshot() as HostContextBreakdownProjection | null | undefined
-    // The host prices the composition in a projection the client may not carry;
-    // without it the matrix still says what it knows: the tokens the reading
-    // holds are conversation, and the rest is free.
     const parts = railContextParts(reading.used, breakdown)
-      ?? (reading.used === null || reading.used <= 0 ? null : { system: 0, tools: 0, conversation: reading.used })
-    const cells = railMatrixCells(parts, reading.window)
-    for (const [at, cell] of refs.contextCells.entries()) {
-      const key = cells[at] ?? 'free'
-      if (cell.getAttribute(SESSION_RAIL_CELL_ATTR) !== key) cell.setAttribute(SESSION_RAIL_CELL_ATTR, key)
-    }
+    writeTreemap(parts, reading.free)
     const figures = {
       system: parts?.system ?? null,
       tools: parts?.tools ?? null,
