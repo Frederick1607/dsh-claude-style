@@ -12,7 +12,7 @@ function systemTypographyScenario() {
     prompt: 'show the typography',
     viewport: { width: 1280, height: 1000 },
     patch: [
-      '- id: ui-skin-claude-style',
+      '- id: ui-skin-claude-ui',
       '  config:',
       '    typeface: system',
     ],

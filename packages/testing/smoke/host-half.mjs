@@ -64,7 +64,7 @@ function fakeHost(mod, options = {}) {
     },
   }
   const ctx = {
-    fiber: { entry: { id: 'include:ui-skin-claude-style' } },
+    fiber: { entry: { id: 'include:ui-skin-claude-ui' } },
     logger: { warn() {} },
     get: (name) => {
       if (name === 'connection' && fenced) return connection

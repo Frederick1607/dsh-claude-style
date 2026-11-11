@@ -8,7 +8,7 @@
   var CASE = host.CASE
   var form = host.form
 
-  var formsView = { namespaces: CASE === 'late-forms' ? [] : [{ ns: 'ui-skin-claude-style' }] }
+  var formsView = { namespaces: CASE === 'late-forms' ? [] : [{ ns: 'ui-skin-claude-ui' }] }
   var formsListeners = []
   var forms = {
     get: function () { return form },
@@ -27,7 +27,7 @@
     },
   }
   window.__serveNamespace = function () {
-    formsView = { namespaces: [{ ns: 'ui-skin-claude-style' }] }
+    formsView = { namespaces: [{ ns: 'ui-skin-claude-ui' }] }
     for (var fi = 0; fi < formsListeners.length; fi++) formsListeners[fi]()
   }
   host.forms = forms

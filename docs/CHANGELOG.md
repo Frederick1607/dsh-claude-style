@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.1] - 2026-11-11
+
+[中文](#cn-0.21.1) | [English](#en-0.21.1)
+
+<h3 id="cn-0.21.1">问题修复</h3>
+
+- 插件条目 id 改为 ui-skin-claude-ui，和原版 dsh-claude-style 的条目不再撞名，两个主题可以同装一个 profile 里一开一关
+
+<h3 id="en-0.21.1">Bug Fixes</h3>
+
+- Rename the plugin entry to ui-skin-claude-ui, so it no longer shares an id with the original dsh-claude-style and the two themes can be installed in one profile with only one enabled
+
 ## [0.21.0] - 2026-11-11
 
 [中文](#cn-0.21.0) | [English](#en-0.21.0)

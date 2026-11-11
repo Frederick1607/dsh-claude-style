@@ -6,6 +6,6 @@
   "bodyAttr": "data-dsh-claude-style",
   "package": "dsh-claude-ui",
   "wiring": {
-    "id": "ui-skin-claude-style"
+    "id": "ui-skin-claude-ui"
   }
 }

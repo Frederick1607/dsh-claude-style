@@ -170,7 +170,7 @@ function motionScenario({ check }) {
     prompt: 'take your time, then answer',
     viewport: { width: 1280, height: 900 },
     patch: [
-      '- id: ui-skin-claude-style',
+      '- id: ui-skin-claude-ui',
       '  config:',
       '    homeLayout: studio',
     ],

@@ -52,7 +52,7 @@ function washLineScenario({ check }) {
     delayMs: 600,
     /** The reader's stored choice, written into the host's own settings (D75). */
     patch: [
-      '- id: ui-skin-claude-style',
+      '- id: ui-skin-claude-ui',
       '  config:',
       '    statusMotion: wash',
     ],

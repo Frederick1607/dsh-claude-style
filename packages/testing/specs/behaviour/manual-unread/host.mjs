@@ -33,7 +33,7 @@ export async function setup(t, { marked = [], current = 'a', ready = true, openS
     }
     const forms = {
       get: () => form,
-      describe: () => ({ getSnapshot: () => ({ view: { namespaces: [{ ns: 'ui-skin-claude-style' }] } }) }),
+      describe: () => ({ getSnapshot: () => ({ view: { namespaces: [{ ns: 'ui-skin-claude-ui' }] } }) }),
     }
     const byId = Object.fromEntries([...sessionStates.keys()].map((id) => [id, { id, displayTitle: `Conversation ${id}`, updatedAt: 1 }]))
     const sessions = {

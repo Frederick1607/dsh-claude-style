@@ -55,7 +55,7 @@ function streamJitterScenario({ check }, statsPosition = 'context') {
   return {
     script: 'paced',
     ...(statsPosition === 'context' ? {} : { patch: [
-      '- id: ui-skin-claude-style',
+      '- id: ui-skin-claude-ui',
       '  config:',
       `    statsPosition: ${statsPosition}`,
     ] }),

@@ -20,7 +20,7 @@
 
   window.__permissionCommands = host.permissionCommands
   window.__ctx = {
-    fiber: { entry: { id: 'ui-skin-claude-style' } },
+    fiber: { entry: { id: 'ui-skin-claude-ui' } },
     get: function (name) {
       if (name === 'configForms') return forms
       if (name === 'remote.account') return account

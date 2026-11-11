@@ -12,7 +12,7 @@ export const SURFACE_STYLE_ID = 'dsh-claude-ui-surface'
 export const WEBFONTS_STYLE_ID = 'dsh-claude-ui-webfonts'
 
 /** Fallback profile entry id used when the running loader id is unavailable. */
-export const SETTINGS_ENTRY_FALLBACK = 'ui-skin-claude-style'
+export const SETTINGS_ENTRY_FALLBACK = 'ui-skin-claude-ui'
 /** These tags keep host and sibling stylesheet removal away from this package (D9). */
 export const STYLE_PLUGIN_CSS = `${PACKAGE_NAME}/client.css`
 export const SURFACE_PLUGIN_CSS = `${PACKAGE_NAME}/surface.css`
