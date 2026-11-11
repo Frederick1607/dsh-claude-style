@@ -1,8 +1,8 @@
-import { hostSessions, hostUiSession } from '@dsh-claude-style/engine/host'
+import { hostSessions, hostUiSession } from '@dsh-claude-ui/engine/host'
 import { attentionEvents, attentionReading } from './attention'
 import type { AttentionEvent, AttentionReading } from './attention'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostSessionListSnapshot, HostSessionStatusSnapshot, HostSnapshotSource } from '@dsh-claude-style/contracts/services'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostSessionListSnapshot, HostSessionStatusSnapshot, HostSnapshotSource } from '@dsh-claude-ui/contracts/services'
 
 /**
  * Watch the two host snapshots the cues read and answer each publication with

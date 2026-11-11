@@ -1,16 +1,16 @@
-import { currentSessionId, hostSessions, hostUiWorkspace, hostWorkspaces, hostWorkspaceView } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import type { MatchList } from '@dsh-claude-style/engine/bus'
-import { createStamp } from '@dsh-claude-style/engine/dom'
-import { markPartsWithin } from '@dsh-claude-style/engine/parts'
+import { currentSessionId, hostSessions, hostUiWorkspace, hostWorkspaces, hostWorkspaceView } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import type { MatchList } from '@dsh-claude-ui/engine/bus'
+import { createStamp } from '@dsh-claude-ui/engine/dom'
+import { markPartsWithin } from '@dsh-claude-ui/engine/parts'
 import { createHostToast } from '../../shared/host-toast'
 import { createViewStoreFollower } from './view-store'
 import { createSegmentControl } from './segments'
 import { createArchivedActions } from './archived-actions'
 import { createArchivedList } from './archived-list'
 import { hostTooltip } from '../../shared/host-tooltip'
-import type { HostSessionsService, HostUiWorkspaceService, HostWorkspacesService } from '@dsh-claude-style/contracts/services'
+import type { HostSessionsService, HostUiWorkspaceService, HostWorkspacesService } from '@dsh-claude-ui/contracts/services'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './workspace-view.manifest'
 
@@ -69,7 +69,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
         service.unarchiveSession(id).then(() => {
           list.sync()
         }).catch((reason: unknown) => {
-          console.warn('dsh-claude-style: session unarchive rejected:', reason)
+          console.warn('dsh-claude-ui: session unarchive rejected:', reason)
         })
       },
       remove: (id) => actions.removeArchived(id),

@@ -1,4 +1,4 @@
-import { CHAT_FLOW_SELECTOR, CONVERSATION_SCROLL_SELECTOR, FLOW_KIND_ATTRIBUTE, MESSAGE_BUBBLE_SELECTOR, SUBMISSION_ECHO_SELECTOR, USER_ROW_KIND } from '@dsh-claude-style/contracts/dom'
+import { CHAT_FLOW_SELECTOR, CONVERSATION_SCROLL_SELECTOR, FLOW_KIND_ATTRIBUTE, MESSAGE_BUBBLE_SELECTOR, SUBMISSION_ECHO_SELECTOR, USER_ROW_KIND } from '@dsh-claude-ui/contracts/dom'
 import { resolveColour } from './colour'
 
 /** Chat DOM helpers over host-owned literals (D3); skin-owned marks remain with their features. */

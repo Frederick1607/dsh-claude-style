@@ -4,7 +4,7 @@
  * @risk Reloading clears a deliberate unread mark, navigation consumes the wrong mark, or concurrent writes lose marks and report failures as successful saves.
  */
 import { expect, test } from 'vitest'
-import { createUnreadVisitTracker, createUnreadWriter, setUnreadMark } from '@dsh-claude-style/client/pure'
+import { createUnreadVisitTracker, createUnreadWriter, setUnreadMark } from '@dsh-claude-ui/client/pure'
 
 const CAPACITY = 2048
 const ID_LENGTH = 1024

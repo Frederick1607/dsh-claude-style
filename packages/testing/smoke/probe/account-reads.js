@@ -66,11 +66,11 @@
     r.mirroredText = mirrored ? mirrored.querySelector('.dsh-claude-popover-item-text').textContent : null
     var badge = mirrored ? mirrored.querySelector('.dsh-claude-popover-item-badge') : null
     r.mirroredBadge = badge ? badge.textContent : null
-    r.stylesheet = !!document.getElementById('dsh-claude-style-style')
+    r.stylesheet = !!document.getElementById('dsh-claude-ui-style')
     // The skin's sheet wears this package's own module-system tags (D9): the
     // host's claim sweep reads untagged tags alone, so a tagged sheet cannot be
     // claimed by a sibling package and removed by that sibling's reload.
-    var skinStyle = document.getElementById('dsh-claude-style-style')
+    var skinStyle = document.getElementById('dsh-claude-ui-style')
     r.sheetPlugin = skinStyle ? skinStyle.getAttribute('data-plugin') : null
     r.sheetPluginCss = skinStyle ? skinStyle.getAttribute('data-plugin-css') : null
     r.sheetClaimable = skinStyle ? skinStyle.matches('style:not([data-plugin])') : null

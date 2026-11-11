@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "dsh-claude-style model copy",
+  "title": "dsh-claude-ui model copy",
   "description": "The shape of packages/client/data/model-descriptions.json. References across the document and to the vendored lockups are checked by scripts/build.mjs.",
   "type": "object",
   "required": ["fallback", "families", "brands"],

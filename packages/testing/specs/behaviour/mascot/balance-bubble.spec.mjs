@@ -10,7 +10,7 @@
  * @features mascot, context-stats
  * @risk Hovering the mascot shows nothing, shows a cost that disagrees with the statistics line, or leaves an empty bubble over the composer for a reader with no account and billing off.
  */
-import { CONVERSATION_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { CONVERSATION_PARTS } from '@dsh-claude-ui/engine/parts-table'
 import { spec, host } from '../../fixtures/behaviour.mjs'
 import { COST_PRICES, COST_ROUTE, PRICED_STATS, PRICED_USAGE, seatStatsSession } from '../../fixtures/stats-session.mjs'
 

@@ -1,8 +1,8 @@
 import { PERMISSION_ACCESS_NAMESPACE, PERMISSION_CHINESE_LABELS, PERMISSION_CURRENT_LABELS, PERMISSION_HOST_LABEL_KEYS, PERMISSION_HOST_LABEL_LOCALE, PERMISSION_ORDER, PERMISSION_PRESETS, PERMISSION_SEGMENTS, PERMISSION_SHIPPED_PRESETS } from './permission-copy'
-import { hostLocale, hostRemote, hostRemotePermissionPresets } from '@dsh-claude-style/engine/host'
+import { hostLocale, hostRemote, hostRemotePermissionPresets } from '@dsh-claude-ui/engine/host'
 import { activeLocale, localized } from '../../core/i18n'
-import type { HostContext, HostFiber } from '@dsh-claude-style/engine/host'
-import type { HostPermissionCatalogAnswer, HostPermissionOption } from '@dsh-claude-style/contracts/services'
+import type { HostContext, HostFiber } from '@dsh-claude-ui/engine/host'
+import type { HostPermissionCatalogAnswer, HostPermissionOption } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The permission catalog and the words the control reads off it: the read of
@@ -260,7 +260,7 @@ export function createPermissionCatalog(ctx: HostContext, schedule: () => void):
         scope.effect(() => {
           probeAutoPreset()
           return () => {}
-        }, 'dsh-claude-style: permission catalog')
+        }, 'dsh-claude-ui: permission catalog')
       })
     } else {
       probeAutoPreset()

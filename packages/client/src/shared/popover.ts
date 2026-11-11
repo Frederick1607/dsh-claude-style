@@ -1,4 +1,4 @@
-import { buildElement, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { buildElement, setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { inPageBox, pageViewport } from './page-zoom'
 
 /** Features register closers and close siblings before opening; nested levels share one registration.

@@ -9,7 +9,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { WORD_LOCK_MS, wordForPass } from '@dsh-claude-style/client/pure'
+import { WORD_LOCK_MS, wordForPass } from '@dsh-claude-ui/client/pure'
 
 const quiet = { word: null, own: false, detail: null, onCall: false, host: 'Deep diving' }
 const thinking = { word: 'Thinking…', own: false, detail: null, onCall: false, host: 'Deep diving' }

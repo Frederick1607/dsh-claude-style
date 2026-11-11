@@ -1,5 +1,5 @@
-import { MANUAL_UNREAD_ID_LIMIT, MANUAL_UNREAD_LIMIT } from '@dsh-claude-style/contracts/prefs'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { MANUAL_UNREAD_ID_LIMIT, MANUAL_UNREAD_LIMIT } from '@dsh-claude-ui/contracts/prefs'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 
 function validateId(id: string): void {
   if (typeof id !== 'string' || id.length === 0) throw new TypeError('Unread conversation id must be nonempty')

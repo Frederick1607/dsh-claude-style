@@ -3,8 +3,8 @@ import type { CallArgs } from '../../shared/call-args'
 import { fileToolOperation } from '../../shared/file-tool'
 import type { FileToolOperation } from '../../shared/file-tool'
 import type { CopyKey } from './copy'
-import type { HostText } from '@dsh-claude-style/engine/host'
-import type { HostChatBlock } from '@dsh-claude-style/contracts/services'
+import type { HostText } from '@dsh-claude-ui/engine/host'
+import type { HostChatBlock } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The file-operation row's derivations, kept apart from its React component

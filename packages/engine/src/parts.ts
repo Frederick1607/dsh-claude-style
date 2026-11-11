@@ -57,7 +57,7 @@ let lastPartsGeneration = 0
  * attributes, so a pass running before the hand-over is a wiring mistake.
  */
 function vocabulary(): PartsVocabulary {
-  if (adopted === null) throw new Error('dsh-claude-style engine: parts were marked before the skin handed its vocabulary over')
+  if (adopted === null) throw new Error('dsh-claude-ui engine: parts were marked before the skin handed its vocabulary over')
   return adopted
 }
 

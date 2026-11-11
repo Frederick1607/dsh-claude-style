@@ -1,7 +1,7 @@
 import { BRAND_INK_ACCENT, BRAND_INK_ATTR, BRAND_INK_ORIGINAL, BRAND_INK_TEXT, CUSTOM_MARK_ATTR, CUSTOM_PALETTE_ATTR, CUSTOM_TINT_ATTR, CUSTOM_WORD_ATTR, CUSTOM_WORD_IMAGE, CUSTOM_WORD_TEXT, PALETTE_COLORING_CUSTOM } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
 import { loadBrandImages, readBrandImages, resetBrandImages, subscribeBrandImages } from '../../shared/custom-brand'
-import { PALETTE_CARDS } from 'virtual:dsh-claude-style/generated'
+import { PALETTE_CARDS } from 'virtual:dsh-claude-ui/generated'
 
 /**
  * The custom brand layer (D30): the reader's own name, images and the four

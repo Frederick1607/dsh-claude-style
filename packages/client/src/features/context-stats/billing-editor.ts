@@ -1,6 +1,6 @@
 import { PRICE_ROWS_MAX } from '../../constants'
-import { billingRowEntry, parseBillingTable, splitBillingRow } from '@dsh-claude-style/contracts/billing-table'
-import type { BillingRow } from '@dsh-claude-style/contracts/billing-table'
+import { billingRowEntry, parseBillingTable, splitBillingRow } from '@dsh-claude-ui/contracts/billing-table'
+import type { BillingRow } from '@dsh-claude-ui/contracts/billing-table'
 import { registerPopover, unregisterPopover } from '../../shared/popover'
 import { copy } from './copy'
 

@@ -1,9 +1,9 @@
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { CHAT_FLYING_ATTR, MESSAGE_ENTER_ATTR, MESSAGE_ENTER_GROW } from '../../constants'
 import { motionReduced, readPrefs } from '../../core/prefs'
 import { motionMs } from '../../shared/motion'
 import { currentRow, lastUserRow, takeFreshEcho, touchesUserRow } from './send-rows'
-import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 /* Mark only the row replacing a freshly observed echo; restored-session rows never animate.
    entering lets follow treat this entrance and send-flight consistently. */

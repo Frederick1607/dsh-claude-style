@@ -8,10 +8,10 @@
 
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](README.en.md) [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](README.md)
 
-[![version](https://img.shields.io/npm/v/dsh-claude-style?style=flat&label=version&color=D97757)](https://www.npmjs.com/package/dsh-claude-style)
-[![downloads](https://img.shields.io/npm/dm/dsh-claude-style?style=flat&label=downloads&color=D97757)](https://www.npmjs.com/package/dsh-claude-style)
-[![GitHub stars](https://img.shields.io/github/stars/Nwflower/dsh-claude-style?style=flat&label=%E2%98%85&color=08C)](https://github.com/Nwflower/dsh-claude-style)
-[![dsh.so install](https://www.dsh.so/badge/install/dsh-claude-style.svg)](https://www.dsh.so/artifact/dsh-claude-style/)
+[![version](https://img.shields.io/npm/v/dsh-claude-ui?style=flat&label=version&color=D97757)](https://www.npmjs.com/package/dsh-claude-ui)
+[![downloads](https://img.shields.io/npm/dm/dsh-claude-ui?style=flat&label=downloads&color=D97757)](https://www.npmjs.com/package/dsh-claude-ui)
+[![GitHub stars](https://img.shields.io/github/stars/Frederick1607/dsh-claude-ui?style=flat&label=%E2%98%85&color=08C)](https://github.com/Frederick1607/dsh-claude-ui)
+[![dsh.so install](https://www.dsh.so/badge/install/dsh-claude-ui.svg)](https://www.dsh.so/artifact/dsh-claude-ui/)
 [![license](https://img.shields.io/badge/license-MIT%20%2B%20PolyForm%20Shield-2EA44F?style=flat)](LICENSE)
 
 </div>
@@ -52,16 +52,16 @@ The settings page switches between the two palettes; light and dark follow the s
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/idle.gif" width="120" alt="Idle" /><br />Idle</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/thinking.gif" width="120" alt="Thinking" /><br />Thinking</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/typing.gif" width="120" alt="Answering and calling tools" /><br />Answering and calling tools</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/conducting.gif" width="120" alt="Conducting subagents" /><br />Conducting subagents</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/idle.gif" width="120" alt="Idle" /><br />Idle</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/thinking.gif" width="120" alt="Thinking" /><br />Thinking</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/typing.gif" width="120" alt="Answering and calling tools" /><br />Answering and calling tools</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/conducting.gif" width="120" alt="Conducting subagents" /><br />Conducting subagents</td>
   </tr>
   <tr>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/notification.gif" width="120" alt="Waiting on you" /><br />Waiting on you</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/error.gif" width="120" alt="Failed" /><br />Failed</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/happy.gif" width="120" alt="Finished" /><br />Finished</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/sleeping.gif" width="120" alt="Asleep" /><br />Asleep</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/notification.gif" width="120" alt="Waiting on you" /><br />Waiting on you</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/error.gif" width="120" alt="Failed" /><br />Failed</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/happy.gif" width="120" alt="Finished" /><br />Finished</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/sleeping.gif" width="120" alt="Asleep" /><br />Asleep</td>
   </tr>
 </table>
 
@@ -69,34 +69,21 @@ The settings page switches between the two palettes; light and dark follow the s
 
 > The workspaces, sessions, usage figures and nickname in the screenshots are sample data.
 
-## Installation
+## Install
 
-From the official plugin page add the package below, or from a terminal:
-
-```
-dsh-claude-style
-```
+Add the GitHub address below on the plugins page, or install this repository's release tag from a terminal:
 
 ```bash
-dsh plugin --profile web add dsh-claude-style                    # npm package (recommended)
-dsh plugin --profile web add Nwflower/dsh-claude-style#dist      # GitHub release branch
+dsh plugin --profile web add Frederick1607/dsh-claude-ui#v0.21.0
 ```
 
-Also from the [plugin market](https://github.com/dsh-market/dsh-market) or the Skin Center of the dsh-web-all plugin. Keep one theme enabled at a time; dsh ≥ 0.2.2-rc.1 is required, and a restart of DeepSeek Harness brings the full feature set.
-
-## Manual unread marks
-
-Choose **Mark as unread** or **Clear unread mark** from a session's ellipsis menu. Marks are saved in the current profile, survive reloads, and clear when you leave and later open that session. The host's automatic completion reminders stay independent.
-
-## Retract and edit a message
-
-Hover a message you sent and **Retract** and **Edit** join the clock and copy buttons. Both open a new session and leave the original as it was: retracting drops that message and everything after it and puts the text back in the composer for you to send again, while editing amends the text in place first and sends it in the new session as soon as you confirm. A message carrying images or files gets neither button, since attachments cannot travel with the text into a new session. Both wait while the turn is still running. Disable the feature under **Conversation** in the plugin settings.
+Only one theme is enabled at a time; dsh ≥ 0.2.2-rc.1 is required, and DeepSeek Harness restarts after the install.
 
 ## Fonts
 
-> The Anthropic fonts have no public release; this repository only offers [copies](https://github.com/Nwflower/dsh-claude-style/tree/master/packages/assets/src/fonts/anthropic) for download and study.
+> The Anthropic fonts have no public release; this repository only offers [copies](https://github.com/Frederick1607/dsh-claude-ui/tree/master/packages/assets/src/fonts/anthropic) for download and study.
 
-To enable them, install the `.ttf` files on your system, or copy them into `$DSH_HOME/dsh-claude-style/fonts/`.
+To enable them, install the `.ttf` files on your system, or copy them into `$DSH_HOME/dsh-claude-ui/fonts/`.
 
 The mascot bubble's pixel text is set in [PoxiaoPixel](https://diaowinner.itch.io/poxiaopixel) by DWNfonts (SIL OFL 1.1); the package carries only the characters the bubble uses.
 
@@ -119,7 +106,7 @@ The Sodium rendering engine is licensed under the [PolyForm Shield License 1.0.0
 
 - "Sodium" (钠) is named after Minecraft's [Sodium](https://github.com/CaffeineMC/sodium) rendering mod; this plugin is not affiliated with it.
 - The message navigator follows SherUnlocked-4869's [dsh-plugin-msg-nav](https://github.com/SherUnlocked-4869/dsh-plugin-msg-nav) (MIT).
-- The animation frames of Deepy the pixel whale come from the Deepy whale theme pack drawn by calmly-eating-bugs ([@wp3171216237](https://github.com/wp3171216237)), and ship with the plugin by the author's permission; GIFs of all 20 animations are in [docs/gifs/](https://github.com/Frederick1607/dsh-claude-style/tree/master/docs/gifs).
+- The animation frames of Deepy the pixel whale come from the Deepy whale theme pack drawn by calmly-eating-bugs ([@wp3171216237](https://github.com/wp3171216237)), and ship with the plugin by the author's permission; GIFs of all 20 animations are in [docs/gifs/](https://github.com/Frederick1607/dsh-claude-ui/tree/master/docs/gifs).
 - The whale girl pixel emoji set came with issue #224.
 - The enhanced animations in the chat area are modified from [dsh-chat-ux](https://github.com/alm-allen/dsh-chat-ux) (MIT).
 - Clawd is a character of Anthropic. Its frames are not covered by the MIT license (see [LICENSE](LICENSE)). This plugin is an unofficial fan work, not affiliated with or endorsed by Anthropic.
@@ -132,4 +119,4 @@ The Sodium rendering engine is licensed under the [PolyForm Shield License 1.0.0
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Nwflower/dsh-claude-style&type=Date)](https://star-history.com/#Nwflower/dsh-claude-style&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Frederick1607/dsh-claude-ui&type=Date)](https://star-history.com/#Frederick1607/dsh-claude-ui&Date)

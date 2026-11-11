@@ -22,15 +22,15 @@
   }
   window.fetch = function (input, init) {
     var url = typeof input === 'string' ? input : (input && input.url) || ''
-    if (url === '/dsh-claude-style/username') return Promise.resolve(jsonResponse({ ok: true, username: 'Tester' }))
-    if (url === '/dsh-claude-style/brand') {
+    if (url === '/dsh-claude-ui/username') return Promise.resolve(jsonResponse({ ok: true, username: 'Tester' }))
+    if (url === '/dsh-claude-ui/brand') {
       // The custom-brand case holds both images; the bytes are the runner's to
       // serve (packages/testing/smoke.cjs), since the page loads them as images.
       return Promise.resolve(jsonResponse(CASE === 'custom-brand'
         ? { ok: true, mark: { type: 'image/png', version: '1-1' }, wordmark: { type: 'image/svg+xml', version: '1-1' } }
         : { ok: true, mark: null, wordmark: null }))
     }
-    if (url === '/dsh-claude-style/hdsl') {
+    if (url === '/dsh-claude-ui/hdsl') {
       // Three launcher cases: the player's own atlas, a built-in figure (no
       // picture at all), and an atlas the player deleted before the page
       // loaded — the two fallbacks the account row has to survive.
@@ -41,7 +41,7 @@
           }
         : { ok: true, contract: false }))
     }
-    if (url === '/dsh-claude-style/usage' && CASE === 'studio') {
+    if (url === '/dsh-claude-ui/usage' && CASE === 'studio') {
       // A folded answer with the model dimension, so both tabs draw their data.
       // The all-time figures reach past the one listed day (history older than
       // any range window): all time peaks at 3 AM over 500k tokens, today alone
@@ -71,7 +71,7 @@
         totals: { input: 490000, output: 10000, cacheRead: 0, cacheWrite: 0, calls: 9, sessions: 4, activeDays: 3 },
       } }))
     }
-    if (url === '/dsh-claude-style/peakrate') {
+    if (url === '/dsh-claude-ui/peakrate') {
       // The rate catalog, in the shape the host half serves it: two profiles,
       // the second one a promotion that runs every day, so that row's badge
       // reads the same whatever the clock says when the case runs. The DeepSeek
@@ -106,12 +106,12 @@
     // switch it drives happens while an ask is in flight. The readings it
     // releases are the spec's to choose, which is how one page can answer an
     // old session's total after the reader has left it.
-    if (url === '/dsh-claude-style/prices' || url.indexOf('/dsh-claude-style/session-cost') === 0) {
+    if (url === '/dsh-claude-ui/prices' || url.indexOf('/dsh-claude-ui/session-cost') === 0) {
       var cost = window.__costFixture
       if (cost === undefined || cost === null) return realFetch.apply(window, arguments)
       var reading = { url: url, id: new URL(url, window.location.origin).searchParams.get('id') }
       ;(window.__costRequests = window.__costRequests || []).push(reading)
-      if (url === '/dsh-claude-style/prices') {
+      if (url === '/dsh-claude-ui/prices') {
         return Promise.resolve(jsonResponse({ ok: true, document: cost.prices, fetchedAt: new Date().toISOString() }))
       }
       if (cost.hold !== true) return Promise.resolve(jsonResponse({ ok: true, value: cost.value }))
@@ -122,7 +122,7 @@
         })
       })
     }
-    if (url === '/dsh-claude-style/hdsl-skin.png') {
+    if (url === '/dsh-claude-ui/hdsl-skin.png') {
       // An <img> or a canvas source loads this outside the fetch stub, so the
       // HTTP stand-in serves the bytes; this branch only keeps a stray request
       // from reaching the real network.

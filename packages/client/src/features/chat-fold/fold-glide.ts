@@ -1,10 +1,10 @@
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { motionReduced, systemPrefersReducedMotion } from '../../core/prefs'
 import { FOLD_INTENT_TTL_MS, FOLD_POPUP_SELECTOR, FOLD_ROLL_MS, FOLD_SKIPPED_CONTROL_SELECTOR, FOLD_VISIBLE_SHARE, foldBeginHeightClip, foldConfirmCollapsed, foldControlAt, foldControlAtBottom, foldExpandedBody, foldHoldThroughStalls, foldProcessBody, foldSettleAfter, foldVisibleReach, foldWatchReader, markChatFoldBusy } from './fold-glide-parts'
 import type { FoldWatch } from './fold-glide-parts'
 import { beginChatFoldToggle, chatFoldPressReading, endChatFoldToggle, isChatFoldToggle } from './fold-toggle'
-import { CHAT_FLOW_SELECTOR, CHAT_MOTION_SCOPE_SELECTOR, PROCESS_GROUP_SELECTOR, THINK_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { joinScrollOwner } from '@dsh-claude-style/engine/scroll-owner'
+import { CHAT_FLOW_SELECTOR, CHAT_MOTION_SCOPE_SELECTOR, PROCESS_GROUP_SELECTOR, THINK_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { joinScrollOwner } from '@dsh-claude-ui/engine/scroll-owner'
 import { motionEase } from '../../shared/motion'
 import { inPageBox, inPagePixels } from '../../shared/page-zoom'
 

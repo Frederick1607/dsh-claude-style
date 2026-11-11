@@ -4,8 +4,8 @@
  * @risk Per-row observation makes every mutation batch and observer re-attachment grow with the session count, while a shared watch can miss row changes or a replaced sidebar.
  */
 import { afterEach, expect, test, vi } from 'vitest'
-import { installSidebarStatus } from '@dsh-claude-style/client/pure'
-import { SESSION_PHASE_ATTRIBUTE, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { installSidebarStatus } from '@dsh-claude-ui/client/pure'
+import { SESSION_PHASE_ATTRIBUTE, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from '../../fixtures/host-markup'
 import { surfaceAttribute } from '../../fixtures/surface'
 import { frames } from '../../fixtures/frames'

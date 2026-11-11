@@ -1,4 +1,4 @@
-import { STREAMING_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { STREAMING_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { appendRevealSnapshot, revealEntryAt, revealTextSlice } from './reveal-text'
 import {
   CHAT_REVEAL_ACTIVE_LIMIT,

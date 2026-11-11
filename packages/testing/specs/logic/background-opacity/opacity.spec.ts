@@ -13,8 +13,8 @@
  *   percentage the fills never applied.
  */
 import { expect, test } from 'vitest'
-import { BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, clampPrefs } from '@dsh-claude-style/contracts/prefs'
-import { backgroundOpacityOf, backgroundOpacityPercent } from '@dsh-claude-style/client/pure'
+import { BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, clampPrefs } from '@dsh-claude-ui/contracts/prefs'
+import { backgroundOpacityOf, backgroundOpacityPercent } from '@dsh-claude-ui/client/pure'
 
 test('a stored percentage becomes the factor the canvas fills mix with', () => {
   expect(backgroundOpacityOf('100')).toBe(1)

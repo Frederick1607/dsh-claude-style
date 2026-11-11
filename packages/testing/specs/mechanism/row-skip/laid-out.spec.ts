@@ -8,8 +8,8 @@
  * @risk A row the reader scrolls toward stands at an estimated height and takes its real one under him, and the conversation jumps by the difference while he scrolls.
  */
 import { expect, test } from 'vitest'
-import { CONVERSATION_SCROLL_SELECTOR, FLOW_KIND_ATTRIBUTE, ASSISTANT_STEP_KIND } from '@dsh-claude-style/contracts/dom'
-import { installRowSkip } from '@dsh-claude-style/client/pure'
+import { CONVERSATION_SCROLL_SELECTOR, FLOW_KIND_ATTRIBUTE, ASSISTANT_STEP_KIND } from '@dsh-claude-ui/contracts/dom'
+import { installRowSkip } from '@dsh-claude-ui/client/pure'
 import { cleanupWith, frames } from '../../fixtures/teardown'
 import { attach } from '../../fixtures/host-markup'
 import { surfaceAttribute } from '../../fixtures/surface'

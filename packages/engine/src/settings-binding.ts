@@ -1,6 +1,6 @@
 import { hostConfigForms } from './host'
 import type { HostContext } from './host'
-import type { HostConfigForm, HostConfigFormsService } from '@dsh-claude-style/contracts/services'
+import type { HostConfigForm, HostConfigFormsService } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The binding to the host's settings namespace (D75, D73): the host's form

@@ -1,11 +1,11 @@
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { beginChatFoldToggle, endChatFoldToggle, isChatFoldToggle } from './fold-toggle'
 import type { FoldPressReading } from './fold-toggle'
 import { composerComposing } from '../../shared/composer-caret'
 import { foldControlAt, foldControlAtBottom, foldExpandedBody } from './fold-glide-parts'
 import { inPagePixels } from '../../shared/page-zoom'
-import { EXPANDED_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, THINK_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { EXPANDED_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, THINK_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 /* Host ReasoningRow starts collapsed; data-state and data-expanded are its stable phase contract.
    Reader overrides last only for the current phase. onRows shares each scan with the reasoning

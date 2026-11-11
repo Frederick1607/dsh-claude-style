@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as primitives from '@deepseek-ai/dsh-client-ui-primitives'
-import { SESSION_ROW_KEY_ATTRIBUTE, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import type { HostSessionMenuProps } from '@dsh-claude-style/contracts/services'
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { writeTextInPlace } from '@dsh-claude-style/engine/dom'
-import { currentSessionId, findSidebarRoot, hostSessions, hostUiSession, registerSlotEntries } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { SESSION_ROW_KEY_ATTRIBUTE, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import type { HostSessionMenuProps } from '@dsh-claude-ui/contracts/services'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { writeTextInPlace } from '@dsh-claude-ui/engine/dom'
+import { currentSessionId, findSidebarRoot, hostSessions, hostUiSession, registerSlotEntries } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { readPrefs, savePrefs, subscribePrefs, prefsFromForm } from '../../core/prefs'
 import type { FeatureUi } from '../../core/feature'
 import { createHostToast } from '../../shared/host-toast'
@@ -96,7 +96,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   const menu = registerSlotEntries(ctx, [{
     options: { name: MENU_SLOT, id: 'claude-style-manual-unread', order: 150 },
     component: ManualUnreadMenuItem,
-  }], 'dsh-claude-style: manual unread menu')
+  }], 'dsh-claude-ui: manual unread menu')
 
   function sync() {
     if (sessionsOff === null) {

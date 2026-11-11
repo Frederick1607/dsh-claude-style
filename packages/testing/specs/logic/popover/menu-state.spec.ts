@@ -8,7 +8,7 @@
  * @risk A menu stands open while its trigger still reports it collapsed, so a screen reader announces a closed menu and the reader presses the trigger twice.
  */
 import { afterEach, expect, test } from 'vitest'
-import { setMenuPopoverOpen } from '@dsh-claude-style/client/pure'
+import { setMenuPopoverOpen } from '@dsh-claude-ui/client/pure'
 import { surfaceAttribute } from '../../fixtures/surface'
 
 const OPEN = surfaceAttribute('popover.open')

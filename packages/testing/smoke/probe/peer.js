@@ -154,7 +154,7 @@
       // page is on the page: the component map keeps what was registered.
       await sleep(400)
       var owner = {
-        sheet: document.getElementById('dsh-claude-style-style') !== null,
+        sheet: document.getElementById('dsh-claude-ui-style') !== null,
         live: document.body.hasAttribute('data-dsh-claude-style'),
         handoff: document.body.hasAttribute('data-dsh-claude-style-handoff'),
         bodyAttrs: attrs(document.body),
@@ -165,7 +165,7 @@
       document.documentElement.removeAttribute('data-dsh-skin')
       await sleep(300)
       owner.afterRelease = {
-        sheet: document.getElementById('dsh-claude-style-style') !== null,
+        sheet: document.getElementById('dsh-claude-ui-style') !== null,
         live: document.body.hasAttribute('data-dsh-claude-style'),
         handoff: document.body.hasAttribute('data-dsh-claude-style-handoff'),
         settingsSeats: await seatsSettled(2),
@@ -174,7 +174,7 @@
       document.documentElement.setAttribute('data-dsh-skin', 'blue-fantasy')
       await sleep(300)
       owner.afterReturn = {
-        sheet: document.getElementById('dsh-claude-style-style') !== null,
+        sheet: document.getElementById('dsh-claude-ui-style') !== null,
         live: document.body.hasAttribute('data-dsh-claude-style'),
         settingsSeats: settingsSeats(),
       }
@@ -186,7 +186,7 @@
       await sleep(400)
       var arrival = {
         before: {
-          sheet: document.getElementById('dsh-claude-style-style') !== null,
+          sheet: document.getElementById('dsh-claude-ui-style') !== null,
           live: document.body.hasAttribute('data-dsh-claude-style'),
           settingsSeats: await seatsSettled(2),
         },
@@ -194,7 +194,7 @@
       document.documentElement.setAttribute('data-dsh-skin', 'blue-fantasy')
       await sleep(300)
       arrival.yielded = {
-        sheet: document.getElementById('dsh-claude-style-style') !== null,
+        sheet: document.getElementById('dsh-claude-ui-style') !== null,
         live: document.body.hasAttribute('data-dsh-claude-style'),
         handoff: document.body.hasAttribute('data-dsh-claude-style-handoff'),
         settingsSeats: settingsSeats(),
@@ -202,7 +202,7 @@
       document.documentElement.removeAttribute('data-dsh-skin')
       await sleep(300)
       arrival.back = {
-        sheet: document.getElementById('dsh-claude-style-style') !== null,
+        sheet: document.getElementById('dsh-claude-ui-style') !== null,
         live: document.body.hasAttribute('data-dsh-claude-style'),
         settingsSeats: await seatsSettled(2),
       }

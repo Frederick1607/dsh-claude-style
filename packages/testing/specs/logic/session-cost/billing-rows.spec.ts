@@ -9,7 +9,7 @@
  * @risk A reader's own price is ignored, or applied to the wrong model, so the cost beside the tokens keeps the old figure or charges the wrong route.
  */
 import { expect, test } from 'vitest'
-import { billingRowEntry, billingRowFor, overlayBilling, parseBillingRow, parseBillingTable } from '@dsh-claude-style/contracts/billing-table'
+import { billingRowEntry, billingRowFor, overlayBilling, parseBillingRow, parseBillingTable } from '@dsh-claude-ui/contracts/billing-table'
 
 const stored = ['kmodel|2|0.2|8', 'Kimi-K3-Custom|0|1.3|', '|9|9|9']
 

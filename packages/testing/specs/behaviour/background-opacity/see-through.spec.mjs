@@ -7,7 +7,7 @@
  * @features core, settings
  * @risk A stored 50 leaves the sidebar or conversation opaque, 100 changes the existing page, or a hand-edited value draws a state the field cannot show.
  */
-import { FRAME_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { FRAME_PARTS } from '@dsh-claude-ui/engine/parts-table'
 const BACKGROUND_OPACITY_VAR = surface.property('skin.background-opacity')
 import { host, spec, surface } from '../../fixtures/behaviour.mjs'
 

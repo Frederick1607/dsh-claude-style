@@ -24,6 +24,6 @@ export function adoptSkin(seam: SkinSeam) {
 
 /** The seam, or a refusal: an engine part running before the hand-over is a wiring mistake. */
 export function skin(): SkinSeam {
-  if (current === null) throw new Error('dsh-claude-style engine: the skin handed its vocabulary over after an engine part asked for it')
+  if (current === null) throw new Error('dsh-claude-ui engine: the skin handed its vocabulary over after an engine part asked for it')
   return current
 }

@@ -1,6 +1,6 @@
 {
-  "name": "@dsh-claude-style/testing",
-  "description": "The runnable tools of dsh-claude-style: a scratch host, a scripted model service, and the end-to-end lane that asserts on a real page",
+  "name": "@dsh-claude-ui/testing",
+  "description": "The runnable tools of dsh-claude-ui: a scratch host, a scripted model service, and the end-to-end lane that asserts on a real page",
   "version": "0.11.1",
   "private": true,
   "type": "commonjs"

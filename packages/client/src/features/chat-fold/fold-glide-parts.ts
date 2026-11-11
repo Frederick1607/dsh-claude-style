@@ -1,7 +1,7 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { CHAT_ROLLING_ATTR } from '../../constants'
-import { CONVERSATION_SCROLL_SELECTOR, DISCLOSURE_HEADER_SELECTOR, DISCLOSURE_ROW_SELECTOR, FOLD_TOGGLE_SELECTOR, FOLLOW_THRESHOLD_PX, PROCESS_BODY_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { handBackFollow, readerMovedSince } from '@dsh-claude-style/engine/scroll-owner'
+import { CONVERSATION_SCROLL_SELECTOR, DISCLOSURE_HEADER_SELECTOR, DISCLOSURE_ROW_SELECTOR, FOLD_TOGGLE_SELECTOR, FOLLOW_THRESHOLD_PX, PROCESS_BODY_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { handBackFollow, readerMovedSince } from '@dsh-claude-ui/engine/scroll-owner'
 import { motionMs } from '../../shared/motion'
 import { inPagePixels } from '../../shared/page-zoom'
 
@@ -11,7 +11,7 @@ export const FOLD_ROLL_MS = motionMs('--dsh-claude-duration-move')
 export const FOLD_VISIBLE_SHARE = 0.9
 /** An intent older than this is no longer trustworthy (no layout change followed, or it came from elsewhere). */
 export const FOLD_INTENT_TTL_MS = 500
-export { FOLD_SKIPPED_CONTROL_SELECTOR, FOLD_TOGGLE_SELECTOR } from '@dsh-claude-style/contracts/dom'
+export { FOLD_SKIPPED_CONTROL_SELECTOR, FOLD_TOGGLE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 /** Popup controls (menus, dialogs, lists): they open no folding body, so the whole module skips them. */
 export const FOLD_POPUP_SELECTOR = '[aria-haspopup]'
 /** How many frames to wait at most for React to take the collapse before the shutdown animation is withdrawn. */

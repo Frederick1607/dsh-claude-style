@@ -1,8 +1,8 @@
-import { CLIENT_VERSION } from 'virtual:dsh-claude-style/generated'
-import { hostRemoteAccount } from '@dsh-claude-style/engine/host'
+import { CLIENT_VERSION } from 'virtual:dsh-claude-ui/generated'
+import { hostRemoteAccount } from '@dsh-claude-ui/engine/host'
 import { activeLocale } from '../core/i18n'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostAccountClient, HostWallet } from '@dsh-claude-style/contracts/account'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostAccountClient, HostWallet } from '@dsh-claude-ui/contracts/account'
 
 /** Host Remote validates this descriptor on every call; locale and zone must be read at call time.
  * CLIENT_VERSION is the bundle version because the host build version is unavailable here.
@@ -40,7 +40,7 @@ function totalsOf(wallets: readonly HostWallet[]): BalanceTotal[] {
   const totals = new Map<HostWallet['currency'], number>()
   for (const wallet of wallets) {
     const micro = Math.round(Number(wallet.balance) * 1_000_000)
-    if (!Number.isFinite(micro)) throw new Error(`dsh-claude-style: the account balance "${wallet.balance}" is not a number`)
+    if (!Number.isFinite(micro)) throw new Error(`dsh-claude-ui: the account balance "${wallet.balance}" is not a number`)
     totals.set(wallet.currency, (totals.get(wallet.currency) ?? 0) + micro)
   }
   return [...totals].map(([currency, micro]) => ({ currency, micro }))

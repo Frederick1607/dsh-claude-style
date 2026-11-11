@@ -1,6 +1,6 @@
-import { installScaledLayer } from '@dsh-claude-style/engine/scaled-layer'
+import { installScaledLayer } from '@dsh-claude-ui/engine/scaled-layer'
 import { installFrameColumns } from './page-scale-columns'
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { PAGE_UNDER_1000_ATTR, PAGE_UNDER_480_ATTR, PAGE_UNDER_760_ATTR, PAGE_ZOOM_ATTR } from '../constants'
 import { subscribePrefs } from '../core/prefs'
 import { pageViewport, pageZoomFactor, projectPageZoomFactor } from './page-zoom'

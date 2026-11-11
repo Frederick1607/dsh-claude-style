@@ -8,7 +8,7 @@
  * @features process-column
  * @risk The column layout leaves a group as the host's flat list, hides the only words a row has, stacks rows over each other, grows the transcript with a long group instead of scrolling it inside the card, or leaves its card behind once the reader goes back to the flat layout.
  */
-import { CONVERSATION_PARTS, PAGE_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { CONVERSATION_PARTS, PAGE_PARTS } from '@dsh-claude-ui/engine/parts-table'
 import { spec, host } from '../../fixtures/behaviour.mjs'
 import { partClass } from '../../fixtures/parts.mjs'
 

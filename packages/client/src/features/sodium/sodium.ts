@@ -1,7 +1,7 @@
 import { SODIUM_ON, SODIUM_UNDECIDED } from '../../constants'
 import { prefsFromForm, readPrefs, savePrefs, subscribePrefs } from '../../core/prefs'
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { createSodiumEngine } from './sodium-engine'
 
 /**

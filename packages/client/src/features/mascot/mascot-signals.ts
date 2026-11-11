@@ -1,6 +1,6 @@
-import { findChatTarget, hostSessions, hostUiSession, readTurnActivity } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostChatSnapshot, HostChatTarget, HostFeedEntry, HostSessionEvent, HostSessionListSnapshot, HostSessionStatusSnapshot, HostSnapshotSource, HostSubagentEntry } from '@dsh-claude-style/contracts/services'
+import { findChatTarget, hostSessions, hostUiSession, readTurnActivity } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostChatSnapshot, HostChatTarget, HostFeedEntry, HostSessionEvent, HostSessionListSnapshot, HostSessionStatusSnapshot, HostSnapshotSource, HostSubagentEntry } from '@dsh-claude-ui/contracts/services'
 
 /** A state the mascot shows: its name, the animation that plays it, and how much it outranks. */
 export interface MascotLevel {

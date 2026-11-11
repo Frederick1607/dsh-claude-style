@@ -9,7 +9,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { accentInk, cssString } from '@dsh-claude-style/client/pure'
+import { accentInk, cssString } from '@dsh-claude-ui/client/pure'
 
 const INK_DARK = '#191919'
 const INK_LIGHT = '#faf9f5'

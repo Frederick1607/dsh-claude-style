@@ -1,5 +1,5 @@
-import { joinScrollOwner, stopScrollFor } from '@dsh-claude-style/engine/scroll-owner'
-import { CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { joinScrollOwner, stopScrollFor } from '@dsh-claude-ui/engine/scroll-owner'
+import { CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from './host-markup'
 import { MOTION_ATTR } from './vocabulary'
 

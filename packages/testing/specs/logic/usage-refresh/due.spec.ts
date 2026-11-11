@@ -9,7 +9,7 @@
  * @risk A window left open shows the morning's token totals all afternoon, and the reader takes the panel for a live reading.
  */
 import { describe, expect, test } from 'vitest'
-import { HOME_REFRESH_FLOOR_MS, HOME_REFRESH_MS, homeRefreshDue } from '@dsh-claude-style/client/pure'
+import { HOME_REFRESH_FLOOR_MS, HOME_REFRESH_MS, homeRefreshDue } from '@dsh-claude-ui/client/pure'
 
 const answeredAt = 1_000_000
 const at = (age: number) => answeredAt + age

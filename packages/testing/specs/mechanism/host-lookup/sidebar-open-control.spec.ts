@@ -9,8 +9,8 @@
  * @risk On the desktop the pointer rests on the leading-seat opener while the skin listens on the column's hidden toggle, so hovering to open the sidebar does nothing.
  */
 import { afterEach, expect, test } from 'vitest'
-import { findSidebarOpenControl } from '@dsh-claude-style/engine/host'
-import { SIDEBAR_OPENER_SELECTOR, SIDEBAR_TOGGLE_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { findSidebarOpenControl } from '@dsh-claude-ui/engine/host'
+import { SIDEBAR_OPENER_SELECTOR, SIDEBAR_TOGGLE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from '../../fixtures/host-markup'
 
 /** A batch of mutations is delivered on the microtask queue, which is where a missing seat is read again. */

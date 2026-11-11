@@ -9,8 +9,8 @@
  * @risk A reader with their own palette loses the bubble their sent message takes off from, and the stand-in reads the card's empty frame instead.
  */
 import { expect, test } from 'vitest'
-import { FLOW_KIND_ATTRIBUTE, USER_ROW_KIND } from '@dsh-claude-style/contracts/dom'
-import { colorAlpha, colorParts, userBubble } from '@dsh-claude-style/engine/chat-dom'
+import { FLOW_KIND_ATTRIBUTE, USER_ROW_KIND } from '@dsh-claude-ui/contracts/dom'
+import { colorAlpha, colorParts, userBubble } from '@dsh-claude-ui/engine/chat-dom'
 
 /** A settled user row holding one child, painted with `background`. */
 function row(background: string) {

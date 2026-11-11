@@ -1,9 +1,9 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { observeMatches } from '@dsh-claude-style/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import { observeMatches } from '@dsh-claude-ui/engine/bus'
 import { motionReduced, readPrefs, subscribePrefs } from '../../core/prefs'
 import { REASONING_DISPLAY_STEPPED } from '../../constants'
 import { motionMs } from '../../shared/motion'
-import { EXPANDED_ATTRIBUTE, REASONING_TEXT_SELECTOR, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, THINK_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { EXPANDED_ATTRIBUTE, REASONING_TEXT_SELECTOR, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, THINK_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 /* Adapted from transitions.dev's "Reasoning stream" (MIT) for live text. The nearest boxed ancestor
    clips because host slots may use display:contents. Reuse the fold observer and frame read/write

@@ -1,11 +1,11 @@
-import { readTurnActivity } from '@dsh-claude-style/engine/host'
+import { readTurnActivity } from '@dsh-claude-ui/engine/host'
 import { BRAND_DEEPSEEK } from '../constants'
 import { activityPhrase } from './activity-phrase'
 import { callArgsOf, callString } from './call-args'
 import { fileToolCall } from './file-tool'
 import type { CopyParams } from '../core/i18n'
 import type { FileToolOperation } from './file-tool'
-import type { HostAssistantStep, HostChatBlock, HostChatSnapshot, HostRunningCall, HostTurn } from '@dsh-claude-style/contracts/services'
+import type { HostAssistantStep, HostChatBlock, HostChatSnapshot, HostRunningCall, HostTurn } from '@dsh-claude-ui/contracts/services'
 
 /** `precise` adds file names, command descriptions and reasoning clauses; simple mode uses copy keys alone (D74).
  * Model-authored text has `key: null`; tool details survive the waiting line's standing lock.

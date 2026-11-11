@@ -8,7 +8,7 @@
  * @risk A crowded date axis overlaps its labels, drops the newest day's date, or lets a label run past the plot.
  */
 import { expect, test } from 'vitest'
-import { HOME_CHART_LABEL_GAP, homeChartTicks } from '@dsh-claude-style/client/pure'
+import { HOME_CHART_LABEL_GAP, homeChartTicks } from '@dsh-claude-ui/client/pure'
 
 // The dashboard's plot width and a Chinese date's width at the label's 11px.
 const WIDTH = 422

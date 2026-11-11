@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as reactDom from 'react-dom/client'
 import * as primitives from '@deepseek-ai/dsh-client-ui-primitives'
-import { MENU_ROLE_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches } from '@dsh-claude-style/engine/bus'
-import { registerSlotEntries, withSlots } from '@dsh-claude-style/engine/host'
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostPanelActionEntry, HostPanelActionsProps, HostSlotsService } from '@dsh-claude-style/contracts/services'
+import { MENU_ROLE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches } from '@dsh-claude-ui/engine/bus'
+import { registerSlotEntries, withSlots } from '@dsh-claude-ui/engine/host'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostPanelActionEntry, HostPanelActionsProps, HostSlotsService } from '@dsh-claude-ui/contracts/services'
 import { MORE_MENU_ATTR, PANEL_HIDDEN_ATTR } from '../../constants'
 import { readPrefs, savePrefs, subscribePrefs } from '../../core/prefs'
 import type { FeatureUi } from '../../core/feature'
@@ -270,14 +270,14 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   // its arrival asks for a pass, since rows already hidden by preference wait on it.
   const slotsFiber = withSlots(ctx, (served, scope) => {
     slots = served
-    scope.effect(() => () => { slots = null }, 'dsh-claude-style: sidebar entries registry')
+    scope.effect(() => () => { slots = null }, 'dsh-claude-ui: sidebar entries registry')
     ui.schedule?.()
   })
   // Ordered around the host's own rows (order 0): the hidden entries before them, the dialog's row after.
   const rowsFiber = registerSlotEntries(ctx, [
     { options: { name: ACTIONS_SLOT, id: 'claude-style-hidden-panels', order: -10 }, component: HiddenPanelRows },
     { options: { name: ACTIONS_SLOT, id: 'claude-style-edit-sidebar', order: 10 }, component: EditSidebarRow },
-  ], 'dsh-claude-style: sidebar entries')
+  ], 'dsh-claude-ui: sidebar entries')
 
   ui.sidebarEntries = { sync, skipOnContentOnly: true }
 

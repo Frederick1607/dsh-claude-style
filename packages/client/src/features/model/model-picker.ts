@@ -6,19 +6,19 @@ import { ensureSeatBox, ensureSeatPart } from './seat-box'
 import type { SeatPart } from './seat-box'
 import { loadModelCopy } from './model-copy'
 import { readPrefs } from '../../core/prefs'
-import { findPrimaryModelSlot, withSlots } from '@dsh-claude-style/engine/host'
+import { findPrimaryModelSlot, withSlots } from '@dsh-claude-ui/engine/host'
 import { createModelCatalog } from './catalog'
 import { MODEL_SLOT_KEY, thirdPartyHoldsSeat } from './seat-ledger'
 import { createModelSubMenu } from './sub-menu'
 import { byModelId, createModelRows } from './rows'
 import { releaseTag } from './release-tag'
-import { buildElement, closestFrom, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { buildElement, closestFrom, setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { removeStrayNodes, pressKeepsPopoverOpen } from '../../shared/popover'
 import { releaseSwappingText, setSwappingText } from '../../shared/swapping-text'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import { COMPOSER_INPUT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import type { HostModelDirectory, HostModelGroup, HostSlotsService } from '@dsh-claude-style/contracts/services'
-import type { CloseReason, FeatureHandle } from '@dsh-claude-style/engine/scheduler'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import { COMPOSER_INPUT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import type { HostModelDirectory, HostModelGroup, HostSlotsService } from '@dsh-claude-ui/contracts/services'
+import type { CloseReason, FeatureHandle } from '@dsh-claude-ui/engine/scheduler'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './model-picker.manifest'
 import type { CatalogProvider, ModelCatalog } from './catalog'
@@ -82,7 +82,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>, mount:
   let slots: HostSlotsService | null = null
   const slotsFiber = withSlots(ctx, (served, scope) => {
     slots = served
-    scope.effect(() => () => { slots = null }, 'dsh-claude-style: model seat registry')
+    scope.effect(() => () => { slots = null }, 'dsh-claude-ui: model seat registry')
     // Rows already hidden by a winner that arrived before this scope did wait
     // on the pass this arrival asks for.
     ui.schedule?.()
@@ -533,7 +533,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>, mount:
    * wakes (a seat resize) a frame later instead.
    */
   if (typeof ctx.on === 'function') {
-    ctx.effect(() => ctx.on!('slots/changed', () => { ui.schedule?.() }), 'dsh-claude-style: model seat ledger')
+    ctx.effect(() => ctx.on!('slots/changed', () => { ui.schedule?.() }), 'dsh-claude-ui: model seat ledger')
   }
 
   // One sweep of this generation's strays, before the first pass: a document

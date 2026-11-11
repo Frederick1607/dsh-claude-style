@@ -1,4 +1,4 @@
-import { SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 
 const MARK = 'data-dsh-claude-manual-unread'
 const MARKER_CLASS = 'dsh-claude-manual-unread-marker'

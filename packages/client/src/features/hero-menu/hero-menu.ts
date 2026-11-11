@@ -1,9 +1,9 @@
 import { AUTO_POPOVER_ALL, HERO_MENU_ATTR } from '../../constants'
-import { cacheFirstMatch, findHostMenu } from '@dsh-claude-style/engine/host'
+import { cacheFirstMatch, findHostMenu } from '@dsh-claude-ui/engine/host'
 import { readPrefs } from '../../core/prefs'
-import { closestFrom, createStamp } from '@dsh-claude-style/engine/dom'
+import { closestFrom, createStamp } from '@dsh-claude-ui/engine/dom'
 import { POPOVER_CLOSE_DELAY, POPOVER_MARGIN, POPOVER_OPEN_DELAY, anchorSpace, clampToViewport, closeOtherPopovers, createHoverIntent, isProgrammaticPress, pressKeepsPopoverOpen, programmaticPress, registerPopover, resolveAnchoredPosition, unregisterPopover } from '../../shared/popover'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './hero-menu.manifest'
 

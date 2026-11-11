@@ -7,8 +7,8 @@
  * @risk A panel mounted between measurement and sync is collapsed as an ordinary footer entry, so the account-menu trigger opens a dialog with no box.
  */
 import { afterEach, expect, test } from 'vitest'
-import { FOOTER_ACTIONS_SELECTOR, SLOT_ANCHOR_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { createFooterMirror } from '@dsh-claude-style/client/pure'
+import { FOOTER_ACTIONS_SELECTOR, SLOT_ANCHOR_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { createFooterMirror } from '@dsh-claude-ui/client/pure'
 import { attach } from '../../fixtures/host-markup'
 import { surfaceAttribute } from '../../fixtures/surface'
 

@@ -12,8 +12,8 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { effortSteps, effortTint, isRankedEffort, orderEffortIds } from '@dsh-claude-style/client/pure'
-import type { EffortLadder } from '@dsh-claude-style/client/pure'
+import { effortSteps, effortTint, isRankedEffort, orderEffortIds } from '@dsh-claude-ui/client/pure'
+import type { EffortLadder } from '@dsh-claude-ui/client/pure'
 
 const RANKED = ['none', 'off', 'low', 'medium', 'high', 'on', 'xhigh', 'max', 'ultra']
 

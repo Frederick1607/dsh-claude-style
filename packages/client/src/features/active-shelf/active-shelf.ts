@@ -1,12 +1,12 @@
 import { DATE_VIEW_TOGGLE_EVENT } from '../date-groups/date-groups'
 import { hostTooltip } from '../../shared/host-tooltip'
-import { observeMatches } from '@dsh-claude-style/engine/bus'
-import { buildElement } from '@dsh-claude-style/engine/dom'
+import { observeMatches } from '@dsh-claude-ui/engine/bus'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { QUIET_ATTR } from '../../constants'
 import { copy } from './copy'
 import { watchSidebar } from '../../shared/sidebar-watch'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { HostTooltip } from '../../shared/host-tooltip'
 
 /**

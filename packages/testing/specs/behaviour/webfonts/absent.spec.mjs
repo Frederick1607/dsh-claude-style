@@ -13,8 +13,8 @@ import { spec } from '../../fixtures/behaviour.mjs'
 /** The file names the page requested under the fonts route. */
 const requestedFaces = (t) => t.page.evaluate(() => performance.getEntriesByType('resource')
   .map(entry => entry.name)
-  .filter(name => name.includes('/dsh-claude-style/fonts/'))
-  .map(name => name.slice(name.indexOf('/dsh-claude-style/fonts/') + '/dsh-claude-style/fonts/'.length)))
+  .filter(name => name.includes('/dsh-claude-ui/fonts/'))
+  .map(name => name.slice(name.indexOf('/dsh-claude-ui/fonts/') + '/dsh-claude-ui/fonts/'.length)))
 
 export default spec({ page: 'shell' }, ({ test }) => {
   test('a host without the optional faces is asked for none of them, and the faces the package ships still load', async (t) => {

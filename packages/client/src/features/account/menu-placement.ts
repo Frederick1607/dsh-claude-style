@@ -1,4 +1,4 @@
-import { observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { positionAnchoredPopover } from '../../shared/popover'
 
 /**

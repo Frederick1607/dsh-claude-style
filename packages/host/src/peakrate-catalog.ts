@@ -6,8 +6,8 @@
  * a malformed entry must never reach the browser, because every judgement there is
  * made from these fields.
  */
-import { isClockValue, isIsoDate, isIsoInstant } from '@dsh-claude-style/contracts/peakrate'
-import type { PeakCatalog, RateOverride, RateProfile, RateSchedule, RateWindow } from '@dsh-claude-style/contracts/peakrate'
+import { isClockValue, isIsoDate, isIsoInstant } from '@dsh-claude-ui/contracts/peakrate'
+import type { PeakCatalog, RateOverride, RateProfile, RateSchedule, RateWindow } from '@dsh-claude-ui/contracts/peakrate'
 import { asRecord } from './json-document.js'
 
 /** The document version this reader understands. */

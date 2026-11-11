@@ -1,4 +1,4 @@
-import type { HostModelEntry } from '@dsh-claude-style/contracts/services'
+import type { HostModelEntry } from '@dsh-claude-ui/contracts/services'
 
 /** The host catalog has no release-tag field; match ids so a display-name change does not drop the tag. */
 export function releaseTag(provider: string, model: HostModelEntry): string | null {

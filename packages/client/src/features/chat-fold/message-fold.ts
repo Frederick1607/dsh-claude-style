@@ -1,8 +1,8 @@
-import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { CHAT_ROW_SELECTOR, conversationColumn, userBubble } from '@dsh-claude-style/engine/chat-dom'
-import { buildElement, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { CHAT_ROW_SELECTOR, conversationColumn, userBubble } from '@dsh-claude-ui/engine/chat-dom'
+import { buildElement, setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { MESSAGE_FOLD_ATTR } from '../../constants'
-import { MESSAGE_BUBBLE_SELECTOR, SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { MESSAGE_BUBBLE_SELECTOR, SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { copy } from './copy'
 
 /* Fold both the submission echo and durable row: send-flight measures the echo immediately.

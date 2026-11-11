@@ -1,6 +1,6 @@
 import { AUTO_POPOVER_ALL } from '../../constants'
 import { readPrefs } from '../../core/prefs'
-import { buildElement, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { buildElement, setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { POPOVER_CLOSE_DELAY, POPOVER_OPEN_DELAY, buildPopoverItem, closeOtherPopovers, createHoverIntent, positionAnchoredPopover, pressKeepsPopoverOpen, registerPopover, setMenuPopoverOpen, unregisterPopover } from '../../shared/popover'
 import type { PermissionCatalog } from './permission-catalog'
 

@@ -16,7 +16,7 @@ const ROOT = path.resolve(import.meta.dirname, '..', '..')
 /** The marker declaration carrying each rule's index into the page's CSSOM. */
 const MARK = '--dsh-audit-rule'
 /** The skin's stylesheet, by the tag it wears (D9). */
-const SHEET = 'style[data-plugin-css="dsh-claude-style/client.css"]'
+const SHEET = 'style[data-plugin-css="dsh-claude-ui/client.css"]'
 /** Pseudo-elements the page can read a computed style for. */
 const READABLE_PSEUDO = new Set(['::before', '::after', '::marker', '::placeholder'])
 /**

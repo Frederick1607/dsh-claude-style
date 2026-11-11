@@ -14,11 +14,11 @@
  * on a machine that has never reached the source, and a copy newer than the cache
  * (a plugin upgrade) wins over a stale download.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { statSync } from 'node:fs'
 import { join } from 'node:path'
-import type { PeakCatalog, RateProfile } from '@dsh-claude-style/contracts/peakrate'
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
+import type { PeakCatalog, RateProfile } from '@dsh-claude-ui/contracts/peakrate'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
 import { cachePath, readJsonDocument, writeJsonDocument } from './cache-file.js'
 import { packageRoot } from './package-root.js'
 import { parseCatalog } from './peakrate-catalog.js'
@@ -32,8 +32,8 @@ export const PEAKRATE_CATALOG_FILE = 'peakrate-catalog.json'
  * once a day, so every install downloads a validated file.
  */
 export const PEAKRATE_CATALOG_URLS = [
-  'https://cdn.jsdelivr.net/gh/Nwflower/dsh-claude-style@master/packages/host/data/peakrate-catalog.json',
-  'https://raw.githubusercontent.com/Nwflower/dsh-claude-style/master/packages/host/data/peakrate-catalog.json',
+  'https://cdn.jsdelivr.net/gh/Frederick1607/dsh-claude-ui@master/packages/host/data/peakrate-catalog.json',
+  'https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/packages/host/data/peakrate-catalog.json',
 ]
 
 /** How long a fetched catalog counts as current. */

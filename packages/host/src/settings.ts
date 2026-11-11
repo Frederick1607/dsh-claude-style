@@ -5,12 +5,12 @@
  * The host derives every settings form from the profile entry's Config and
  * exposes only the fields marked `.volatile()`. The preference list is the
  * shared table, so both halves declare the fields from one declaration
- * (`@dsh-claude-style/contracts/prefs`, D73).
+ * (`@dsh-claude-ui/contracts/prefs`, D73).
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
-import { PREFS } from '@dsh-claude-style/contracts/prefs'
-import type { PrefKey } from '@dsh-claude-style/contracts/prefs'
-import type { DshContext, DshScope } from '@dsh-claude-style/engine/node/dsh'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
+import { PREFS } from '@dsh-claude-ui/contracts/prefs'
+import type { PrefKey } from '@dsh-claude-ui/contracts/prefs'
+import type { DshContext, DshScope } from '@dsh-claude-ui/engine/node/dsh'
 
 /**
  * The schemastery instance the HARNESS itself resolves.

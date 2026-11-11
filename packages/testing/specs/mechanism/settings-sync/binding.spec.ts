@@ -10,8 +10,8 @@
  * @risk A switch the reader flips in settings jumps back and forth while the host saves it, or a choice made on another device never arrives on this page.
  */
 import { expect, test } from 'vitest'
-import { createSettingsBinding } from '@dsh-claude-style/engine/settings-binding'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { createSettingsBinding } from '@dsh-claude-ui/engine/settings-binding'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 
 function hostForm(values: Record<string, unknown>) {
   let held = { ...values }

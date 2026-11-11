@@ -1,6 +1,6 @@
 /** The real studio home's panel geometry before any conversation is sent. */
 import path from 'node:path'
-import { COMPOSER_CARD_SELECTOR, COMPOSER_STACK_SELECTOR, DARK_THEME_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { COMPOSER_CARD_SELECTOR, COMPOSER_STACK_SELECTOR, DARK_THEME_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { check } from './lane.mjs'
 import { sanitizePage } from '../../scripts/shared/privacy.mjs'
 

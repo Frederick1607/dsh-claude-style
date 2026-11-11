@@ -6,9 +6,9 @@ import {
   FLOW_KIND_ATTRIBUTE,
   TURN_TAIL_SELECTOR,
   USER_ROW_KIND,
-} from '@dsh-claude-style/contracts/dom'
-import type { HostUiWorkspaceService } from '@dsh-claude-style/contracts/services'
-import { conversationColumn } from '@dsh-claude-style/engine/chat-dom'
+} from '@dsh-claude-ui/contracts/dom'
+import type { HostUiWorkspaceService } from '@dsh-claude-ui/contracts/services'
+import { conversationColumn } from '@dsh-claude-ui/engine/chat-dom'
 import {
   closestConversationSession,
   conversationSessionId,
@@ -17,8 +17,8 @@ import {
   hostConversation,
   hostSessions,
   hostUiWorkspace,
-} from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+} from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 
 /**
  * 一条读者消息在会话日志里的位置，以及从它前面分岔出去的两种动作。

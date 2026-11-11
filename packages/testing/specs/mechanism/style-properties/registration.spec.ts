@@ -11,7 +11,7 @@
  * @risk A registration whose initial value does not match its syntax is dropped whole, so the effort names, the sliding pill, the caret preview and the reading's colour band take the write as a token stream again and step through their transitions instead of crossing them.
  */
 import { expect, test } from 'vitest'
-import { themePropertiesCss } from '@dsh-claude-style/client/pure'
+import { themePropertiesCss } from '@dsh-claude-ui/client/pure'
 
 /** What a registration may declare, with a write of each and the value it resolves to. */
 const SYNTAXES: Record<string, { arithmetic: string, resolved: string, from: string, to: string, middle: string }> = {

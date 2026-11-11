@@ -1,15 +1,15 @@
 /** Skin-owned attributes and identities; the build checks stylesheet reads against these writes (D9, D73). */
-export * from '@dsh-claude-style/contracts/prefs'
-import { COMPOSER_SCOPE_ALL, COMPOSER_SCOPE_CONVERSATION, COMPOSER_SCOPE_HERO, SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE } from '@dsh-claude-style/contracts/prefs'
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
-import { PLUGIN_ENTRY_UPDATE_SELECTOR } from '@dsh-claude-style/contracts/dom'
+export * from '@dsh-claude-ui/contracts/prefs'
+import { COMPOSER_SCOPE_ALL, COMPOSER_SCOPE_CONVERSATION, COMPOSER_SCOPE_HERO, SESSION_RAIL_WIDTH_NARROW, SESSION_RAIL_WIDTH_STANDARD, SESSION_RAIL_WIDTH_WIDE } from '@dsh-claude-ui/contracts/prefs'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
+import { PLUGIN_ENTRY_UPDATE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 export { PACKAGE_NAME }
 
-export const STYLE_ID = 'dsh-claude-style-style'
+export const STYLE_ID = 'dsh-claude-ui-style'
 /** The surface sheets' own element, which stays while ds-bot's surface has the page (D74). */
-export const SURFACE_STYLE_ID = 'dsh-claude-style-surface'
+export const SURFACE_STYLE_ID = 'dsh-claude-ui-surface'
 /** Optional Anthropic faces are declared only here, so absent files cause no requests. */
-export const WEBFONTS_STYLE_ID = 'dsh-claude-style-webfonts'
+export const WEBFONTS_STYLE_ID = 'dsh-claude-ui-webfonts'
 
 /** Fallback profile entry id used when the running loader id is unavailable. */
 export const SETTINGS_ENTRY_FALLBACK = 'ui-skin-claude-style'
@@ -21,7 +21,7 @@ export const WEBFONTS_PLUGIN_CSS = `${PACKAGE_NAME}/webfonts.css`
 export const FOREIGN_SHEET_TAG = `${PACKAGE_NAME}/foreign-sheet`
 export const BUNDLE_CONFIG_SLOT = 'plugins.bundle.config'
 export const SETTINGS_SECTION_SLOT = 'settings.section'
-export const REPOSITORY_URL = 'https://github.com/Nwflower/dsh-claude-style'
+export const REPOSITORY_URL = 'https://github.com/Frederick1607/dsh-claude-ui'
 
 /** The document attribute the stylesheet switches on. */
 export const BRAND_ATTR = 'data-dsh-claude-brand'
@@ -269,7 +269,7 @@ export {
   USAGE_PATH as USAGE_ROUTE,
   USERNAME_PATH as USERNAME_ROUTE,
   WEBFONTS_PATH as WEBFONTS_ROUTE,
-} from '@dsh-claude-style/contracts/routes'
+} from '@dsh-claude-ui/contracts/routes'
 
 /** Placement state for the sidebar's native status cell; the host remains its state owner. */
 export const SIDEBAR_STATUS_ATTR = 'data-dsh-claude-row-status'

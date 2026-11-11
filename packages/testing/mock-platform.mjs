@@ -21,7 +21,7 @@ import path from 'node:path'
 import { argOf } from './cli-args.mjs'
 
 /** The token the stored grant carries; the platform answers any request bearing it. */
-const LANE_TOKEN = 'dsh-claude-style-lane'
+const LANE_TOKEN = 'dsh-claude-ui-lane'
 
 /** The picture the profile names, served from this origin so the avatar's <img> loads. */
 const PICTURE = path.join(import.meta.dirname, 'smoke', 'fixtures', 'skin-64.png')

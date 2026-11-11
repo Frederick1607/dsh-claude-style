@@ -39,14 +39,14 @@ index 0b599c78..47a01f46 100644
 --- a/packages/client/src/features/chat-follow/chat-follow.ts
 +++ b/packages/client/src/features/chat-follow/chat-follow.ts
 @@ -6,7 +6,7 @@ import { createChatProcessFollow } from './process-follow'
- import { CHAT_CALL_SELECTOR, CHAT_RUNNING_SELECTOR, CONVERSATION_SCROLL_SELECTOR, FLOW_BLOCK_SELECTOR, FOLLOWING_TAIL_ATTRIBUTE, FOLLOWING_TAIL_SELECTOR, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, SHIMMER_SELECTOR, STREAMING_SELECTOR, THINK_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
- import { conversationColumn, conversationScroller, findFollowTailButton } from '@dsh-claude-style/engine/chat-dom'
- import { createStamp } from '@dsh-claude-style/engine/dom'
+ import { CHAT_CALL_SELECTOR, CHAT_RUNNING_SELECTOR, CONVERSATION_SCROLL_SELECTOR, FLOW_BLOCK_SELECTOR, FOLLOWING_TAIL_ATTRIBUTE, FOLLOWING_TAIL_SELECTOR, ROW_PHASE_ATTRIBUTE, RUNNING_STATE, SHIMMER_SELECTOR, STREAMING_SELECTOR, THINK_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+ import { conversationColumn, conversationScroller, findFollowTailButton } from '@dsh-claude-ui/engine/chat-dom'
+ import { createStamp } from '@dsh-claude-ui/engine/dom'
 -import { motionEase, motionMs } from '../../shared/motion'
 +import { motionEase, motionEaseAt, motionMs } from '../../shared/motion'
  import { inPageBox, pageViewport } from '../../shared/page-zoom'
- import { observeComposerCards } from '@dsh-claude-style/engine/host'
- import { SCROLL_EASE_LEAD_PX, handBackFollow, joinScrollOwner, readerHolds, submissionHolds } from '@dsh-claude-style/engine/scroll-owner'
+ import { observeComposerCards } from '@dsh-claude-ui/engine/host'
+ import { SCROLL_EASE_LEAD_PX, handBackFollow, joinScrollOwner, readerHolds, submissionHolds } from '@dsh-claude-ui/engine/scroll-owner'
 @@ -48,6 +48,8 @@ export const FOLLOW_TAIL_AIR_PX = 12
  /** The button's fixed placement, written as numbers because the column moves under it. */
  const FOLLOW_TAIL_LEFT = '--dsh-claude-follow-tail-left'
@@ -191,11 +191,11 @@ diff --git a/packages/client/src/features/chat-send/send-flight.ts b/packages/cl
 index 02095dc4..ed6bd7a6 100644
 --- a/packages/client/src/features/chat-send/send-flight.ts
 +++ b/packages/client/src/features/chat-send/send-flight.ts
-@@ -12,6 +12,7 @@ import { CHAT_USER_ROW_SELECTOR, userBubble } from '@dsh-claude-style/engine/cha
+@@ -12,6 +12,7 @@ import { CHAT_USER_ROW_SELECTOR, userBubble } from '@dsh-claude-ui/engine/cha
  import { motionEase } from '../../shared/motion'
  import { inPageBox, pageViewport } from '../../shared/page-zoom'
- import type { HostContext } from '@dsh-claude-style/engine/host'
-+import type { FeatureHandle } from '@dsh-claude-style/engine/scheduler'
+ import type { HostContext } from '@dsh-claude-ui/engine/host'
++import type { FeatureHandle } from '@dsh-claude-ui/engine/scheduler'
  import type { FeatureUi } from '../../core/feature'
  import type manifest from './send-flight.manifest'
  import type { ComposerSnapshot } from './send-snapshot'
@@ -243,7 +243,7 @@ diff --git a/packages/client/src/features/chat-send/send-grow.ts b/packages/clie
 index e9aa64c3..5df35192 100644
 --- a/packages/client/src/features/chat-send/send-grow.ts
 +++ b/packages/client/src/features/chat-send/send-grow.ts
-@@ -20,7 +20,10 @@ import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-style/contracts/dom'
+@@ -20,7 +20,10 @@ import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-ui/contracts/dom'
   * a row rendered by a restored session never animates: the echoes lying on the
   * page at install time are all handled up front.
   *

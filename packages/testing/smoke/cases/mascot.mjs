@@ -60,7 +60,7 @@ export default {
       JSON.stringify({ light: deepy.bubble, dark: deepy.dark.bubble }))
     // The sheet is the vector the build produced, served from the assets route
     // under the name its own content gives it
-    const served = (value) => /^url\("https?:\/\/[^"]*\/dsh-claude-style\/assets\/[0-9a-f]{12}\.svg"\)$/.test(value || '')
+    const served = (value) => /^url\("https?:\/\/[^"]*\/dsh-claude-ui\/assets\/[0-9a-f]{12}\.svg"\)$/.test(value || '')
     check('the whale takes the crab\'s place on the home card, idling, playing the vector the build rebuilt from its sheet',
       is(deepy.home, 'idle', 'card') && deepy.crab === false && served(deepy.home.sheet),
       JSON.stringify({ home: deepy.home, crab: deepy.crab }))
@@ -85,7 +85,7 @@ export default {
     basicChecks(r)
     const girl = r.states || {}
     const is = (state, animation, place) => !!state && state.animation === animation && state.place === place && state.ready === true
-    const served = (value) => /^url\("https?:\/\/[^"]*\/dsh-claude-style\/assets\/[0-9a-f]{12}\.png"\)$/.test(value || '')
+    const served = (value) => /^url\("https?:\/\/[^"]*\/dsh-claude-ui\/assets\/[0-9a-f]{12}\.png"\)$/.test(value || '')
     check('picked as Whalegirl, she stands on the home card idling, playing the PNG the host half serves',
       is(girl.home, 'idle', 'card') && girl.crab === false && served(girl.home.sheet),
       JSON.stringify({ home: girl.home, crab: girl.crab }))

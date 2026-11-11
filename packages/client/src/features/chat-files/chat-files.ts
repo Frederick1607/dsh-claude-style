@@ -5,16 +5,16 @@ import { createFileMerge, rowCarrier } from './file-row-merge'
 import { copy } from './copy'
 import { callArgsOf } from '../../shared/call-args'
 import { motionReduced } from '../../core/prefs'
-import { createStamp } from '@dsh-claude-style/engine/dom'
+import { createStamp } from '@dsh-claude-ui/engine/dom'
 import { motionMs } from '../../shared/motion'
 import { fileToolOperation } from '../../shared/file-tool'
 import type { FileReadCard, FileRowState } from './file-row-model'
 import type { FileToolOperation } from '../../shared/file-tool'
-import type { HostContext, HostFiber, HostText } from '@dsh-claude-style/engine/host'
-import type { HostChatBlock } from '@dsh-claude-style/contracts/services'
+import type { HostContext, HostFiber, HostText } from '@dsh-claude-ui/engine/host'
+import type { HostChatBlock } from '@dsh-claude-ui/contracts/services'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './chat-files.manifest'
-import { hostSlots } from '@dsh-claude-style/engine/host'
+import { hostSlots } from '@dsh-claude-ui/engine/host'
 
 /** The seat's owner payload for a file tool row, plus the seat's copy. */
 interface ChatFileRowProps {
@@ -318,7 +318,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
           releaseSeats()
           if (typeof stopSeat === 'function') stopSeat()
         }
-      }, 'dsh-claude-style: file change row')
+      }, 'dsh-claude-ui: file change row')
     })
   }
   return () => {

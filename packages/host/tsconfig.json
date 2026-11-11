@@ -11,8 +11,8 @@
     "skipLibCheck": true,
     "types": ["node"],
     "paths": {
-      "@dsh-claude-style/contracts/*": ["../contracts/src/*"],
-      "@dsh-claude-style/engine/node/*": ["../engine/node/*"]
+      "@dsh-claude-ui/contracts/*": ["../contracts/src/*"],
+      "@dsh-claude-ui/engine/node/*": ["../engine/node/*"]
     }
   },
   "include": ["src"]

@@ -11,15 +11,15 @@
  * asks for a permission `{}` the way the board's own read-only sources do; the
  * board grants it once per widget version.
  */
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
 import { createUsage } from './usage.js'
 import type { UsageSummary } from './usage-summary.js'
 
-/** The name the widget manifest declares (`dsh-claude-style:usage`). */
+/** The name the widget manifest declares (`dsh-claude-ui:usage`). */
 export const WIDGET_USAGE_CAPABILITY = 'usage'
 
 /** How the board names this capability's provider. */
-export const WIDGET_USAGE_PROVIDER = 'dsh-claude-style'
+export const WIDGET_USAGE_PROVIDER = 'dsh-claude-ui'
 
 /** The board service version this capability registers against. */
 const WIDGET_BOARD_API_VERSION = 3

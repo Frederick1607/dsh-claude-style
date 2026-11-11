@@ -10,8 +10,8 @@
  * @risk At a page scale other than 100% the frame's three columns add up to a factor more than the window, the sidebar is drawn a factor wider and shows cut off, its content stands wider than its column and is clipped at the column's edge, its drag handle leaves that edge, and a second copy of the rule on the page divides the first one's numbers again.
  */
 import { afterEach, expect, test } from 'vitest'
-import { SIDEBAR_HANDLE_SELECTOR, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { inPageColumns, inPageLength, installFrameColumns } from '@dsh-claude-style/client/pure'
+import { SIDEBAR_HANDLE_SELECTOR, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { inPageColumns, inPageLength, installFrameColumns } from '@dsh-claude-ui/client/pure'
 import { attach } from '../../fixtures/host-markup'
 import { surfaceAttribute } from '../../fixtures/surface'
 import { after, drawnAt, drawnScale, resetPage, settle } from './drawn-page'

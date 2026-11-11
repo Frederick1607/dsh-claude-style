@@ -12,7 +12,7 @@ import fc from 'fast-check'
 import {
   CHAT_MORPH_END, CHAT_RISE_DAMPING, CHAT_RISE_OMEGA, chatSendCornerRadius, chatSendMorphProgress, chatSendRiseProgress,
   chatSendShadowSpread, chatSendSpringProgress, chatSendStepOpacity, CHAT_FLIGHT_MS, CHAT_LANDING_MS,
-} from '@dsh-claude-style/client/pure'
+} from '@dsh-claude-ui/client/pure'
 
 /** The curve at `count` evenly spaced shares of the flight. */
 const sampled = (curve: (u: number) => number, count = 200) => Array.from({ length: count + 1 }, (_, index) => curve(index / count))

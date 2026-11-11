@@ -1,4 +1,4 @@
-import { buildElement } from '@dsh-claude-style/engine/dom'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
 
 /** Opposing transforms keep tinted glyphs aligned under the moving mask (shared/motion.css).
  * The duplicate is decorative and must stay hidden and inert.

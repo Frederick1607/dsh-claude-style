@@ -7,8 +7,8 @@
  * reader refuses is dropped whole, because a half-read table would price some
  * settlements at one rate and the rest at another.
  */
-import { CURRENCIES, PRICE_SCHEMA_VERSION, clockAt } from '@dsh-claude-style/contracts/prices'
-import type { Currency, ModelPrice, PriceDocument, PriceSchedule, PriceTier, PriceWindow } from '@dsh-claude-style/contracts/prices'
+import { CURRENCIES, PRICE_SCHEMA_VERSION, clockAt } from '@dsh-claude-ui/contracts/prices'
+import type { Currency, ModelPrice, PriceDocument, PriceSchedule, PriceTier, PriceWindow } from '@dsh-claude-ui/contracts/prices'
 import { asRecord } from './json-document.js'
 
 function asText(value: unknown): string | undefined {

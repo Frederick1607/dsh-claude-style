@@ -28,7 +28,7 @@ export function createRoutedSheets(urls: Record<string, string>, name: string, o
     if (known !== undefined) return known === 'ready'
     const address = urls[key]
     // The table and the sheets are one list; a name outside it is a bug here.
-    if (address === undefined) throw new Error(`dsh-claude-style: no ${name} sheet for "${key}"`)
+    if (address === undefined) throw new Error(`dsh-claude-ui: no ${name} sheet for "${key}"`)
     sheets.set(key, 'loading')
     const image = new Image()
     image.src = address
@@ -36,7 +36,7 @@ export function createRoutedSheets(urls: Record<string, string>, name: string, o
       if (sheets.get(key) !== 'loading') return
       sheets.set(key, ok ? 'ready' : 'failed')
       if (ok && alive) onReady(key)
-      if (!ok) console.warn(`[dsh-claude-style] ${name}'s "${key}" sheet did not load from ${address}; the host half serves it, so restart the host after an update.`)
+      if (!ok) console.warn(`[dsh-claude-ui] ${name}'s "${key}" sheet did not load from ${address}; the host half serves it, so restart the host after an update.`)
     }
     image.decode().then(() => settle(true), () => settle(false))
     return false

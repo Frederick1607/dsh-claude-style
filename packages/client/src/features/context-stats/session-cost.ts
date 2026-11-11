@@ -1,7 +1,7 @@
-import { PRICES_PATH, SESSION_COST_PATH } from '@dsh-claude-style/contracts/routes'
-import type { PriceDocument, SessionCostAnswer } from '@dsh-claude-style/contracts/prices'
-import { billingRowEntry, parseBillingTable } from '@dsh-claude-style/contracts/billing-table'
-import type { BillingRow } from '@dsh-claude-style/contracts/billing-table'
+import { PRICES_PATH, SESSION_COST_PATH } from '@dsh-claude-ui/contracts/routes'
+import type { PriceDocument, SessionCostAnswer } from '@dsh-claude-ui/contracts/prices'
+import { billingRowEntry, parseBillingTable } from '@dsh-claude-ui/contracts/billing-table'
+import type { BillingRow } from '@dsh-claude-ui/contracts/billing-table'
 
 /**
  * The price table and the current session's settled cost, both from the host

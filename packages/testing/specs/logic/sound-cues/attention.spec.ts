@@ -4,9 +4,9 @@
  * @risk A prompt already pending at load cues again, a subagent's finish reads as the task's finish, or a repeated status publication plays the same cue twice.
  */
 import { expect, test } from 'vitest'
-import { attentionEvents, attentionReading } from '@dsh-claude-style/client/pure'
-import type { AttentionReading } from '@dsh-claude-style/client/pure'
-import type { HostSessionListSnapshot, HostSessionStatusSnapshot } from '@dsh-claude-style/contracts/services'
+import { attentionEvents, attentionReading } from '@dsh-claude-ui/client/pure'
+import type { AttentionReading } from '@dsh-claude-ui/client/pure'
+import type { HostSessionListSnapshot, HostSessionStatusSnapshot } from '@dsh-claude-ui/contracts/services'
 
 interface Reading { pending?: boolean, running?: boolean, topLevel?: boolean }
 

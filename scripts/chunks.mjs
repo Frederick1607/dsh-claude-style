@@ -10,7 +10,7 @@ import esbuild from 'esbuild'
 const ROOT = path.resolve(import.meta.dirname, '..')
 const SRC = path.join(ROOT, 'packages', 'client', 'src')
 /** The path every module a build plugin generates is resolved under (D36). */
-const VIRTUAL_PREFIX = 'virtual:dsh-claude-style/'
+const VIRTUAL_PREFIX = 'virtual:dsh-claude-ui/'
 
 /** A module's id in the shared table: its path from the repository root, as esbuild's metafile keys it. */
 const moduleId = (file) => path.relative(ROOT, file).split(path.sep).join('/')
@@ -51,7 +51,7 @@ function sharedModules(shared) {
 }
 
 /** Expose the chunk factory through its own script element. */
-const chunkOpen = (id) => `/* dsh-claude-style feature chunk "${id}". GENERATED FILE — do not edit; \`npm run build\` writes it from packages/client/src/. */
+const chunkOpen = (id) => `/* dsh-claude-ui feature chunk "${id}". GENERATED FILE — do not edit; \`npm run build\` writes it from packages/client/src/. */
 document.currentScript.__dshChunk = (require) => {
   var module = { exports: {} }
   var exports = module.exports`

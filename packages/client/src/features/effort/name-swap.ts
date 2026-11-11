@@ -1,4 +1,4 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { motionMs } from '../../shared/motion'
 import { paintEffortTint } from './tint'
 import type { EffortStep } from './ladder'

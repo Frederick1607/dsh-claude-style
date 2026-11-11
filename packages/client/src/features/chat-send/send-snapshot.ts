@@ -1,5 +1,5 @@
-import { colorAlpha, colorParts } from '@dsh-claude-style/engine/chat-dom'
-import { COMPOSER_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { colorAlpha, colorParts } from '@dsh-claude-ui/engine/chat-dom'
+import { COMPOSER_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { inPageBox } from '../../shared/page-zoom'
 
 /** Capture geometry, styles and a clone before React clears the submitted draft. */

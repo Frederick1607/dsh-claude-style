@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as primitives from '@deepseek-ai/dsh-client-ui-primitives'
 import { SESSION_DELETE_ROUTE } from '../../constants'
-import type { HostAnswer } from '@dsh-claude-style/engine/resource'
-import type { HostSessionsService } from '@dsh-claude-style/contracts/services'
+import type { HostAnswer } from '@dsh-claude-ui/engine/resource'
+import type { HostSessionsService } from '@dsh-claude-ui/contracts/services'
 import type { createHostToast } from '../../shared/host-toast'
 import { copy } from './copy'
 
@@ -27,7 +27,7 @@ export function createArchivedActions(options: {
     if (followed === null || typeof followed.refresh !== 'function') return
     // Best effort against the host's sessions service: a rejection leaves the list as it stands (D12).
     followed.refresh().catch((reason: unknown) => {
-      console.warn('dsh-claude-style: session baseline refresh rejected:', reason)
+      console.warn('dsh-claude-ui: session baseline refresh rejected:', reason)
     })
   }
 
@@ -51,7 +51,7 @@ export function createArchivedActions(options: {
       refusal.status = status
       throw refusal
     }).catch((reason: { status?: number, message?: string }) => {
-      console.warn('dsh-claude-style: session delete rejected:', reason)
+      console.warn('dsh-claude-ui: session delete rejected:', reason)
       notifyToast(reason?.status === 409
         ? copy('archiveDeleteOpen')
         : copy('archiveDeleteFailed', { detail: reason?.message ?? String(reason) }))

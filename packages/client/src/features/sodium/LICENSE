@@ -4,7 +4,7 @@
 
 Required Notice: Copyright (c) 2026 Nwflower (https://github.com/Nwflower)
 
-Scope: the Sodium rendering engine of dsh-claude-style — every file under
+Scope: the Sodium rendering engine of dsh-claude-ui — every file under
 `packages/client/src/features/sodium/` and `packages/engine/src/sheet-rewrite.ts`.
 The rest of the repository is licensed under the MIT license at the repository
 root. `NOTICE` beside this file says where the name comes from.

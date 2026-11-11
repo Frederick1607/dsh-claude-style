@@ -10,7 +10,7 @@
  * @risk A long answer re-reads every text node on every token, or a batch appends off the end of the index so new characters never fade or fade at the wrong offsets.
  */
 import { afterEach, expect, test } from 'vitest'
-import { STREAMING_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { STREAMING_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import {
   appendRevealSnapshot,
   CHAT_REVEAL_ACTIVE_LIMIT,
@@ -18,8 +18,8 @@ import {
   createRevealState,
   revealEntryAt,
   revealTextSlice,
-} from '@dsh-claude-style/client/pure'
-import type { RevealRun, RevealSnapshot, RevealState } from '@dsh-claude-style/client/pure'
+} from '@dsh-claude-ui/client/pure'
+import type { RevealRun, RevealSnapshot, RevealState } from '@dsh-claude-ui/client/pure'
 
 const cleanups: (() => void)[] = []
 afterEach(() => {

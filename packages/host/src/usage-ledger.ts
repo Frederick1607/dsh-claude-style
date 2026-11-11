@@ -15,7 +15,7 @@
  * The bucket shapes below are the ones the ledger, the cache and the fold all
  * speak; none of those documents ships types.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { sessionDirectoryName } from './session-name.js'

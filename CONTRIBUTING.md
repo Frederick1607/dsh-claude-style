@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve `dsh-claude-style`!
+Thanks for helping improve `dsh-claude-ui`!
 
 ## Report an issue
 

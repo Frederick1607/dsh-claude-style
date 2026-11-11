@@ -282,7 +282,7 @@
       // The search feature arrives in its own chunk; its registrations are read
       // once they land rather than on the first frame after the page boots.
       for (var waited = 0; waited < 3000 && !(window.__slots || []).some(function (entry) {
-        return entry.id === 'dsh-claude-style.search'
+        return entry.id === 'dsh-claude-ui.search'
       }); waited += 50) await sleep(50)
       var logoRow = sidebarSlot.querySelector('[data-dsh-claude-part~="logo-row"]')
       var hostSearchButton = sidebarSlot.querySelector('[data-dsh-claude-part~="search-button"]')
@@ -297,7 +297,7 @@
         sidebarSlot.appendChild(document.createElement('i'))
         await sleep(200)
         var entries = (window.__slots || []).filter(function (entry) {
-          return entry.id === 'dsh-claude-style.search' || entry.seat === 'dsh-claude-style.search'
+          return entry.id === 'dsh-claude-ui.search' || entry.seat === 'dsh-claude-ui.search'
         })
         var panel = entries.filter(function (entry) { return entry.key === 'sidebar.panellist' })[0]
         var slot = sidebarSlot.querySelector('[data-dsh-claude-part~="search-slot"]')
@@ -312,7 +312,7 @@
         }
       }
       r.search = {
-        registered: (window.__slots || []).some(function (entry) { return entry.key === 'sidebar.panellist' && entry.id === 'dsh-claude-style.search' }),
+        registered: (window.__slots || []).some(function (entry) { return entry.key === 'sidebar.panellist' && entry.id === 'dsh-claude-ui.search' }),
         rowMarked: logoRow.hasAttribute('data-dsh-claude-search-row'),
         modalRendered: !!probe.searchRoot && probe.searchRoot.renders > 0,
       }

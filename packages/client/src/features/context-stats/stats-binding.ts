@@ -1,13 +1,13 @@
 import { AUTO_POPOVER_ALL } from '../../constants'
-import { observeSize } from '@dsh-claude-style/engine/bus'
+import { observeSize } from '@dsh-claude-ui/engine/bus'
 import { readPrefs } from '../../core/prefs'
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { POPOVER_CLOSE_DELAY, POPOVER_OPEN_DELAY, createHoverIntent, isProgrammaticPress, pressKeepsPopoverOpen, programmaticPress, resolveAnchoredPosition } from '../../shared/popover'
 import { inPageBox, pageViewport } from '../../shared/page-zoom'
 import { CONTEXT_PANEL_ALIGNED_ATTR, CONTEXT_PANEL_ATTR, contextMeterOf, contextPanel, contextTrigger, contextTriggerOf, expandedContextTrigger, findContextMeter, observeDialogs } from './stats-panel'
 import { meterRingOf } from './meter-ring'
 import { copy } from './copy'
-import type { MatchList } from '@dsh-claude-style/engine/bus'
+import type { MatchList } from '@dsh-claude-ui/engine/bus'
 
 /**
  * The hover path onto the host's own panel: opening and closing it through the

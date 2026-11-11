@@ -1,8 +1,8 @@
 import { COMPOSER_ATTR, STATS_POSITION_FOOTER } from '../../constants'
 import { readPrefs } from '../../core/prefs'
-import { COMPOSER_STACK, findComposerCard, findComposerStats } from '@dsh-claude-style/engine/host'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { COMPOSER_STACK, findComposerCard, findComposerStats } from '@dsh-claude-ui/engine/host'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { inPageBox } from '../../shared/page-zoom'
 
 export const FOOTER_LINE_ATTR = 'data-dsh-claude-footer-line'

@@ -11,7 +11,7 @@
  * @risk A reader confirming a Chinese or Japanese candidate presses Enter and the half-written prompt is sent before the candidate is in the draft, so the message carries the wrong words.
  */
 import { expect, test } from 'vitest'
-import { IME_COMMIT_WINDOW_MS, swallowsCompositionEnter } from '@dsh-claude-style/client/pure'
+import { IME_COMMIT_WINDOW_MS, swallowsCompositionEnter } from '@dsh-claude-ui/client/pure'
 
 /** The agent Safari on macOS sends. */
 const SAFARI_MAC = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15'

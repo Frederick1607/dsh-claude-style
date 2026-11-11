@@ -8,7 +8,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { CACHE_HIT_STOPS, CONTEXT_STOPS, RAMP_SPAN_HIGH, RAMP_SPAN_LOW, rampPosition } from '@dsh-claude-style/client/pure'
+import { CACHE_HIT_STOPS, CONTEXT_STOPS, RAMP_SPAN_HIGH, RAMP_SPAN_LOW, rampPosition } from '@dsh-claude-ui/client/pure'
 
 test('a reading below the first stop saturates at the low end', () => {
   expect(rampPosition(89.9, CACHE_HIT_STOPS)).toEqual({ span: RAMP_SPAN_LOW, mix: '0%' })

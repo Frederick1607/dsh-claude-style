@@ -95,7 +95,7 @@ async function measure(page) {
   // timings: the copy document and the woff2 faces are the skin's only fetches.
   const resources = await page.evaluate(`
     performance.getEntriesByType('resource')
-      .filter(function (e) { return /dsh-claude-style|woff2|model-descriptions/.test(e.name) })
+      .filter(function (e) { return /dsh-claude-ui|woff2|model-descriptions/.test(e.name) })
       .map(function (e) { return { name: e.name.replace(location.origin, ''), start: Math.round(e.startTime), dur: Math.round(e.duration), size: e.transferSize || 0 } })
   `)
   console.log('  plugin resources:')

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AUTO_POPOVER_ACCOUNT, AUTO_POPOVER_ALL, AUTO_POPOVER_OFF, BRAND_CLAUDE, BRAND_DEEPSEEK, INTERFACE_FONT_SIZE_DEFAULT, INTERFACE_FONT_SIZE_MAX, INTERFACE_FONT_SIZE_MIN, PAGE_ZOOM_DEFAULT, PAGE_ZOOM_MAX, PAGE_ZOOM_MIN, PALETTE_COLORING_BRAND, PALETTE_COLORING_CUSTOM, USERNAME_MAX } from '../../constants'
-import { COMBINE_SVGS } from 'virtual:dsh-claude-style/generated'
+import { COMBINE_SVGS } from 'virtual:dsh-claude-ui/generated'
 import { createHostToast } from '../../shared/host-toast'
 import { interfaceFontSizePercent } from '../../shared/interface-font-size'
 import { pageZoomPercent } from '../../shared/page-zoom'

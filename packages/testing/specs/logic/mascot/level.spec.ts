@@ -8,9 +8,9 @@
  * @risk The mascot dozes while a session waits on the reader's answer, or keeps typing after every session has stopped.
  */
 import { expect, test } from 'vitest'
-import { mascotLevel } from '@dsh-claude-style/client/pure'
-import type { MascotReading } from '@dsh-claude-style/client/pure'
-import type { HostSessionListSnapshot } from '@dsh-claude-style/contracts/services'
+import { mascotLevel } from '@dsh-claude-ui/client/pure'
+import type { MascotReading } from '@dsh-claude-ui/client/pure'
+import type { HostSessionListSnapshot } from '@dsh-claude-ui/contracts/services'
 
 type Status = { running?: boolean, pendingInteraction?: unknown }
 

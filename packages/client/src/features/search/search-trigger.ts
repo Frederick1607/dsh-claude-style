@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { SEARCH_STYLE_ICON } from '../../constants'
-import { registerSlotEntries } from '@dsh-claude-style/engine/host'
+import { registerSlotEntries } from '@dsh-claude-ui/engine/host'
 import { readPrefs } from '../../core/prefs'
-import type { HostContext, HostFiber } from '@dsh-claude-style/engine/host'
+import type { HostContext, HostFiber } from '@dsh-claude-ui/engine/host'
 import { copy } from './copy'
 import { registerPanelOpenAction } from '../../shared/panel-actions'
 
-const SEARCH_PANEL_ID = 'dsh-claude-style.search'
+const SEARCH_PANEL_ID = 'dsh-claude-ui.search'
 
 /**
  * The host-owned sidebar entry. Its click opens the palette without selecting
@@ -74,7 +74,7 @@ export function createSearchTrigger(ctx: HostContext, options: { open(): void })
         label: () => copy('searchPlaceholder'),
       },
       component: SearchIcon,
-    }], 'dsh-claude-style: sidebar search')
+    }], 'dsh-claude-ui: sidebar search')
   }
 
   return { sync, drop: dropSlots }

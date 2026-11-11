@@ -14,7 +14,7 @@
  *   exposes the page behind its backdrop at the right and bottom edges, or the
  *   cap's exemption leaks onto a plain dialog and it outgrows the window.
  */
-import { PAGE_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { PAGE_PARTS } from '@dsh-claude-ui/engine/parts-table'
 import { host, spec, surface } from '../../fixtures/behaviour.mjs'
 import { partClass } from '../../fixtures/parts.mjs'
 

@@ -11,7 +11,7 @@
  * @risk A feature misses the host's change and the page stops following the conversation, or reacts to its own writes in a loop that never lets the page idle.
  */
 import { afterEach, expect, test } from 'vitest'
-import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { QUIET_ATTR } from '../../fixtures/vocabulary'
 
 /** The attribute these specs match on; the registry is told the selector. */

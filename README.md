@@ -8,9 +8,9 @@
 
 [![简体中文](https://img.shields.io/badge/lang-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-red.svg)](README.md)
 [![English](https://img.shields.io/badge/lang-English-blue.svg)](README.en.md)
-[![version](https://img.shields.io/npm/v/dsh-claude-style?style=flat&label=version&color=D97757)](https://www.npmjs.com/package/dsh-claude-style)
-[![downloads](https://img.shields.io/npm/dm/dsh-claude-style?style=flat&label=downloads&color=D97757)](https://www.npmjs.com/package/dsh-claude-style)
-[![GitHub stars](https://img.shields.io/github/stars/Nwflower/dsh-claude-style?style=flat&label=%E2%98%85&color=08C)](https://github.com/Nwflower/dsh-claude-style)
+[![version](https://img.shields.io/npm/v/dsh-claude-ui?style=flat&label=version&color=D97757)](https://www.npmjs.com/package/dsh-claude-ui)
+[![downloads](https://img.shields.io/npm/dm/dsh-claude-ui?style=flat&label=downloads&color=D97757)](https://www.npmjs.com/package/dsh-claude-ui)
+[![GitHub stars](https://img.shields.io/github/stars/Frederick1607/dsh-claude-ui?style=flat&label=%E2%98%85&color=08C)](https://github.com/Frederick1607/dsh-claude-ui)
 
 </div>
 
@@ -50,41 +50,34 @@
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/idle.gif" width="120" alt="空闲" /><br />空闲</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/thinking.gif" width="120" alt="思考" /><br />思考</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/typing.gif" width="120" alt="写回答、调用工具" /><br />写回答、调用工具</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/conducting.gif" width="120" alt="指挥子代理" /><br />指挥子代理</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/idle.gif" width="120" alt="空闲" /><br />空闲</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/thinking.gif" width="120" alt="思考" /><br />思考</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/typing.gif" width="120" alt="写回答、调用工具" /><br />写回答、调用工具</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/conducting.gif" width="120" alt="指挥子代理" /><br />指挥子代理</td>
   </tr>
   <tr>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/notification.gif" width="120" alt="等你操作" /><br />等你操作</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/error.gif" width="120" alt="失败" /><br />失败</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/happy.gif" width="120" alt="完成" /><br />完成</td>
-    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-style/master/docs/gifs/sleeping.gif" width="120" alt="睡着" /><br />睡着</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/notification.gif" width="120" alt="等你操作" /><br />等你操作</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/error.gif" width="120" alt="失败" /><br />失败</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/happy.gif" width="120" alt="完成" /><br />完成</td>
+    <td align="center" width="25%"><img src="https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/docs/gifs/sleeping.gif" width="120" alt="睡着" /><br />睡着</td>
   </tr>
 </table>
 ## 安装
 
-官方插件页添加这个包名，或从终端安装：
-
-```
-dsh-claude-style
-```
+在插件页添加下面的 GitHub 地址，或从终端装本仓库的发布 tag：
 
 ```bash
-dsh plugin --profile web add dsh-claude-style                    # npm 包（推荐）
-dsh plugin --profile web add Nwflower/dsh-claude-style#dist      # GitHub 发布分支
+dsh plugin --profile web add Frederick1607/dsh-claude-ui#v0.21.0
 ```
 
-也可从[插件市场](https://github.com/dsh-market/dsh-market)或 dsh-web-all 的皮肤中心安装。同一时刻只启用一个主题；
-
-需要 dsh ≥ 0.2.2-rc.1，装好后重启 DeepSeek Harness。
+同一时刻只启用一个主题；需要 dsh ≥ 0.2.2-rc.1，装好后重启 DeepSeek Harness。
 
 ## 字体
 
-> Anthropic 没有公开发行这三款字体；本仓库只提供下载与研究的[副本](https://github.com/Nwflower/dsh-claude-style/tree/master/packages/assets/src/fonts/anthropic)。
+> Anthropic 没有公开发行这三款字体；本仓库只提供下载与研究的[副本](https://github.com/Frederick1607/dsh-claude-ui/tree/master/packages/assets/src/fonts/anthropic)。
 
 
-启用时二选一：装进系统，或把 `.ttf` 复制到 `$DSH_HOME/dsh-claude-style/fonts/`。
+启用时二选一：装进系统，或把 `.ttf` 复制到 `$DSH_HOME/dsh-claude-ui/fonts/`。
 
 ## 文档
 
@@ -115,4 +108,4 @@ dsh plugin --profile web add Nwflower/dsh-claude-style#dist      # GitHub 发布
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Nwflower/dsh-claude-style&type=Date)](https://star-history.com/#Nwflower/dsh-claude-style&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Frederick1607/dsh-claude-ui&type=Date)](https://star-history.com/#Frederick1607/dsh-claude-ui&Date)

@@ -1,7 +1,7 @@
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { notifyEnvironmentChange } from '../core/prefs'
 import { parkForeignSheets } from '../core/stylesheet'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 import type { PeerPlugin } from '../core/feature'
 
 /** dsh-chat-ux owns the same interactions, so yielding features must stand down while it is present (D74).

@@ -1,10 +1,10 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { closestConversationSession, conversationSessionId, findChatTarget, findConversationSession, sessionOutline } from '@dsh-claude-style/engine/host'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import { closestConversationSession, conversationSessionId, findChatTarget, findConversationSession, sessionOutline } from '@dsh-claude-ui/engine/host'
 import { hostChatSeat } from '../../core/i18n'
-import { CONVERSATION_SCROLL_SELECTOR, TURN_RAIL_CURRENT_SELECTOR, TURN_RAIL_INSET, TURN_RAIL_MARK_SELECTOR, TURN_RAIL_PITCH, TURN_RAIL_SCROLLER_SELECTOR, TURN_RAIL_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { closestFrom } from '@dsh-claude-style/engine/dom'
-import type { HostContext, HostText } from '@dsh-claude-style/engine/host'
-import type { HostLoadedTurn, HostOutlineTurn } from '@dsh-claude-style/contracts/services'
+import { CONVERSATION_SCROLL_SELECTOR, TURN_RAIL_CURRENT_SELECTOR, TURN_RAIL_INSET, TURN_RAIL_MARK_SELECTOR, TURN_RAIL_PITCH, TURN_RAIL_SCROLLER_SELECTOR, TURN_RAIL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { closestFrom } from '@dsh-claude-ui/engine/dom'
+import type { HostContext, HostText } from '@dsh-claude-ui/engine/host'
+import type { HostLoadedTurn, HostOutlineTurn } from '@dsh-claude-ui/contracts/services'
 
 /** One turn the rail shows: its number, the prompt that opened it, and whether the chat snapshot holds it. */
 export interface TurnItem {
@@ -240,7 +240,7 @@ export function createTurnNavHost(ctx: HostContext) {
         }
       }
       if (++frames > MARK_WAIT_FRAMES) {
-        throw new Error(`dsh-claude-style: the turn rail never offered a mark for turn ${turn} of ${list.length} (it holds ${railMarkCount(found)})`)
+        throw new Error(`dsh-claude-ui: the turn rail never offered a mark for turn ${turn} of ${list.length} (it holds ${railMarkCount(found)})`)
       }
       cancelJumpFrame = requestFrame({ write: step })
     }

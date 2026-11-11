@@ -8,9 +8,9 @@
  * @risk A large archive mounts every row, a scroll storm appends many pages, or a stale snapshot leaves a deleted row behind.
  */
 import { afterEach, expect, test } from 'vitest'
-import { ARCHIVED_PAGE_SIZE, archivedOrder, createArchivedList } from '@dsh-claude-style/client/pure'
-import type { ArchivedList } from '@dsh-claude-style/client/pure'
-import type { HostSessionSummary } from '@dsh-claude-style/contracts/services'
+import { ARCHIVED_PAGE_SIZE, archivedOrder, createArchivedList } from '@dsh-claude-ui/client/pure'
+import type { ArchivedList } from '@dsh-claude-ui/client/pure'
+import type { HostSessionSummary } from '@dsh-claude-ui/contracts/services'
 import { surfaceAttribute } from '../../fixtures/surface'
 
 const ROW_ATTRIBUTE = surfaceAttribute('workspace.archived-row')

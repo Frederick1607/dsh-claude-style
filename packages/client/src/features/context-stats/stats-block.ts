@@ -1,10 +1,10 @@
-import { buildElement, writeTextInPlace } from '@dsh-claude-style/engine/dom'
-import { findComposerStats } from '@dsh-claude-style/engine/host'
+import { buildElement, writeTextInPlace } from '@dsh-claude-ui/engine/dom'
+import { findComposerStats } from '@dsh-claude-ui/engine/host'
 import { createStatsCount } from './stats-count'
 import { sessionStatsSections } from './stats-model'
 import { CONTEXT_STATS_ATTR, contextPanel, hostStatsDetailed } from './stats-panel'
-import type { HostText } from '@dsh-claude-style/engine/host'
-import type { Currency } from '@dsh-claude-style/contracts/prices'
+import type { HostText } from '@dsh-claude-ui/engine/host'
+import type { Currency } from '@dsh-claude-ui/contracts/prices'
 import type { StatsReading } from './stats-count'
 
 /**

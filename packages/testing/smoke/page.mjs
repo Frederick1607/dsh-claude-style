@@ -513,7 +513,7 @@ function page(name, tier, cases, probe = PROBE) {
         '<div class="_sessionRow_x_1" role="treeitem"><span class="_slot_x_1"><svg data-state="ongoing" viewBox="0 0 16 16" width="10" height="10"></svg></span><span class="_title_x_1">running session</span></div>' +
       '</div>'
   return `<!doctype html>
-<html><head><meta charset="utf-8"><title>dsh-claude-style smoke: ${name}</title></head>
+<html><head><meta charset="utf-8"><title>dsh-claude-ui smoke: ${name}</title></head>
 <body>
 ${boot}
 ${skinOwner}

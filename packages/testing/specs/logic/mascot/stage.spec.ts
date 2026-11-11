@@ -9,8 +9,8 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { EXTRA_MIN_MS, EXTRA_SPAN_MS, MIN_SHOW_MS, MOMENTS, REACTION_PRIORITY, SLEEP_AFTER_MS, decideStage, finishStage, freshStage, nextDecisionAt, switchSettles, takeMoment } from '@dsh-claude-style/client/pure'
-import type { MascotLevel, MascotStage, StageSurroundings } from '@dsh-claude-style/client/pure'
+import { EXTRA_MIN_MS, EXTRA_SPAN_MS, MIN_SHOW_MS, MOMENTS, REACTION_PRIORITY, SLEEP_AFTER_MS, decideStage, finishStage, freshStage, nextDecisionAt, switchSettles, takeMoment } from '@dsh-claude-ui/client/pure'
+import type { MascotLevel, MascotStage, StageSurroundings } from '@dsh-claude-ui/client/pure'
 
 const IDLE: MascotLevel = { state: 'idle', animation: 'idle', priority: 1 }
 const THINKING: MascotLevel = { state: 'thinking', animation: 'thinking', priority: 2 }

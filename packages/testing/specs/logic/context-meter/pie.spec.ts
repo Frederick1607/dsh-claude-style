@@ -8,7 +8,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { contextPieImage } from '@dsh-claude-style/client/pure'
+import { contextPieImage } from '@dsh-claude-ui/client/pure'
 
 const TONE = 'rgb(1, 2, 3)'
 const REST = 'rgba(4, 5, 6, 0.2)'

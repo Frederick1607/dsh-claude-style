@@ -1,6 +1,6 @@
-import { UNTAGGED_SHEET_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { mountStylesheet as mountSheet, parkForeignSheets as parkSheets } from '@dsh-claude-style/engine/stylesheet'
-import { STYLESHEET } from 'virtual:dsh-claude-style/generated'
+import { UNTAGGED_SHEET_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { mountStylesheet as mountSheet, parkForeignSheets as parkSheets } from '@dsh-claude-ui/engine/stylesheet'
+import { STYLESHEET } from 'virtual:dsh-claude-ui/generated'
 import { FOREIGN_SHEET_TAG, PACKAGE_NAME, STYLE_ID, STYLE_PLUGIN_CSS } from '../constants'
 
 /** Sibling sheets must be parked before the host's claim sweep and whenever one arrives later (D9). */

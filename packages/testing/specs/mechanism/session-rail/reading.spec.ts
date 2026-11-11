@@ -14,8 +14,8 @@
  * 'session-rail.section'.
  */
 import { expect, test } from 'vitest'
-import { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-style/client/pure'
-import type { HostFeedEntry } from '@dsh-claude-style/contracts/services'
+import { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from '@dsh-claude-ui/client/pure'
+import type { HostFeedEntry } from '@dsh-claude-ui/contracts/services'
 
 test('the reading carries the share, the held tokens and what the window still holds', () => {
   expect(railReading({ projectedTokens: 250_000, contextWindow: 1_000_000 })).toEqual({

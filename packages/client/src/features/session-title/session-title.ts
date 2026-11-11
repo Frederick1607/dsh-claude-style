@@ -1,7 +1,7 @@
-import { cacheFirstMatch, currentSessionId, hostRenameSession, hostSessions } from '@dsh-claude-style/engine/host'
+import { cacheFirstMatch, currentSessionId, hostRenameSession, hostSessions } from '@dsh-claude-ui/engine/host'
 import { inPageBox } from '../../shared/page-zoom'
 import { copy } from './copy'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './session-title.manifest'
 

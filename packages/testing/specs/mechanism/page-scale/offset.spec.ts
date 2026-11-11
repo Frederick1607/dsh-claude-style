@@ -8,8 +8,8 @@
  * @risk At a page scale other than 100% every card the host draws lands off the row it belongs to by the factor of the scale, and a menu placed from its own height overlaps the control it opens over by that height's share of the scale.
  */
 import { afterEach, expect, test } from 'vitest'
-import { counterScale, installScaledLayer } from '@dsh-claude-style/engine/scaled-layer'
-import type { PageScaleVocabulary } from '@dsh-claude-style/engine/scaled-layer'
+import { counterScale, installScaledLayer } from '@dsh-claude-ui/engine/scaled-layer'
+import type { PageScaleVocabulary } from '@dsh-claude-ui/engine/scaled-layer'
 import { after, drawnAt, drawnScale, resetPage, settle } from './drawn-page'
 
 const vocabulary: PageScaleVocabulary = {

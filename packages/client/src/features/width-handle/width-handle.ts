@@ -1,4 +1,4 @@
-import { WIDTH_HANDLE_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { WIDTH_HANDLE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 /**
  * The conversation column's width handle (width-handle.css).

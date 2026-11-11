@@ -1,4 +1,4 @@
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { resetIdentity } from '../shared/identity'
 
 export let hostCtx: HostContext | null = null

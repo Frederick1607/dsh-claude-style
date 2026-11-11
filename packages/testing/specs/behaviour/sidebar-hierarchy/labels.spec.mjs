@@ -7,7 +7,7 @@
  * @risk A workspace label reads as another session, or dark-mode session titles lose their content tier.
  */
 import { spec } from '../../fixtures/behaviour.mjs'
-import { DARK_THEME_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { DARK_THEME_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 
 export default spec({ page: 'desktop' }, ({ test }) => {
   test('group labels and session titles keep distinct tiers in light and dark', async (t) => {

@@ -1,6 +1,6 @@
 import { WEBFONTS_PLUGIN_CSS, WEBFONTS_ROUTE, WEBFONTS_STYLE_ID } from '../constants'
-import { createHostResource } from '@dsh-claude-style/engine/resource'
-import type { WebfontsAnswer } from '@dsh-claude-style/contracts/webfonts'
+import { createHostResource } from '@dsh-claude-ui/engine/resource'
+import type { WebfontsAnswer } from '@dsh-claude-ui/contracts/webfonts'
 import { mountStylesheet } from '../core/stylesheet'
 import { webfontRules } from './webfont-rules'
 

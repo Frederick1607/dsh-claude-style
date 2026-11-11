@@ -9,7 +9,7 @@
  */
 import { expect, test, vi } from 'vitest'
 import fc from 'fast-check'
-import { createHoverIntent } from '@dsh-claude-style/client/pure'
+import { createHoverIntent } from '@dsh-claude-ui/client/pure'
 
 /** Run `body` on a fake clock with a fresh intent of these delays, and give the clock back. */
 function withIntent(body: (intent: ReturnType<typeof createHoverIntent>, calls: string[]) => void, openDelay = 100, closeDelay = 100) {

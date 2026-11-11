@@ -1,6 +1,6 @@
 import { formatCountdown } from './schedule'
-import { buildElement } from '@dsh-claude-style/engine/dom'
-import type { RatePeriod, RateState } from '@dsh-claude-style/contracts/peakrate'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
+import type { RatePeriod, RateState } from '@dsh-claude-ui/contracts/peakrate'
 import { copy } from './copy'
 import type { CopyKey } from './copy'
 

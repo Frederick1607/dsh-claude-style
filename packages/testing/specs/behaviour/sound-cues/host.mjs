@@ -10,7 +10,7 @@
  */
 export async function setup(t, { status, list }) {
   const posts = []
-  await t.page.route('**/dsh-claude-style/sound', async (route) => {
+  await t.page.route('**/dsh-claude-ui/sound', async (route) => {
     const request = route.request()
     if (request.method() === 'GET') {
       await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, playback: 'system', sounds: ['pop', 'tink'] }) })

@@ -1,10 +1,10 @@
 import * as React from 'react'
 import * as reactDom from 'react-dom/client'
-import { CHAT_ANSWER_ROW_SELECTOR, FLOW_KIND_ATTRIBUTE, MESSAGE_ACTION_ROW_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, TURN_TAIL_SELECTOR, USER_ROW_KIND } from '@dsh-claude-style/contracts/dom'
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { buildElement } from '@dsh-claude-style/engine/dom'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { CHAT_ANSWER_ROW_SELECTOR, FLOW_KIND_ATTRIBUTE, MESSAGE_ACTION_ROW_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, TURN_TAIL_SELECTOR, USER_ROW_KIND } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { createCopy } from '../../core/i18n'
 import type { FeatureUi } from '../../core/feature'
 import { createHostToast } from '../../shared/host-toast'
@@ -108,7 +108,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   function run(action: () => unknown) {
     if (pendingAction) return
     const report = (error: unknown) => {
-      console.error('[dsh-claude-style] message-actions failed:', error)
+      console.error('[dsh-claude-ui] message-actions failed:', error)
       toast.show({ text: copy('failed') })
     }
     try {

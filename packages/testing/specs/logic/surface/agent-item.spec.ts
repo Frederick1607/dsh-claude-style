@@ -7,7 +7,7 @@
  * @risk A signed-in reader presses Code and the old last-group selector presses Sign out instead of Agent mode.
  */
 import { afterEach, expect, test } from 'vitest'
-import { DS_BOT_AGENT_ITEM_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { DS_BOT_AGENT_ITEM_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 function mountMenu(signedIn: boolean) {
   const menu = document.createElement('div')

@@ -8,9 +8,9 @@
  * @risk The line under a running answer claims the model is writing while it thinks, names a file from another turn, or shows the host's word under the Claude brand.
  */
 import { expect, test } from 'vitest'
-import { ACTIVITY_THINKING, activityWords, openTurn, waitStart, waitingWord } from '@dsh-claude-style/client/pure'
-import { BRAND_CLAUDE, BRAND_DEEPSEEK } from '@dsh-claude-style/contracts/prefs'
-import type { HostChatSnapshot, HostTurn } from '@dsh-claude-style/contracts/services'
+import { ACTIVITY_THINKING, activityWords, openTurn, waitStart, waitingWord } from '@dsh-claude-ui/client/pure'
+import { BRAND_CLAUDE, BRAND_DEEPSEEK } from '@dsh-claude-ui/contracts/prefs'
+import type { HostChatSnapshot, HostTurn } from '@dsh-claude-ui/contracts/services'
 
 function step(status: string, blocks: (string | { kind: string, text: string })[]) {
   const assistant = { status, blocks: blocks.map(block => typeof block === 'string' ? { kind: block } : block) }

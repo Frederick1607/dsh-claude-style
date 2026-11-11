@@ -1,14 +1,14 @@
 import { QUIET_ATTR } from '../../constants'
-import { observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { copy } from './copy'
 import type { CopyKey } from './copy'
 import { motionReduced } from '../../core/prefs'
-import { buildElement } from '@dsh-claude-style/engine/dom'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { motionMs } from '../../shared/motion'
 import { inPagePixels } from '../../shared/page-zoom'
 import { SWEEP_BAND_CLASS, buildSweepBand } from '../../shared/sweep-band'
-import { ASSISTANT_STEP_KIND, CHAT_GROUP_PART_ATTRIBUTE, CHAT_GROUP_PART_REASONING, FLOW_KIND_ATTRIBUTE, PROCESS_ACTIVITY_SELECTOR, PROCESS_CONTENT_SELECTOR, PROCESS_GROUP_SELECTOR, SHIMMER_ATTRIBUTE, SHIMMER_SELECTOR, TOOL_CALL_KIND } from '@dsh-claude-style/contracts/dom'
+import { ASSISTANT_STEP_KIND, CHAT_GROUP_PART_ATTRIBUTE, CHAT_GROUP_PART_REASONING, FLOW_KIND_ATTRIBUTE, PROCESS_ACTIVITY_SELECTOR, PROCESS_CONTENT_SELECTOR, PROCESS_GROUP_SELECTOR, SHIMMER_ATTRIBUTE, SHIMMER_SELECTOR, TOOL_CALL_KIND } from '@dsh-claude-ui/contracts/dom'
 
 /* The visible summary is aria-hidden and quiet; the header carries the full sentence as its
    accessible name. Narrow headers use compact figures. */

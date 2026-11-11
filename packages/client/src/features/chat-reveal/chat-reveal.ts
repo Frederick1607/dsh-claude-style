@@ -1,7 +1,7 @@
 import { CHAT_REVEAL_ATTR } from '../../constants'
 import { motionReduced, subscribePrefs } from '../../core/prefs'
 import { createChatRevealEngine } from './reveal-engine'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './chat-reveal.manifest'
 

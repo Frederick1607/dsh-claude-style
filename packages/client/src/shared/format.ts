@@ -1,4 +1,4 @@
-import type { HostText } from '@dsh-claude-style/contracts/services'
+import type { HostText } from '@dsh-claude-ui/contracts/services'
 
 
 export function pad2(value: number) {

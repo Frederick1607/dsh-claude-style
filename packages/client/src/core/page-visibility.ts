@@ -1,5 +1,5 @@
 import { ASLEEP_ATTR } from '../constants'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 
 /** One visibility owner drives script clocks and ASLEEP_ATTR; losing focus alone does not pause them (D40). */
 const listeners: ((hidden: boolean) => void)[] = []

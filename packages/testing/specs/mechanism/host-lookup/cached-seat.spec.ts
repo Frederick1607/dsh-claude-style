@@ -8,7 +8,7 @@
  * @risk A long conversation slows to a crawl because every frame walks the whole page for a seat the skin already holds, or a seat the host mounts late is never found.
  */
 import { afterEach, expect, test } from 'vitest'
-import { cacheFirstMatch } from '@dsh-claude-style/engine/host'
+import { cacheFirstMatch } from '@dsh-claude-ui/engine/host'
 
 /** A batch of mutations is delivered on the microtask queue. */
 const settle = () => new Promise(resolve => setTimeout(resolve, 0))

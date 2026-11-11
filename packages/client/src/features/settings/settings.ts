@@ -4,7 +4,7 @@ import { SEGMENT_CLASS } from '../../shared/segment-control'
 import { loadModelCopy, onModelCopyLoaded } from '../model/model-copy'
 import { createHostAccountMenu } from '../account/host-menu'
 import { adoptSettingsForm, motionReduced, readPrefs, savePrefs, subscribePrefs } from '../../core/prefs'
-import { cacheFirstMatch, hostSlots } from '@dsh-claude-style/engine/host'
+import { cacheFirstMatch, hostSlots } from '@dsh-claude-ui/engine/host'
 import { motionMs } from '../../shared/motion'
 import { ClaudeStyleSegmentGroup, createSettingsControls, tabRows } from './settings-controls'
 import { createSettingsAppearanceTab } from './settings-tab-appearance'
@@ -16,8 +16,8 @@ import { settingsTabIcon } from './settings-tab-icons'
 import { installThemeFlip } from './theme-flip'
 import type { Prefs } from '../../constants'
 import type { SettingsTabId } from '../../core/feature'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostSlotsService } from '@dsh-claude-style/contracts/services'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostSlotsService } from '@dsh-claude-ui/contracts/services'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './settings.manifest'
 import type { SettingsTab, SettingsView } from './settings-controls'
@@ -415,7 +415,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
         label() { return copy('title') },
       },
       ClaudeStyleBundleConfig,
-    )), 'dsh-claude-style: plugin page')
+    )), 'dsh-claude-ui: plugin page')
     // The same page also renders as a tab of the settings dialog, which keeps
     // a route to it there. Two live instances share the prefs store, so a
     // change in one shows in the other.
@@ -429,7 +429,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
         label() { return copy('title') },
       },
       ClaudeStyleSettingsSection,
-    )), 'dsh-claude-style: settings section')
+    )), 'dsh-claude-ui: settings section')
   })
   return () => {
     stopThemeFlip()

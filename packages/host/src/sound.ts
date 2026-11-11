@@ -5,8 +5,8 @@
  * data. A machine without the player or the files answers `browser`, and the page
  * synthesises the same two voices there.
  */
-import { SOUND_NAMES, SOUND_POP, SOUND_TINK } from '@dsh-claude-style/contracts/sound'
-import type { HostSoundCapability, SoundName } from '@dsh-claude-style/contracts/sound'
+import { SOUND_NAMES, SOUND_POP, SOUND_TINK } from '@dsh-claude-ui/contracts/sound'
+import type { HostSoundCapability, SoundName } from '@dsh-claude-ui/contracts/sound'
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'

@@ -9,7 +9,7 @@
  * @risk A reader with their own palette gets no glyph field at all, and the console fills with a colour the field cannot read.
  */
 import { expect, test } from 'vitest'
-import { readColour } from '@dsh-claude-style/client/pure'
+import { readColour } from '@dsh-claude-ui/client/pure'
 
 test('every form the browser reads as one colour comes out as the same channels', () => {
   const literal = readColour('#3b6ef0')

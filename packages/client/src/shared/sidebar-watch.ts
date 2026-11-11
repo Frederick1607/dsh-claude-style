@@ -1,5 +1,5 @@
-import { SESSION_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { SESSION_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 
 /** 侧栏那一块（宿主的 slot 名字）：只有它里面的变化才值得重排一遍。 */
 const SIDEBAR_SELECTOR = '[data-slot="sidebar"]'

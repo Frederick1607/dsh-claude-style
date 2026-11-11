@@ -1,4 +1,4 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { revealEntryAt } from './reveal-text'
 import {
   CHAT_REVEAL_FRAME_GAP_MS,

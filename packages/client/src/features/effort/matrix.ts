@@ -1,5 +1,5 @@
 import { motionReduced, subscribePrefs } from '../../core/prefs'
-import { buildElement } from '@dsh-claude-style/engine/dom'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { motionMs } from '../../shared/motion'
 
 /** One flash of a particle, in seconds: the period token the stylesheet's own shorthand runs (D9). */

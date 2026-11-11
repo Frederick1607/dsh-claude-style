@@ -1,4 +1,4 @@
-import type { SelectorRewrite } from '@dsh-claude-style/engine/sheet-rewrite'
+import type { SelectorRewrite } from '@dsh-claude-ui/engine/sheet-rewrite'
 
 /**
  * A whole selector the sodium table recognizes, and the one it writes in its

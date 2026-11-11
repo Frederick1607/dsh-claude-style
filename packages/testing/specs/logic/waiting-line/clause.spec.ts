@@ -9,7 +9,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { PHRASE_TAIL_CHARS, activityPhrase } from '@dsh-claude-style/client/pure'
+import { PHRASE_TAIL_CHARS, activityPhrase } from '@dsh-claude-ui/client/pure'
 
 test('the model\'s own clause stands without its subject: participle first, to the sentence\'s end', () => {
   expect(activityPhrase('Let me look. I am checking the file is true. ')).toBe('Checking the file is true')

@@ -1,18 +1,18 @@
 import { ACCOUNT_MENU_ATTR, HANDOFF_ATTR, HERO_MENU_ATTR, HOLDS_ATTR, MORE_MENU_ATTR, PACKAGE_NAME, PART_ATTR, QUIET_ATTR, READER_HOLD_ATTR } from './constants'
-import { closeHostSeats } from '@dsh-claude-style/engine/host'
-import { installParts } from '@dsh-claude-style/engine/parts'
+import { closeHostSeats } from '@dsh-claude-ui/engine/host'
+import { installParts } from '@dsh-claude-ui/engine/parts'
 import { installPageScale } from './shared/page-scale'
-import { adoptSkin } from '@dsh-claude-style/engine/skin'
+import { adoptSkin } from '@dsh-claude-ui/engine/skin'
 import { motionReduced } from './core/prefs'
 import { setHostContext } from './core/host-context'
 import { loadHdsl, loadUsername } from './shared/identity'
 import { installWebfonts } from './shared/webfonts'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { loadModelCopy } from './features/model/model-copy'
 import { installExternalControls } from './core/external-controls'
 import { mountModelPicker } from './features/model/external'
 import { adoptPrefs, adoptSettingsForm, clearPrefsAttributes, disposePrefsBinding, prefs, readPrefs, retireComposerRestyle, retireFooterTakeover, subscribePrefs } from './core/prefs'
-import { reportFeatureFailure } from '@dsh-claude-style/engine/scheduler'
+import { reportFeatureFailure } from '@dsh-claude-ui/engine/scheduler'
 import { installScheduler } from './core/scheduler'
 import type { HandleName, Ui } from './core/scheduler'
 import { installPageVisibility } from './core/page-visibility'
@@ -23,8 +23,8 @@ import type { PageOwner } from './shared/visual-owner'
 import { loadFeatureChunk } from './core/chunks'
 import { handleName, setFeatureRegistry } from './core/feature'
 import type { Feature, FeatureInstall } from './core/feature'
-import { FEATURES } from 'virtual:dsh-claude-style/features'
-import { BUILD_ID } from 'virtual:dsh-claude-style/generated'
+import { FEATURES } from 'virtual:dsh-claude-ui/features'
+import { BUILD_ID } from 'virtual:dsh-claude-ui/generated'
 
 // The engine runs on the skin's own vocabulary: the attributes this package
 // writes, and the two answers only the skin can give (D73). Handed over before
@@ -186,7 +186,7 @@ export function apply(ctx: HostContext) {
   // Registered before anything is installed: registered last, a feature that
   // threw half-way through left the stylesheet and every listener installed
   // so far on the page with no teardown the host could ever run.
-  ctx.effect(() => teardown, 'dsh-claude-style: Claude Code desktop theme')
+  ctx.effect(() => teardown, 'dsh-claude-ui: Claude Code desktop theme')
 
   /**
    * Switch one feature off for the rest of this generation: run its own

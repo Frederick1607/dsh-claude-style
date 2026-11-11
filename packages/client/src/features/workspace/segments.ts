@@ -1,4 +1,4 @@
-import { buildElement, closestFrom } from '@dsh-claude-style/engine/dom'
+import { buildElement, closestFrom } from '@dsh-claude-ui/engine/dom'
 import { createSlidingPill } from '../../shared/sliding-pill'
 import { VIEW_SWITCH_CLASS } from '../../shared/segment-control'
 import { copy } from './copy'

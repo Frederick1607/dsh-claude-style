@@ -1,6 +1,6 @@
 import { modelCopy, resolveModelBrand } from './model-copy'
-import { buildElement } from '@dsh-claude-style/engine/dom'
-import { COMBINE_SVGS, COMBINE_WORDS } from 'virtual:dsh-claude-style/generated'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
+import { COMBINE_SVGS, COMBINE_WORDS } from 'virtual:dsh-claude-ui/generated'
 
 /** Match the model vendor, never the reseller route; unmatched models have no lockup (D79). */
 export function modelBrand(modelId: unknown, modelName: unknown) {

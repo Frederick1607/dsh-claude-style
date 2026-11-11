@@ -1,5 +1,5 @@
 import { normalizeModelId } from '../model/model-copy'
-import type { RateProfile } from '@dsh-claude-style/contracts/peakrate'
+import type { RateProfile } from '@dsh-claude-ui/contracts/peakrate'
 
 /**
  * Which billing profile applies to one provider and model

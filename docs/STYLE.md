@@ -1,6 +1,6 @@
 # Style Guide · 设计令牌
 
-Design tokens for `dsh-claude-style`, recreating the Claude Code Desktop aesthetic.
+Design tokens for `dsh-claude-ui`, recreating the Claude Code Desktop aesthetic.
 
 ## Where the values live
 

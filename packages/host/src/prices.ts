@@ -11,11 +11,11 @@
  * stands down when nobody has asked for two days, and keeps the current document
  * whenever the fetch or the parse fails.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { statSync } from 'node:fs'
 import { join } from 'node:path'
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
-import type { PriceDocument } from '@dsh-claude-style/contracts/prices'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
+import type { PriceDocument } from '@dsh-claude-ui/contracts/prices'
 import { cachePath, readJsonDocument, writeJsonDocument } from './cache-file.js'
 import { packageRoot } from './package-root.js'
 import { parsePriceDocument } from './prices-document.js'
@@ -25,8 +25,8 @@ export const PRICES_FILE = 'prices.json'
 
 /** Where the snapshot is published: the CDN first, the repository's raw file second. */
 export const PRICES_URLS = [
-  'https://cdn.jsdelivr.net/gh/Nwflower/dsh-claude-style@master/packages/host/data/prices.json',
-  'https://raw.githubusercontent.com/Nwflower/dsh-claude-style/master/packages/host/data/prices.json',
+  'https://cdn.jsdelivr.net/gh/Frederick1607/dsh-claude-ui@master/packages/host/data/prices.json',
+  'https://raw.githubusercontent.com/Frederick1607/dsh-claude-ui/master/packages/host/data/prices.json',
 ]
 
 /** How long a fetched snapshot counts as current. */

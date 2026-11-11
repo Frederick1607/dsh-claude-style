@@ -1,4 +1,4 @@
-import type { HostChatSnapshot, HostTurn } from '@dsh-claude-style/contracts/services'
+import type { HostChatSnapshot, HostTurn } from '@dsh-claude-ui/contracts/services'
 
 /**
  * When the model has kept the reader waiting, read off the host's chat

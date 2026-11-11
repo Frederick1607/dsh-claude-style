@@ -1,6 +1,6 @@
 {
-  "name": "@dsh-claude-style/assets",
-  "description": "Every image dsh-claude-style ships, and the generator that decides how each is delivered",
+  "name": "@dsh-claude-ui/assets",
+  "description": "Every image dsh-claude-ui ships, and the generator that decides how each is delivered",
   "version": "0.11.1",
   "private": true,
   "type": "module",

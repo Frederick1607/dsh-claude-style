@@ -13,13 +13,13 @@
  * the memory and refolds on the next ask. A replaced price table clears every
  * total, so the next ask re-prices the log against the table in force.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
-import { costMicro, priceFor, priceTierAt } from '@dsh-claude-style/contracts/prices'
-import { overlayBilling, parseBillingTable } from '@dsh-claude-style/contracts/billing-table'
-import type { BillingRow } from '@dsh-claude-style/contracts/billing-table'
-import type { PriceDocument, PriceUsage, SessionCostAnswer } from '@dsh-claude-style/contracts/prices'
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
-import { readEvents } from '@dsh-claude-style/engine/node/session-events'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
+import { costMicro, priceFor, priceTierAt } from '@dsh-claude-ui/contracts/prices'
+import { overlayBilling, parseBillingTable } from '@dsh-claude-ui/contracts/billing-table'
+import type { BillingRow } from '@dsh-claude-ui/contracts/billing-table'
+import type { PriceDocument, PriceUsage, SessionCostAnswer } from '@dsh-claude-ui/contracts/prices'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
+import { readEvents } from '@dsh-claude-ui/engine/node/session-events'
 import { modelOf, usageOf } from './usage-fold.js'
 import type { UsageEvent } from './usage-fold.js'
 import type { PriceStore } from './prices.js'

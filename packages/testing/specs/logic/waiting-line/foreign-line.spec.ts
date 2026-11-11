@@ -8,7 +8,7 @@
  * @risk With another status plugin installed, the running row shows two status lines on top of each other, or none at all.
  */
 import { afterEach, expect, test } from 'vitest'
-import { foreignRunningLineOwns } from '@dsh-claude-style/client/pure'
+import { foreignRunningLineOwns } from '@dsh-claude-ui/client/pure'
 
 /** The mark the skin puts on the host words it hides; the function is told which one it is. */
 const OWN_MARK = 'data-test-own-words'

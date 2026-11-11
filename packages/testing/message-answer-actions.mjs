@@ -7,7 +7,7 @@
  * @risk A rerun repeats the wrong turn, a double click creates competing branches, or a deleted turn returns after a reload.
  */
 import path from 'node:path'
-import { CONVERSATION_SESSION_ATTRIBUTE, CONVERSATION_SESSION_SELECTOR, TURN_TAIL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { CONVERSATION_SESSION_ATTRIBUTE, CONVERSATION_SESSION_SELECTOR, TURN_TAIL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { HOST } from './lane.mjs'
 import { sendPrompt } from './prompt.mjs'
 import { sanitizePage } from '../../scripts/shared/privacy.mjs'

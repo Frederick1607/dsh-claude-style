@@ -1,16 +1,16 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { QUIET_ATTR } from '../../constants'
-import { conversationSessionId, findConversationSession, findForeground } from '@dsh-claude-style/engine/host'
+import { conversationSessionId, findConversationSession, findForeground } from '@dsh-claude-ui/engine/host'
 import { motionReduced } from '../../core/prefs'
 import { createTurnNavHost } from './turn-nav-host'
 import type { TurnCurrentReading, TurnItem } from './turn-nav-host'
-import { CHAT_TURN_ATTRIBUTE, PEER_SHEET_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { buildElement, closestFrom } from '@dsh-claude-style/engine/dom'
+import { CHAT_TURN_ATTRIBUTE, PEER_SHEET_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { buildElement, closestFrom } from '@dsh-claude-ui/engine/dom'
 import { POPOVER_CLOSE_DELAY, closeOtherPopovers, createHoverIntent, registerPopover, unregisterPopover } from '../../shared/popover'
 import { inPageBox } from '../../shared/page-zoom'
-import { easeScrollFor, holdReader, scrollPositionFor, writeScroll } from '@dsh-claude-style/engine/scroll-owner'
+import { easeScrollFor, holdReader, scrollPositionFor, writeScroll } from '@dsh-claude-ui/engine/scroll-owner'
 import { motionMs } from '../../shared/motion'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './turn-nav.manifest'
 
@@ -289,13 +289,13 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
 
   /** The rail, while a host rail it stands beside is found (the card opens from it). */
   function mountedRail() {
-    if (rail === null) throw new Error('dsh-claude-style: the turn rail is not built')
+    if (rail === null) throw new Error('dsh-claude-ui: the turn rail is not built')
     return rail
   }
 
   /** The card, once ensureCard built it. */
   function builtCard() {
-    if (card === null) throw new Error('dsh-claude-style: the turn card is not built')
+    if (card === null) throw new Error('dsh-claude-ui: the turn card is not built')
     return card
   }
 

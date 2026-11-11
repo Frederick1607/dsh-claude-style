@@ -191,8 +191,8 @@ function request(host, route, method, body, headers, peer = '127.0.0.1') {
 
 async function hostHalf() {
   const mod = await import(pathToFileURL(HOST).href)
-  const PREFS = '/dsh-claude-style/prefs'
-  const USER = '/dsh-claude-style/username'
+  const PREFS = '/dsh-claude-ui/prefs'
+  const USER = '/dsh-claude-ui/username'
   const browser = { host: '127.0.0.1:43120', origin: 'http://127.0.0.1:43120', 'sec-fetch-site': 'same-origin', cookie: 'dsh-auth-x=1' }
   const crossSite = { host: '127.0.0.1:43120', origin: 'https://attacker.example', 'sec-fetch-site': 'cross-site' }
   const lanPeer = { host: '192.168.1.23:43120' }
@@ -200,7 +200,7 @@ async function hostHalf() {
 
   // Session deletion: the route removes one stored session directory. The root
   // is a scratch harness home under .debug/, never the user's own.
-  const DELETE = '/dsh-claude-style/session-delete'
+  const DELETE = '/dsh-claude-ui/session-delete'
   const scratchHome = path.join(ROOT, '.debug', 'smoke-home')
   const scratchCwd = path.join(scratchHome, 'sessions', '--D-smoke--')
   const scratchId = 'session-smoke-delete-0001'
@@ -245,8 +245,8 @@ async function hostHalf() {
 
     // The launcher's account contract. Its two layers are the only ones allowed
     // to say who the player is, and the picture's absolute path stays here.
-    const HDSL = '/dsh-claude-style/hdsl'
-    const SKIN = '/dsh-claude-style/hdsl-skin.png'
+    const HDSL = '/dsh-claude-ui/hdsl'
+    const SKIN = '/dsh-claude-ui/hdsl-skin.png'
     const contract = {
       HDSL_ACCOUNT_CONTRACT: '1',
       HDSL_ACCOUNT_NAME: 'HDSLPlayer',
@@ -387,7 +387,7 @@ async function hostHalf() {
   // stored session is read again only when the palette's prewarm re-lists a
   // moved revision.
   console.log('\nhost half — message content search')
-  const SEARCH = '/dsh-claude-style/session-search'
+  const SEARCH = '/dsh-claude-ui/session-search'
   // The stored listing's own throttle (packages/host/src/search.ts LIST_INTERVAL_MS).
   const STORE_LIST_WAIT_MS = 2100
   const said = (seq, time, text, kind = 'user') => ({
@@ -482,17 +482,17 @@ async function hostHalf() {
   // answer is the shipped copy rather than whatever this machine has cached.
   console.log('\nhost half — the peak rate catalog')
   const rate = fakeHost(mod, { fenced: true, home: scratchHome })
-  const refusedRate = await request(rate, '/dsh-claude-style/peakrate', 'GET', '', crossSite)
+  const refusedRate = await request(rate, '/dsh-claude-ui/peakrate', 'GET', '', crossSite)
   check('cross-site page: the rate catalog is refused',
     refusedRate.status === 401 || refusedRate.status === 403, `HTTP ${refusedRate.status}`)
-  const rateAnswer = await request(rate, '/dsh-claude-style/peakrate', 'GET', '', browser)
+  const rateAnswer = await request(rate, '/dsh-claude-ui/peakrate', 'GET', '', browser)
   const rateBody = rateAnswer.status === 200 ? JSON.parse(rateAnswer.body) : null
   check('the rate catalog answers the copy the package ships, with its profiles already parsed',
     rateBody !== null && rateBody.ok === true && rateBody.origin === 'bundled' &&
       Array.isArray(rateBody.profiles) && rateBody.profiles.some((profile) => profile.id === 'deepseek-v4') &&
       rateBody.profiles.every((profile) => typeof profile.schedule?.timeZone === 'string'),
     JSON.stringify({ status: rateAnswer.status, origin: rateBody?.origin ?? null, profiles: rateBody?.profiles?.length ?? null }))
-  const wrongMethod = await request(rate, '/dsh-claude-style/peakrate', 'DELETE', '', browser)
+  const wrongMethod = await request(rate, '/dsh-claude-ui/peakrate', 'DELETE', '', browser)
   check('a method the rate route does not take is turned away', wrongMethod.status === 405, `HTTP ${wrongMethod.status}`)
 
   // The price snapshot and the session cost, on the same terms: the snapshot is
@@ -537,10 +537,10 @@ async function hostHalf() {
     },
     stored: [{ header: { id: 'session-priced' }, revision: 'p1' }, { header: { id: 'session-catalog' }, revision: 'c1' }],
   })
-  const refusedPrices = await request(costHost, '/dsh-claude-style/prices', 'GET', '', crossSite)
+  const refusedPrices = await request(costHost, '/dsh-claude-ui/prices', 'GET', '', crossSite)
   check('cross-site page: the price snapshot is refused',
     refusedPrices.status === 401 || refusedPrices.status === 403, `HTTP ${refusedPrices.status}`)
-  const pricesAnswer = await request(costHost, '/dsh-claude-style/prices', 'GET', '', browser)
+  const pricesAnswer = await request(costHost, '/dsh-claude-ui/prices', 'GET', '', browser)
   const pricesBody = pricesAnswer.status === 200 ? JSON.parse(pricesAnswer.body) : null
   check('the price snapshot answers both official tables for the shipped models',
     pricesBody !== null && pricesBody.ok === true && pricesBody.origin === 'bundled' &&
@@ -548,12 +548,12 @@ async function hostHalf() {
       pricesBody.document?.models?.['deepseek-flash']?.USD?.offPeak?.output === 0.6 &&
       typeof pricesBody.document?.schedule?.holidays?.length === 'number',
     JSON.stringify({ status: pricesAnswer.status, models: Object.keys(pricesBody?.document?.models ?? {}) }))
-  const refusedCost = await request(costHost, '/dsh-claude-style/session-cost?id=session-priced', 'GET', '', crossSite)
+  const refusedCost = await request(costHost, '/dsh-claude-ui/session-cost?id=session-priced', 'GET', '', crossSite)
   check('cross-site page: the session cost is refused',
     refusedCost.status === 401 || refusedCost.status === 403, `HTTP ${refusedCost.status}`)
-  const shapedCost = await request(costHost, '/dsh-claude-style/session-cost?id=..%2Fetc', 'GET', '', browser)
+  const shapedCost = await request(costHost, '/dsh-claude-ui/session-cost?id=..%2Fetc', 'GET', '', browser)
   check('a session id that names a path is refused', shapedCost.status === 400, `HTTP ${shapedCost.status}`)
-  const costAnswer = await request(costHost, '/dsh-claude-style/session-cost?id=session-priced', 'GET', '', browser)
+  const costAnswer = await request(costHost, '/dsh-claude-ui/session-cost?id=session-priced', 'GET', '', browser)
   const costBody = costAnswer.status === 200 ? JSON.parse(costAnswer.body) : null
   // Flash's off-peak table: 1,000 uncached input at ¥1/M and 800 output at ¥4/M
   // give 1,000 + 3,200 micro-yuan; the same call in USD gives 150 + 480.
@@ -561,13 +561,13 @@ async function hostHalf() {
     costBody !== null && costBody.ok === true && costBody.value !== null &&
       costBody.value.cny === 4_200 && costBody.value.usd === 630 && costBody.value.partial === false,
     JSON.stringify(costBody?.value ?? costBody))
-  const missing = await request(costHost, '/dsh-claude-style/session-cost?id=no-such-session', 'GET', '', browser)
+  const missing = await request(costHost, '/dsh-claude-ui/session-cost?id=no-such-session', 'GET', '', browser)
   check('a session the host cannot read answers no figure rather than zero',
     missing.status === 200 && JSON.parse(missing.body).value === null, JSON.stringify(missing))
   // The catalogue's USD list price for kimi-k3 is 3/3/15 per million tokens,
   // and its vendor publishes a CNY line of 20/2/100: one million output tokens
   // is 15 USD and 100 CNY, with the published line answering as it stands.
-  const catalogAnswer = await request(costHost, '/dsh-claude-style/session-cost?id=session-catalog', 'GET', '', browser)
+  const catalogAnswer = await request(costHost, '/dsh-claude-ui/session-cost?id=session-catalog', 'GET', '', browser)
   const catalogBody = catalogAnswer.status === 200 ? JSON.parse(catalogAnswer.body) : null
   check('a model only the public catalogue prices answers at its list price, in both currencies',
     catalogBody !== null && catalogBody.ok === true && catalogBody.value !== null &&
@@ -595,13 +595,13 @@ async function hostHalf() {
   check('every asset the manifest names is on disk', dangling.length === 0, dangling.join(', '))
   const storedPath = path.join(ROOT, 'lib', 'assets', asset.encoding === 'br' ? `${assetName}.br` : assetName)
   const assets = fakeHost(mod, {})
-  const compressed = await requestAsset(assets, `/dsh-claude-style/assets/${assetName}`, { 'accept-encoding': 'gzip, br' })
+  const compressed = await requestAsset(assets, `/dsh-claude-ui/assets/${assetName}`, { 'accept-encoding': 'gzip, br' })
   check('a routed asset is served as it is stored, under its content hash and its own type, cached for good',
     compressed.status === 200 && compressed.headers['content-type'] === asset.type && /immutable/.test(compressed.headers['cache-control']) &&
       compressed.headers['content-encoding'] === 'br' && compressed.raw !== null &&
       Buffer.compare(compressed.raw, fs.readFileSync(storedPath)) === 0,
     `HTTP ${compressed.status} ${JSON.stringify(compressed.headers)}`)
-  const plain = await requestAsset(assets, `/dsh-claude-style/assets/${assetName}`)
+  const plain = await requestAsset(assets, `/dsh-claude-ui/assets/${assetName}`)
   check('a client that does not take brotli gets the same asset decompressed, so nothing is missing',
     plain.status === 200 && plain.headers['content-encoding'] === undefined &&
       plain.raw !== null && plain.raw.toString('utf8') === brotliDecompressSync(fs.readFileSync(storedPath)).toString('utf8'),
@@ -611,14 +611,14 @@ async function hostHalf() {
   const binary = entries.find(([, entry]) => entry.encoding === null && entry.type === 'image/png')
   if (binary !== undefined) {
     const [binaryName] = binary
-    const raw = await requestAsset(assets, `/dsh-claude-style/assets/${binaryName}`, { 'accept-encoding': 'gzip, br' })
+    const raw = await requestAsset(assets, `/dsh-claude-ui/assets/${binaryName}`, { 'accept-encoding': 'gzip, br' })
     check('a binary routed asset (a mascot sheet) is served as it is stored, with no content encoding',
       raw.status === 200 && raw.headers['content-encoding'] === undefined && raw.raw !== null &&
         Buffer.compare(raw.raw, fs.readFileSync(path.join(ROOT, 'lib', 'assets', binaryName))) === 0,
       `HTTP ${raw.status} ${JSON.stringify(raw.headers)}`)
   }
-  for (const url of ['/dsh-claude-style/assets/missing.svg', '/dsh-claude-style/assets/..%2fclient.js',
-    '/dsh-claude-style/assets/../../package.json', '/dsh-claude-style/assets/', `/dsh-claude-style/assets/${assetName}/x`]) {
+  for (const url of ['/dsh-claude-ui/assets/missing.svg', '/dsh-claude-ui/assets/..%2fclient.js',
+    '/dsh-claude-ui/assets/../../package.json', '/dsh-claude-ui/assets/', `/dsh-claude-ui/assets/${assetName}/x`]) {
     const answer = await requestAsset(assets, url)
     check(`nothing but a name the build wrote answers under the assets route: ${url}`, answer.status === 404, `HTTP ${answer.status}`)
   }
@@ -634,7 +634,7 @@ async function hostHalf() {
   const assetPlan = (...names) => ({
     routed: names.map((name) => ({
       file: name, bytes: Buffer.from(name), text: name, type: 'text/javascript; charset=utf-8',
-      hash: name.split('.')[0], name, url: `/dsh-claude-style/assets/${name}`, inline: false,
+      hash: name.split('.')[0], name, url: `/dsh-claude-ui/assets/${name}`, inline: false,
     })),
   })
   const readRetained = () => JSON.parse(fs.readFileSync(path.join(retainDir, 'assets', 'manifest.json'), 'utf8')).assets
@@ -654,31 +654,31 @@ async function hostHalf() {
   // package.json carries, and the route answers it byte for byte under its own
   // content type.
   //
-  // The user's own drop point is `$DSH_HOME/dsh-claude-style/fonts/` (D75): a
+  // The user's own drop point is `$DSH_HOME/dsh-claude-ui/fonts/` (D75): a
   // copy there answers a name the package does not carry, and wins over a
   // bundled face of the same name. Both halves run against a scratch harness
   // home, so the answer says nothing about what the machine running this has
   // installed.
   console.log('\nhost half — the fonts route and the drop point')
   const fontHome = path.join(ROOT, '.debug', 'smoke-font-home')
-  const droppedDir = path.join(fontHome, 'dsh-claude-style', 'fonts')
+  const droppedDir = path.join(fontHome, 'dsh-claude-ui', 'fonts')
   fs.rmSync(fontHome, { recursive: true, force: true })
   const fontHost = fakeHost(mod, { home: fontHome })
   const packaged = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).files
   const fontSource = path.join(ROOT, 'packages', 'assets', 'src', 'fonts')
   for (const [name, type] of [['JetBrainsMonoVariable.ttf', 'font/ttf'], ['InterVariable.woff2', 'font/woff2'], ['NotoSerifVariable.woff2', 'font/woff2'], ['ClaudeStylePixel.woff2', 'font/woff2']]) {
-    const face = await requestAsset(fontHost, `/dsh-claude-style/fonts/${name}`)
+    const face = await requestAsset(fontHost, `/dsh-claude-ui/fonts/${name}`)
     check(`the packaged face ${name} ships in the package and is served as ${type}`,
       packaged.includes('lib') && face.status === 200 && face.headers['content-type'] === type &&
         face.raw !== null && Buffer.compare(face.raw, fs.readFileSync(path.join(fontSource, name))) === 0,
       `HTTP ${face.status} ${JSON.stringify(face.headers)}`)
   }
-  const absent = await requestAsset(fontHost, '/dsh-claude-style/fonts/AnthropicSansWebText.ttf')
+  const absent = await requestAsset(fontHost, '/dsh-claude-ui/fonts/AnthropicSansWebText.ttf')
   check('a face the package does not carry is a 404 until the user drops one in',
     absent.status === 404, `HTTP ${absent.status}`)
   // The browser half declares a @font-face only for a face this route names, so
   // an install without the files sends no font request at all (issue #259).
-  const none = await requestAsset(fontHost, '/dsh-claude-style/webfonts')
+  const none = await requestAsset(fontHost, '/dsh-claude-ui/webfonts')
   check('an empty drop point reports no optional face, so the page registers none and asks for no font',
     none.status === 200 && none.raw !== null && JSON.parse(none.raw.toString('utf8')).faces.length === 0,
     `HTTP ${none.status} ${none.raw === null ? '' : none.raw.toString('utf8')}`)
@@ -689,17 +689,17 @@ async function hostHalf() {
   for (const name of ['AnthropicSansWebText.ttf', 'AnthropicSerifWebText.ttf', 'AnthropicMonoWeb.ttf']) {
     const payload = `dropped-${name}`
     fs.writeFileSync(path.join(droppedDir, name), Buffer.from(payload))
-    const dropped = await requestAsset(fontHost, `/dsh-claude-style/fonts/${name}`)
+    const dropped = await requestAsset(fontHost, `/dsh-claude-ui/fonts/${name}`)
     check(`the face ${name} the package does not carry is served from the drop point`,
       dropped.status === 200 && dropped.headers['content-type'] === 'font/ttf' &&
         dropped.raw !== null && dropped.raw.toString('utf8') === payload,
       `HTTP ${dropped.status} ${JSON.stringify(dropped.headers)}`)
   }
-  const overridden = await requestAsset(fontHost, '/dsh-claude-style/fonts/JetBrainsMonoVariable.ttf')
+  const overridden = await requestAsset(fontHost, '/dsh-claude-ui/fonts/JetBrainsMonoVariable.ttf')
   check("the user's own copy wins over the bundled face of the same name",
     overridden.status === 200 && overridden.raw !== null && overridden.raw.toString('utf8') === 'dropped-mono',
     `HTTP ${overridden.status} ${JSON.stringify(overridden.headers)}`)
-  const dropped = await requestAsset(fontHost, '/dsh-claude-style/webfonts')
+  const dropped = await requestAsset(fontHost, '/dsh-claude-ui/webfonts')
   const droppedFaces = dropped.raw === null ? [] : JSON.parse(dropped.raw.toString('utf8')).faces
   check('the faces dropped in are the ones the page registers, so each of them answers and no other is asked for',
     dropped.status === 200 &&
@@ -731,7 +731,7 @@ function requestAsset(host, url, headers = {}) {
     }
     // The fence in front of that route reads the peer address and the Host
     // header, which a browser sends with a same-origin subresource.
-    host.routes['/dsh-claude-style'].handler({
+    host.routes['/dsh-claude-ui'].handler({
       method: 'GET',
       url,
       headers: { host: '127.0.0.1:3080', ...headers },

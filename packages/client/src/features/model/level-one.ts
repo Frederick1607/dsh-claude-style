@@ -1,5 +1,5 @@
-import { ACCOUNT_MODEL_GROUP, OFFICIAL_MODEL_GROUP } from '@dsh-claude-style/contracts/services'
-import type { HostModelGroup } from '@dsh-claude-style/contracts/services'
+import { ACCOUNT_MODEL_GROUP, OFFICIAL_MODEL_GROUP } from '@dsh-claude-ui/contracts/services'
+import type { HostModelGroup } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The provider groups the model picker's first level carries.

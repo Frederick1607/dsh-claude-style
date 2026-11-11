@@ -1,5 +1,5 @@
-import { partRegions } from '@dsh-claude-style/engine/parts-table'
-import type { PartsVocabulary } from '@dsh-claude-style/engine/parts'
+import { partRegions } from '@dsh-claude-ui/engine/parts-table'
+import type { PartsVocabulary } from '@dsh-claude-ui/engine/parts'
 
 /**
  * One region of the part tables, read the way a spec needs it: `box(local)`

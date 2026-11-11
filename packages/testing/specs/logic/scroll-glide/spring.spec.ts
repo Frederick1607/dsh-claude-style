@@ -10,7 +10,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { springArrived, stepSpring } from '@dsh-claude-style/engine/scroll-ease'
+import { springArrived, stepSpring } from '@dsh-claude-ui/engine/scroll-ease'
 
 /** One 60 Hz frame, in seconds. */
 const FRAME_S = 1 / 60

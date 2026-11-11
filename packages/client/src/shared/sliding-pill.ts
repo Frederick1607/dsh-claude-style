@@ -1,4 +1,4 @@
-import { observeSize } from '@dsh-claude-style/engine/bus'
+import { observeSize } from '@dsh-claude-ui/engine/bus'
 import { inPageBox } from './page-zoom'
 
 /** `measure` reads and `sync` writes; a fresh control measures in `sync` so its first pill does not slide.

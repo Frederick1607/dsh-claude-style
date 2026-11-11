@@ -1,8 +1,8 @@
 import { MODEL_EFFORT_DEFAULT } from './model-labels'
-import { currentSessionId, hostModelDirectories } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostModelCatalogSnapshot, HostModelDirectory, HostModelEntry, HostModelGroup, HostModelReasoning } from '@dsh-claude-style/contracts/services'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { currentSessionId, hostModelDirectories } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostModelCatalogSnapshot, HostModelDirectory, HostModelEntry, HostModelGroup, HostModelReasoning } from '@dsh-claude-ui/contracts/services'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 
 /** One provider the catalog lists, with how many models it carries. */
 export interface CatalogProvider {

@@ -1,6 +1,6 @@
 import { AUTO_POPOVER_ALL } from '../../constants'
 import { readPrefs } from '../../core/prefs'
-import { closestFrom } from '@dsh-claude-style/engine/dom'
+import { closestFrom } from '@dsh-claude-ui/engine/dom'
 import { POPOVER_MARGIN, POPOVER_OPEN_DELAY, closeOtherPopovers, createHoverIntent, positionAnchoredPopover, registerPopover, removeStrayNodes, setMenuPopoverOpen, unregisterPopover } from '../../shared/popover'
 import { pageViewport } from '../../shared/page-zoom'
 import { createModelSubMenu } from './sub-menu'

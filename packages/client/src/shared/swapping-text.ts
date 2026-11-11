@@ -1,5 +1,5 @@
-import { observeSize } from '@dsh-claude-style/engine/bus'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { observeSize } from '@dsh-claude-ui/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { motionReduced } from '../core/prefs'
 import { motionMs } from './motion'
 import { buildSweepBand } from './sweep-band'

@@ -10,8 +10,8 @@
  */
 import { beforeEach, expect, test } from 'vitest'
 import fc from 'fast-check'
-import { currentRate, forgetRates, formatCountdown } from '@dsh-claude-style/client/pure'
-import type { RateProfile, RateSchedule } from '@dsh-claude-style/contracts/peakrate'
+import { currentRate, forgetRates, formatCountdown } from '@dsh-claude-ui/client/pure'
+import type { RateProfile, RateSchedule } from '@dsh-claude-ui/contracts/peakrate'
 
 beforeEach(() => {
   forgetRates()

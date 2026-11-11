@@ -1,6 +1,6 @@
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { isChatFoldToggle } from '../chat-fold/fold-toggle'
-import { STREAMING_ATTRIBUTE, STREAMING_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { STREAMING_ATTRIBUTE, STREAMING_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { createRevealScanner } from './reveal-diff'
 import { createRevealPainter } from './reveal-paint'
 import { CHAT_REVEAL_COLOR_VAR, CHAT_REVEAL_FOLD_QUIET_MS, CHAT_REVEAL_HIGHLIGHT_PREFIX, CHAT_REVEAL_STEPS, createRevealState } from './reveal-params'

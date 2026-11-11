@@ -15,7 +15,7 @@ import { same, check } from './shared.mjs'
  */
 async function hostSound({ host, request, browser, crossSite }) {
   console.log('\nhost half — sound route: capability, fence and whitelist')
-  const SOUND = '/dsh-claude-style/sound'
+  const SOUND = '/dsh-claude-ui/sound'
   check('the sound route is registered', host.routes[SOUND] !== undefined)
   const sound = await request(host, SOUND, 'GET', '', browser)
   const capability = JSON.parse(sound.body)

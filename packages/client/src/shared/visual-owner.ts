@@ -1,6 +1,6 @@
-import { DS_BOT_SURFACE_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { DS_BOT_SURFACE_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { SKIN_STAMP_ATTR } from '../constants'
-import { subscribeMutations } from '@dsh-claude-style/engine/bus'
+import { subscribeMutations } from '@dsh-claude-ui/engine/bus'
 
 /**
  * Skin and ds-bot marks define page ownership (D74).

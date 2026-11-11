@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { BRAND_INK_ACCENT, BRAND_INK_ORIGINAL, BRAND_INK_TEXT, BRANDS, PALETTE_COLORING_BRAND, PALETTE_COLORING_CUSTOM } from '../../constants'
-import { PALETTE_CARDS } from 'virtual:dsh-claude-style/generated'
+import { PALETTE_CARDS } from 'virtual:dsh-claude-ui/generated'
 import { BrandLockup } from './settings-brand-lockup'
 import { withoutTransition } from '../../shared/transition'
 import type { SegmentOption, SettingsRow, SettingsView } from './settings-controls'

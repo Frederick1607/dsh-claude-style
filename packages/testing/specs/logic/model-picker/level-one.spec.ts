@@ -9,9 +9,9 @@
  * @risk A reader signed in without an API key cannot reach their account's models from the picker's first level, or the account appears twice when it is both the lead and a stored quick provider.
  */
 import { expect, test } from 'vitest'
-import { levelOneSections } from '@dsh-claude-style/client/pure'
-import { ACCOUNT_MODEL_GROUP, OFFICIAL_MODEL_GROUP } from '@dsh-claude-style/contracts/services'
-import type { HostModelGroup } from '@dsh-claude-style/contracts/services'
+import { levelOneSections } from '@dsh-claude-ui/client/pure'
+import { ACCOUNT_MODEL_GROUP, OFFICIAL_MODEL_GROUP } from '@dsh-claude-ui/contracts/services'
+import type { HostModelGroup } from '@dsh-claude-ui/contracts/services'
 
 /** One provider group with the given id and as many models as asked for. */
 function group(id: string, models = 1): HostModelGroup {

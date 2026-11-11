@@ -9,9 +9,9 @@
  * @risk After the host re-renders, a header keeps a hold mark for a tab strip it lost (or never gains it), so the skin's styling of the header, the sidebar column or the account row is wrong until a reload.
  */
 import { expect, test } from 'vitest'
-import { installParts } from '@dsh-claude-style/engine/parts'
-import { holdRelations } from '@dsh-claude-style/engine/parts-table'
-import { COMPOSER_CARD_SELECTOR, CONVERSATION_HEADER_SLOT_SELECTOR, CONVERSATION_SCROLL_SELECTOR, PHASE_ATTRIBUTE, ROOT_SLOT_SELECTOR, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
+import { holdRelations } from '@dsh-claude-ui/engine/parts-table'
+import { COMPOSER_CARD_SELECTOR, CONVERSATION_HEADER_SLOT_SELECTOR, CONVERSATION_SCROLL_SELECTOR, PHASE_ATTRIBUTE, ROOT_SLOT_SELECTOR, SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { partRegion } from '../../fixtures/part-region'
 import { hostElement } from '../../fixtures/host-markup'
 import { pageCleanups } from '../../fixtures/page'

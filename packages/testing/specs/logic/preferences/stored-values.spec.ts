@@ -9,13 +9,13 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { resolveMascot } from '@dsh-claude-style/client/pure'
+import { resolveMascot } from '@dsh-claude-ui/client/pure'
 import {
   BRAND_CLAUDE, BRAND_DEEPSEEK, BRAND_DEEPSEEK_LEGACY, BRAND_INK_ORIGINAL, BRAND_INK_TEXT, BRAND_NAME_MAX,
   CHAT_ANIMATIONS_OFF, MASCOT_CRAB, MASCOT_DEEPY, MASCOT_OFF, ONGOING_INDICATOR_BREATHE, ONGOING_INDICATOR_RING, ONGOING_INDICATOR_SHIMMER, ONGOING_SIDE_LEFT, ONGOING_SIDE_RIGHT, PREFS, PREF_DEFAULTS,
   PROVIDER_ID_MAX, QUICK_PROVIDERS_MAX, STATUS_MOTION_WASH, USERNAME_MAX, clampPrefs,
-} from '@dsh-claude-style/contracts/prefs'
-import { OFFICIAL_MODEL_GROUP } from '@dsh-claude-style/contracts/services'
+} from '@dsh-claude-ui/contracts/prefs'
+import { OFFICIAL_MODEL_GROUP } from '@dsh-claude-ui/contracts/services'
 
 test('an empty or unreadable value reads as the defaults', () => {
   expect(clampPrefs({})).toEqual(PREF_DEFAULTS)

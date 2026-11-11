@@ -8,7 +8,7 @@
  * @features mascot
  * @risk A thin line runs down the crab's left side or across its top while it plays: the neighbouring frame's claw or legs, drawn at the window's edge.
  */
-import { CONVERSATION_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { CONVERSATION_PARTS } from '@dsh-claude-ui/engine/parts-table'
 import { spec, host } from '../../fixtures/behaviour.mjs'
 
 /** How far a device pixel the crab leaves empty may stray from the page behind it, per channel. */

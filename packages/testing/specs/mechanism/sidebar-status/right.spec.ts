@@ -5,7 +5,7 @@
  */
 import { expect, test } from 'vitest'
 import { userEvent } from 'vitest/browser'
-import { SESSION_PHASE_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { SESSION_PHASE_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { mount, nativeDot, PART } from './fixture'
 import { surfaceAttribute } from '../../fixtures/surface'
 

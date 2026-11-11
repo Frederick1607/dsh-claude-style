@@ -1,4 +1,4 @@
-import { OPTIONAL_WEBFONTS } from '@dsh-claude-style/contracts/webfonts'
+import { OPTIONAL_WEBFONTS } from '@dsh-claude-ui/contracts/webfonts'
 import { FONT_FILES_ROUTE } from '../constants'
 
 /** Declare only host-reported files so absent Anthropic fonts cause no requests (D75).

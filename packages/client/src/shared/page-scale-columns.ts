@@ -1,9 +1,9 @@
 /** Host pixel lengths must be divided by page scale once, including sidebar width and handle offset (D43, D81).
  * Tracks containing `fr` or keywords stay under CSS sizing; only measured pixel lengths are converted.
  */
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { cacheFirstMatch } from '@dsh-claude-style/engine/host'
-import { ROOT_SLOT_SELECTOR, SIDEBAR_HANDLE_SELECTOR, SIDEBAR_ROOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { cacheFirstMatch } from '@dsh-claude-ui/engine/host'
+import { ROOT_SLOT_SELECTOR, SIDEBAR_HANDLE_SELECTOR, SIDEBAR_ROOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { subscribePrefs } from '../core/prefs'
 
 /** One length in the host's written column list, and the bracket group a length

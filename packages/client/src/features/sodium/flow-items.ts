@@ -1,6 +1,6 @@
-import { CHAT_FLOW_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import type { MatchList } from '@dsh-claude-style/engine/bus'
+import { CHAT_FLOW_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import type { MatchList } from '@dsh-claude-ui/engine/bus'
 
 /**
  * Keep the mark the sodium rewrite's gap rules fall back on (D78): on every

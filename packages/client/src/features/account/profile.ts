@@ -1,9 +1,9 @@
-import { hostRemote, hostRemoteAccount } from '@dsh-claude-style/engine/host'
+import { hostRemote, hostRemoteAccount } from '@dsh-claude-ui/engine/host'
 import { setAccountIdentity } from '../../shared/identity'
 import { accountClient, forgetAccountBalance } from '../../shared/account-balance'
-import type { HostContext, HostFiber } from '@dsh-claude-style/engine/host'
-import type { HostAccountAnswer, HostAccountFrame, HostAccountService } from '@dsh-claude-style/contracts/account'
-import type { HostStream, HostStreamStep } from '@dsh-claude-style/contracts/services'
+import type { HostContext, HostFiber } from '@dsh-claude-ui/engine/host'
+import type { HostAccountAnswer, HostAccountFrame, HostAccountService } from '@dsh-claude-ui/contracts/account'
+import type { HostStream, HostStreamStep } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The signed-in account, when the desktop has one: `remote.account.getProfile(client)`
@@ -146,7 +146,7 @@ export function createAccountProfile(ctx: HostContext, onChange: () => void) {
     const remote = hostRemote(ctx)
     if (account === null || typeof account.watch !== 'function' || typeof remote?.$stream !== 'function') return false
     const stream = remote.$stream({
-      name: 'dsh-claude-style account',
+      name: 'dsh-claude-ui account',
       open(signal: AbortSignal) { return account.watch(signal) },
       ended() { return new Error('account stream ended') }
     })
@@ -184,7 +184,7 @@ export function createAccountProfile(ctx: HostContext, onChange: () => void) {
       scope.effect(() => {
         if (!followAccount()) loadAccount()
         return stopFollowingAccount
-      }, 'dsh-claude-style: account')
+      }, 'dsh-claude-ui: account')
     })
   } else if (!followAccount()) {
     loadAccount()

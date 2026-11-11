@@ -1,4 +1,4 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { motionEase, motionMs } from './motion'
 import { motionReduced } from '../core/prefs'
 

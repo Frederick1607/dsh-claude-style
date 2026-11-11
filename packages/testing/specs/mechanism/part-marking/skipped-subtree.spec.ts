@@ -8,8 +8,8 @@
  * @risk With the `@` menu open, the composer's own row and cluster marks land on a menu row, so the skin measures that row as the toolbar and every measurement taken from it — the dock's line, the room the meter keeps — lands on the open menu.
  */
 import { expect, test } from 'vitest'
-import { installParts } from '@dsh-claude-style/engine/parts'
-import { COMPOSER_OVERLAY_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
+import { COMPOSER_OVERLAY_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { partRegion } from '../../fixtures/part-region'
 import { hostAttribute, hostElement } from '../../fixtures/host-markup'
 import { pageCleanups } from '../../fixtures/page'

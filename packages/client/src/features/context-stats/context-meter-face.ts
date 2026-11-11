@@ -1,4 +1,4 @@
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 
 /**
  * The context meter's face (features/context-stats/meter-ring.ts,

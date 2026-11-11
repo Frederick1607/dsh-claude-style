@@ -98,11 +98,11 @@ interface CachedSession {
   messages: SearchMessage[]
 }
 
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { createHash } from 'node:crypto'
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
 import { cachePath, readJsonDocument, writeJsonDocument } from './cache-file.js'
-import { readEvents } from '@dsh-claude-style/engine/node/session-events'
+import { readEvents } from '@dsh-claude-ui/engine/node/session-events'
 
 /**
  * The query service's own text rule (dsh-session-query `compileSessionTextFilter`):

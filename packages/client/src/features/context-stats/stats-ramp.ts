@@ -1,4 +1,4 @@
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 
 /**
  * The colour ramp a reading takes, after dsh-chat-ux's design: a reading

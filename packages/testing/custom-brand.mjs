@@ -5,7 +5,7 @@
  * Registered in the lane's scenario table (packages/testing/scenarios.mjs).
  *
  * The host half keeps the images under the scratch home's
- * `dsh-claude-style/brand/`. The scenario drives its routes from the page, the
+ * `dsh-claude-ui/brand/`. The scenario drives its routes from the page, the
  * way the settings page does — through the host's fence, with the page's own
  * cookie — and holds each refusal to its status: a type the route does not
  * take, bytes that do not open the way their type requires, a body over the
@@ -17,9 +17,9 @@
 
 /** The routes under test (packages/contracts/src/routes.ts). */
 const ROUTES = {
-  status: '/dsh-claude-style/brand',
-  mark: '/dsh-claude-style/brand/mark',
-  wordmark: '/dsh-claude-style/brand/wordmark',
+  status: '/dsh-claude-ui/brand',
+  mark: '/dsh-claude-ui/brand/mark',
+  wordmark: '/dsh-claude-ui/brand/wordmark',
 }
 
 /** One step past the host half's size limit (packages/contracts/src/brand.ts). */

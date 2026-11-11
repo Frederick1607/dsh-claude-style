@@ -1,6 +1,18 @@
 # Changelog
 
-All notable changes to `dsh-claude-style` are documented here, newest first.
+All notable changes to `dsh-claude-ui` are documented here, newest first.
+
+## [0.21.0] - 2026-11-11
+
+[中文](#cn-0.21.0) | [English](#en-0.21.0)
+
+<h3 id="cn-0.21.0">其他变更</h3>
+
+- 仓库改名 dsh-claude-ui，包名、工作区作用域、插件页名称与安装文档一起对齐；界面标记与设置项文案不变
+
+<h3 id="en-0.21.0">Chores</h3>
+
+- Rename the repository to dsh-claude-ui, aligning the package name, the workspace scope, the plugin name and the install docs, while the interface marks stay as they were
 
 ## [0.20.14] - 2026-11-11
 
@@ -740,7 +752,7 @@ All notable changes to `dsh-claude-style` are documented here, newest first.
 
 <h3 id="cn-0.19.4">新增功能</h3>
 
-- 新增看板用量能力：已折好的会话用量（每天的四类 token 分桶、按小时的结算次数与各模型总量）经 `dsh-claude-style:usage` 交给看板组件，与工作台首页那块用量面板读同一份缓存；能力注册可以带自己的调用时长上限。
+- 新增看板用量能力：已折好的会话用量（每天的四类 token 分桶、按小时的结算次数与各模型总量）经 `dsh-claude-ui:usage` 交给看板组件，与工作台首页那块用量面板读同一份缓存；能力注册可以带自己的调用时长上限。
 - 新增对 `dsh-better-sidebar` 底部面板的页面像素适配：面板的左右边取两侧栏的实际位置、上边取输入区座位的下沿、下边取窗口底，全部按页面缩放因子换算；拖拽侧栏期间暂停写入，缩放回到 1 倍时把插件自己的值写回。
 - 新增自定义计费表（#170）：设置页「计费币种」下面多一行「编辑」，打开一张按模型填写单价的表（模型 / 缓存读 / 输入 / 输出，每百万 token）。填过的桶覆盖官方价格表，留空的桶仍按表格计价；表格里查不到的模型只按这张表计价。价格表跟会话一起送到宿主，正在流式估算的那一段也按同一张表算。窄屏时每一行折成一张卡片，模型在上、三个单价各带标签。
 
@@ -767,7 +779,7 @@ All notable changes to `dsh-claude-style` are documented here, newest first.
 
 <h3 id="en-0.19.4">New Features</h3>
 
-- Add a widget-board usage capability: the folded session usage (four token buckets per day, settlements per hour and per-model totals) reaches widget cards as `dsh-claude-style:usage`, reading the same cache as the studio home panel; a capability registration can now carry its own call timeout.
+- Add a widget-board usage capability: the folded session usage (four token buckets per day, settlements per hour and per-model totals) reaches widget cards as `dsh-claude-ui:usage`, reading the same cache as the studio home panel; a capability registration can now carry its own call timeout.
 - Add page-pixel fitting for `dsh-better-sidebar`'s bottom panel: its left and right edges follow the two side columns, its top edge follows the composer seat's bottom, and its height reaches the window's bottom, all divided by the page-zoom factor; writes pause while a column is dragged, and every value the plugin wrote is restored at scale 1.
 - Add the custom price table (#170): a "Edit" row under the billing currency opens a per-model table of rates (model / cache read / input / output, per million tokens). A filled bucket overrides the official tables and a blank one keeps their rate; a model the tables do not carry is priced from this table alone. The rows travel with the session to the host, so the answer still streaming is priced the same way. Under 760px each row folds into a card with the model above three labelled rates.
 
@@ -1429,7 +1441,7 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 - 读者自己发出的长消息可以收起来，气泡下面多出一个「展开全文」，按下放回整条、再按收起，这条消息在本次会话里保持读者选的样子，设置页关掉「自动开合与卷帘门」时这项跟着关掉。
 - 新会话页有了水波纹字符背景，点击页面荡开水波、被扫过的字符显现出来；设置页「外观」页首页版面下新增同名开关，默认关闭、带「实验性」标记，设置存为 `homeRipple`，宿主半边是旧版本时改动保存不下来。
 - 设置页「通用」多了页面缩放，整页按 0.8x、1x、1.25x、1.5x 绘制，界面、文字与控件一起缩放，「随系统」保持系统与 DSH 给出的尺寸，设置页自己也按同一倍数绘制、档位可以在这一页上直接比出来，贴输入区展开的弹层仍贴着各自的按钮，设置存为 `pageZoom`。
-- 代码字体先试 Anthropic Mono，把 Anthropic 的等宽字体装进系统或放进 `$DSH_HOME/dsh-claude-style/fonts/` 之后，代码块、行内代码与等宽标签都由这款字体绘制，没有这份文件时仍用随包分发的 JetBrains Mono，中文照旧落到系统中文字体；字体文件只在仓库里提供，npm 包不带。
+- 代码字体先试 Anthropic Mono，把 Anthropic 的等宽字体装进系统或放进 `$DSH_HOME/dsh-claude-ui/fonts/` 之后，代码块、行内代码与等宽标签都由这款字体绘制，没有这份文件时仍用随包分发的 JetBrains Mono，中文照旧落到系统中文字体；字体文件只在仓库里提供，npm 包不带。
 
 ### 体验优化
 
@@ -1458,7 +1470,7 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 - A long message the reader sent can be folded away, with a Show the whole message control under the bubble that hands the whole message back and folds it again, and the message keeps what the reader chose for the rest of the session; turning the chat area's folding off turns this off with it.
 - The new-conversation page gets a ripple glyph background, where a press sends out waves and the characters a wave passes show; a switch of the same name sits under the home layout on the Appearance tab, off until it is turned on and marked experimental, stored as `homeRipple`, and a change to it does not save with an older host half.
 - The settings page's General tab gains page zoom, the page drawn at 0.8x, 1x, 1.25x or 1.5x with the interface and its controls growing or shrinking together, and Follow the system keeping the size the system and DSH give it; the popovers that open off the composer stay on their own triggers, and the setting is stored as `pageZoom`.
-- Code is drawn in Anthropic Mono first, so code blocks, inline code and the mono labels take Anthropic's mono face once it is installed on the system or dropped into `$DSH_HOME/dsh-claude-style/fonts/`, the JetBrains Mono copy the package carries still answering without the file and Chinese text keeping falling through to the system's Chinese faces; the face is served from this repository only, not from the npm package.
+- Code is drawn in Anthropic Mono first, so code blocks, inline code and the mono labels take Anthropic's mono face once it is installed on the system or dropped into `$DSH_HOME/dsh-claude-ui/fonts/`, the JetBrains Mono copy the package carries still answering without the file and Chinese text keeping falling through to the system's Chinese faces; the face is served from this repository only, not from the npm package.
 
 ### Improvements
 
@@ -2154,7 +2166,7 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 ### 体验优化
 
 - 把设置页「对话」页的「聊天区动画效果」改为关闭、增强、重绘三档分段控件，关闭把聊天区交回宿主，增强接上跟随、自动开合与卷帘门与新文字淡入，重绘接上插件自己的会话视图，旧版本存下的开关取值照旧生效。
-- 把设置页、内容搜索、吉祥物、发送动效、对话导航、上下文弹层与封号彩蛋这七个首屏可以缺席的功能移出 `lib/client.js`，各自成为由资产路由 `/dsh-claude-style/assets/` 提供的一块，页面被接管后立即请求、到达后安装。
+- 把设置页、内容搜索、吉祥物、发送动效、对话导航、上下文弹层与封号彩蛋这七个首屏可以缺席的功能移出 `lib/client.js`，各自成为由资产路由 `/dsh-claude-ui/assets/` 提供的一块，页面被接管后立即请求、到达后安装。
 - 设置页「侧栏」页新增「面板悬浮卡片」开关，开启（默认）时右侧栏停靠的面板是四周留 8px、16px 圆角、1px 描边与投影的悬浮卡片，关闭后铺满整列并贴住四边，分栏时每栏铺满各自那一栏，切换不需要刷新页面。
 - 模型选择器每一行的说明改由一张按名字模式认领的有序规则表得出，带上日期后缀、换一种分隔写法或换一个售卖方前缀仍读到同一句，目录里的拼法各自落到所在产品线的规则上、不必再逐条登记。
 - 把「重绘」档里轮次进行中的那条状态行上下各收进 30px，贴着最新一条消息读，行内文字与它的下一条内容之间也少 30px，这一行仍按内容居中、高度不变，并补一圈底色投影、抬到上方内容之上，压上去时不露出旧内容的接缝。
@@ -2185,7 +2197,7 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 ### Improvements
 
 - The Chat-area animations row on the settings page's Conversation tab is a three-way control, Off handing the conversation back to the host, Enhanced bringing the follow, the folding with its rolling door and the text fade, and Redraw the plugin's own conversation view, with an earlier build's stored value keeping its meaning.
-- Move the settings page, content search, the mascot, the send animation, the conversation navigator, the context popover and the account-hold easter egg out of `lib/client.js` into chunks of their own, served by the asset route `/dsh-claude-style/assets/` and requested as soon as the page is taken.
+- Move the settings page, content search, the mascot, the send animation, the conversation navigator, the context popover and the account-hold easter egg out of `lib/client.js` into chunks of their own, served by the asset route `/dsh-claude-ui/assets/` and requested as soon as the page is taken.
 - Add a Float docked panels switch to the Sidebar tab, on by default, which keeps the right sidebar's docked panels as floating cards 8px inside the column with a 16px radius, a hairline and an elevation, and fills the column and hugs its edges when off, each pane filling its own column while the dock is split, with no reload needed.
 - Every model row's description comes from one ordered table of name-pattern rules, so a dated suffix, another separator or another reseller's prefix still reads the line's own sentence and catalog spellings land on their product line's rule without an entry of their own.
 - In the Redraw tier the live status line comes in 30px closer above and below so it reads with the newest message, the distance from its text to whatever follows it shrinks by the same 30px, the line stays centred in its height, and a base-coloured shadow runs under and over it so the older content never shows at its edge.
@@ -2245,9 +2257,9 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 
 ### 其他变更
 
-- 公开路由改为由 `GET /dsh-claude-style/assets/<内容哈希>.svg` 提供帧图，品牌标志、厂商组合标与螃蟹帧图同样由这份构建清单决定内联进产物还是走这条路由，更新插件后需要重启宿主，早于本次构建的宿主半边没有这条路由，小鲸鱼不会出现（控制台提示一次）。
+- 公开路由改为由 `GET /dsh-claude-ui/assets/<内容哈希>.svg` 提供帧图，品牌标志、厂商组合标与螃蟹帧图同样由这份构建清单决定内联进产物还是走这条路由，更新插件后需要重启宿主，早于本次构建的宿主半边没有这条路由，小鲸鱼不会出现（控制台提示一次）。
 - npm 包里新增 `lib/client.js.map`，浏览器开发者工具里的报错位置与断点能对应到插件源码。
-- 把 Anthropic 字体的投放点迁到 `$DSH_HOME/dsh-claude-style/fonts/`，放在这里的文件优先于包内的同名文件，随包分发的四款字体改由构建写入 `lib/fonts/`，两款 Anthropic 字体仍不随 npm 包分发。
+- 把 Anthropic 字体的投放点迁到 `$DSH_HOME/dsh-claude-ui/fonts/`，放在这里的文件优先于包内的同名文件，随包分发的四款字体改由构建写入 `lib/fonts/`，两款 Anthropic 字体仍不随 npm 包分发。
 
 <h3 id="en-0.12.0">New Features</h3>
 
@@ -2282,9 +2294,9 @@ Full Changelog: [v0.18.1...v0.18.2](https://github.com/Nwflower/dsh-claude-style
 
 ### Chores
 
-- Serving the whale's frames moves to `GET /dsh-claude-style/assets/<content hash>.svg` while `GET /dsh-claude-style/deepy/<animation>.png` is gone, and the brand marks, the vendor lockups and the crab's sheets follow the same build manifest that decides per file between an inline form and that route; restart the host after updating, since a host half older than this build has no such route and the whale will not appear (one console message).
+- Serving the whale's frames moves to `GET /dsh-claude-ui/assets/<content hash>.svg` while `GET /dsh-claude-ui/deepy/<animation>.png` is gone, and the brand marks, the vendor lockups and the crab's sheets follow the same build manifest that decides per file between an inline form and that route; restart the host after updating, since a host half older than this build has no such route and the whale will not appear (one console message).
 - The npm package carries `lib/client.js.map`, so error locations and breakpoints in the browser's developer tools map back to the plugin's sources.
-- The Anthropic fonts are dropped into `$DSH_HOME/dsh-claude-style/fonts/` (`~/.dsh/dsh-claude-style/fonts/` when `DSH_HOME` is unset), where a file wins over a bundled face of the same name; the four faces the package ships are written to `lib/fonts/` by the build, and the two Anthropic faces stay outside the npm package.
+- The Anthropic fonts are dropped into `$DSH_HOME/dsh-claude-ui/fonts/` (`~/.dsh/dsh-claude-ui/fonts/` when `DSH_HOME` is unset), where a file wins over a bundled face of the same name; the four faces the package ships are written to `lib/fonts/` by the build, and the two Anthropic faces stay outside the npm package.
 
 ## [0.11.1] - 2026-10-06
 
@@ -2612,7 +2624,7 @@ Full Changelog: [v0.10.0...v0.10.1](https://github.com/Nwflower/dsh-claude-style
 
 <h3 id="cn-0.10.0">新增功能</h3>
 
-- 品牌选 DeepSeek 时，输入框上的螃蟹换成像素小鲸鱼 Deepy，动画逐帧取自 Deepy 主题包；它的动作跟着智能体走，模型思考、写回答、调用工具、等你操作各有动作，点它的脸或尾巴能戳它，减少动态效果时每个状态停在一张代表帧上；插件新增公开路由 `GET /dsh-claude-style/deepy/<动作>.png` 提供帧图。
+- 品牌选 DeepSeek 时，输入框上的螃蟹换成像素小鲸鱼 Deepy，动画逐帧取自 Deepy 主题包；它的动作跟着智能体走，模型思考、写回答、调用工具、等你操作各有动作，点它的脸或尾巴能戳它，减少动态效果时每个状态停在一张代表帧上；插件新增公开路由 `GET /dsh-claude-ui/deepy/<动作>.png` 提供帧图。
 
 ### 体验优化
 
@@ -2621,7 +2633,7 @@ Full Changelog: [v0.10.0...v0.10.1](https://github.com/Nwflower/dsh-claude-style
 
 <h3 id="en-0.10.0">New Features</h3>
 
-- Add Deepy the pixel whale on the composer under the DeepSeek brand, whose frames come from the Deepy theme pack one for one; its animation follows the agent, reacting to each thing it does, with reduced motion holding each state on one frame; a new public route, `GET /dsh-claude-style/deepy/<animation>.png`, serves the frames.
+- Add Deepy the pixel whale on the composer under the DeepSeek brand, whose frames come from the Deepy theme pack one for one; its animation follows the agent, reacting to each thing it does, with reduced motion holding each state on one frame; a new public route, `GET /dsh-claude-ui/deepy/<animation>.png`, serves the frames.
 
 ### Improvements
 
@@ -2785,12 +2797,12 @@ Full Changelog: [v0.7.0...v0.7.1](https://github.com/Nwflower/dsh-claude-style/c
 <h3 id="cn-0.7.0">新增功能</h3>
 
 - 新增「首页版面」设置项，选「经典」时沿用居中大标题加输入卡片，选「工作台」时标题移到左上角、输入框改用对话内的单行样式贴住窗口底部，用量面板贴着输入框左缘排布；面板的「全部 / 30 天 / 7 天」过滤数字格、趣味行与模型排行，只在新会话页出现。
-- 新增只读路由 `GET /dsh-claude-style/usage`（与用户名路由同一同源护栏），装了 `dsh-cost-meter` 时读它的账本缓存、否则读本机会话日志自行汇总，两种来源都给出每个模型的四类 token 与每天按模型拆分的 token，汇总不可用时改用宿主会话列表自带的投影值出数。
+- 新增只读路由 `GET /dsh-claude-ui/usage`（与用户名路由同一同源护栏），装了 `dsh-cost-meter` 时读它的账本缓存、否则读本机会话日志自行汇总，两种来源都给出每个模型的四类 token 与每天按模型拆分的 token，汇总不可用时改用宿主会话列表自带的投影值出数。
 - 新增先画骨架再填数的用量面板，数字到达前先画好外框、占位数字、空热力格与模型行的占位条，到达后只替换文字、格子颜色与条长，整个版面不跳动，取不到数据的格子画破折号。
 - 在工作台版面的新会话页上，输入卡片上沿靠右站着 Claude Code 的像素螃蟹，点它、指针从它身上移开、以及页面开着时每隔 25–45 秒，它照 Claude Code 的样子敲一次代码，系统要求减少动态效果时只有点它才播放，只有螃蟹本身接收指针。
 - 新增热力图的日期提示，指针停在某一天上立刻浮出 Claude Code 样式的深色提示，写着日期和当天的消息数，靠两端的几列贴着格子外沿、不伸出面板。
 - 新增经典首页的更多问候，早上、午间、下午、晚上、深夜各有一组，另有几句不分时段，每次回到新会话页随机换一句，同一次停留里不会跳动。
-- 新增接入 HDSL 启动器的账号昵称与头像，昵称依次回退到官方账号昵称、HDSL 昵称与系统用户名，头像依次回退到官方账号头像、HDSL 头像与 Claude 徽标，宿主半边新增两条只读私有路由 `GET /dsh-claude-style/hdsl` 与 `GET /dsh-claude-style/hdsl-skin.png`。
+- 新增接入 HDSL 启动器的账号昵称与头像，昵称依次回退到官方账号昵称、HDSL 昵称与系统用户名，头像依次回退到官方账号头像、HDSL 头像与 Claude 徽标，宿主半边新增两条只读私有路由 `GET /dsh-claude-ui/hdsl` 与 `GET /dsh-claude-ui/hdsl-skin.png`。
 
 ### 体验优化
 
@@ -2812,12 +2824,12 @@ Full Changelog: [v0.7.0...v0.7.1](https://github.com/Nwflower/dsh-claude-style/c
 <h3 id="en-0.7.0">New Features</h3>
 
 - Add a Home layout preference, with "Classic" keeping the centered headline over the composer card and "Studio" pinning the greeting to the top left, docking the composer at the window's bottom edge and setting a usage panel against its left edge, the panel's All / 30d / 7d pills filtering the tiles, the multiplier line and the model list.
-- Add the read-only route `GET /dsh-claude-style/usage` behind the username route's same-origin fence, reading `dsh-cost-meter`'s ledger cache when installed and folding the local session logs otherwise, both answering each model's token buckets and per-day tokens, with the panel falling back to the projection block host session rows carry.
+- Add the read-only route `GET /dsh-claude-ui/usage` behind the username route's same-origin fence, reading `dsh-cost-meter`'s ledger cache when installed and folding the local session logs otherwise, both answering each model's token buckets and per-day tokens, with the panel falling back to the projection block host session rows carry.
 - Add a skeleton drawn before the numbers arrive, the frame, number placeholders, an empty heat grid and stand-in model bars first, so arriving values replace only the text, the cell colours and the bar lengths and nothing shifts, with a dash for a figure no source can answer.
 - Add Claude Code's pixel crab on the composer card's top edge near its right end on the Studio layout's new-conversation page, playing its laptop routine when clicked, when the pointer leaves it and every 25–45 seconds while the page is in view, with a click the only trigger under reduced motion and only the crab taking the pointer.
 - Add dark Claude Code day tips on the heat grid, naming the date and that day's messages as soon as the pointer rests on a day and lining up with the cell's outer edge over the columns at either end.
 - Add more greetings to the classic home page, a pool for each of morning, midday, afternoon, evening and night plus a few lines for any hour, drawn fresh each time the new-conversation page comes back and holding still while the reader stays.
-- Add HDSL launcher accounts for the nickname and the picture, each falling back through the signed-in account, HDSL and the Claude mark, with two read-only private routes, `GET /dsh-claude-style/hdsl` and `GET /dsh-claude-style/hdsl-skin.png`.
+- Add HDSL launcher accounts for the nickname and the picture, each falling back through the signed-in account, HDSL and the Claude mark, with two read-only private routes, `GET /dsh-claude-ui/hdsl` and `GET /dsh-claude-ui/hdsl-skin.png`.
 
 ### Improvements
 
@@ -2865,12 +2877,12 @@ Full Changelog: [v0.6.1...v0.6.4](https://github.com/Nwflower/dsh-claude-style/c
 <h3 id="cn-0.6.1">新增功能</h3>
 
 - 支持 DSH 0.1.7 内置自动审查（Auto review），分段控件与权限菜单增加审查模式，分段控件显示为 `Auto`、弹层与当前状态显示为 `Auto review`，原 `Auto`（完全权限）更名为 `Yolo`，审查档位只在宿主的 `permissionPresets` 目录携带 `auto` 时显示，目录读不到时整个权限控件交还宿主的访问模式按钮。
-- 让已归档会话的删除按钮恢复可用，插件的宿主半边新增私有路由 `POST /dsh-claude-style/session-delete` 删除本机会话目录，只接受 POST 与同源请求，id 必须匹配宿主自身的会话 id 形状，正在打开的会话拒绝删除，目录解析后必须留在会话根目录内。
+- 让已归档会话的删除按钮恢复可用，插件的宿主半边新增私有路由 `POST /dsh-claude-ui/session-delete` 删除本机会话目录，只接受 POST 与同源请求，id 必须匹配宿主自身的会话 id 形状，正在打开的会话拒绝删除，目录解析后必须留在会话根目录内。
 
 <h3 id="en-0.6.1">New Features</h3>
 
 - Support DSH 0.1.7's built-in Auto review, adding review mode to the permission segmented control and popover as `Auto` in the segments and `Auto review` in the menu and current status, renaming the former `Auto` (Full access) segment `Yolo`, and showing the review tier only while the host's `permissionPresets` catalog carries `auto`, with the whole permission control handing the host's access-mode button back when the catalog cannot be read.
-- Make the archived rows' delete button work again through the host half's new private route `POST /dsh-claude-style/session-delete`, which removes the local session directory, takes POST and same-origin requests only, requires the id to match the host's own session id shape, refuses an open session and keeps the resolved directory inside the sessions root.
+- Make the archived rows' delete button work again through the host half's new private route `POST /dsh-claude-ui/session-delete`, which removes the local session directory, takes POST and same-origin requests only, requires the id to match the host's own session id shape, refuses an open session and keeps the resolved directory inside the sessions root.
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/Nwflower/dsh-claude-style/compare/v0.6.0...v0.6.1)
 
@@ -3440,7 +3452,7 @@ Full Changelog: [v0.2.6...v0.2.7](https://github.com/Nwflower/dsh-claude-style/c
 
 <h3 id="cn-0.2.6">新增功能</h3>
 
-- 宿主半边新增 `/dsh-claude-style/fonts/*` 字体路由，把 JetBrains Mono 以 `@font-face` 注册为 webfont，缺失时改用系统字体栈。
+- 宿主半边新增 `/dsh-claude-ui/fonts/*` 字体路由，把 JetBrains Mono 以 `@font-face` 注册为 webfont，缺失时改用系统字体栈。
 - 把两个 Anthropic 字体文件放进插件的 `fonts/`，即以 webfont 提供，缺失时返回 404 并回退。
 
 ### 其他变更
@@ -3453,7 +3465,7 @@ Full Changelog: [v0.2.6...v0.2.7](https://github.com/Nwflower/dsh-claude-style/c
 
 <h3 id="en-0.2.6">New Features</h3>
 
-- Add a host `/dsh-claude-style/fonts/*` route and register JetBrains Mono with `@font-face`, falling back to the system stack when absent.
+- Add a host `/dsh-claude-ui/fonts/*` route and register JetBrains Mono with `@font-face`, falling back to the system stack when absent.
 - Serve the two Anthropic font files as webfonts once they are dropped into the plugin's `fonts/`, falling back on a 404.
 
 ### Chores
@@ -3667,7 +3679,7 @@ Full Changelog: [v0.2.0...v0.2.1](https://github.com/Nwflower/dsh-claude-style/c
 
 ### 其他变更
 
-- 项目重命名为 `dsh-claude-style`，与上游 `claude-style-skin` 区分。
+- 项目重命名为 `dsh-claude-ui`，与上游 `claude-style-skin` 区分。
 
 <h3 id="en-0.2.0">New Features</h3>
 
@@ -3682,7 +3694,7 @@ Full Changelog: [v0.2.0...v0.2.1](https://github.com/Nwflower/dsh-claude-style/c
 
 ### Chores
 
-- Rename the project to `dsh-claude-style` to distinguish it from the upstream `claude-style-skin`.
+- Rename the project to `dsh-claude-ui` to distinguish it from the upstream `claude-style-skin`.
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Nwflower/dsh-claude-style/compare/v0.1.0...v0.2.0)
 

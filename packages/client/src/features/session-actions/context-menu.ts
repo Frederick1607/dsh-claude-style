@@ -1,5 +1,5 @@
-import { SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { closestFrom } from '@dsh-claude-style/engine/dom'
+import { SIDEBAR_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { closestFrom } from '@dsh-claude-ui/engine/dom'
 
 const ROW = `${SIDEBAR_SLOT_SELECTOR} [data-dsh-claude-part~="session-row"]`
 const TRIGGER = ':scope > [data-dsh-claude-part~="row-actions"] button'

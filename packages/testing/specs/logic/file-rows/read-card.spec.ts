@@ -9,8 +9,8 @@
  * @risk A file the model read shows the wrong lines or wrong line numbers, or a result that is not a read is drawn as a file window.
  */
 import { expect, test } from 'vitest'
-import { fileToolOperation, chatFileOperationTitle, chatFileReadCard, chatFileReadEnvelope, chatFileReadMeta } from '@dsh-claude-style/client/pure'
-import type { HostChatBlock } from '@dsh-claude-style/contracts/services'
+import { fileToolOperation, chatFileOperationTitle, chatFileReadCard, chatFileReadEnvelope, chatFileReadMeta } from '@dsh-claude-ui/client/pure'
+import type { HostChatBlock } from '@dsh-claude-ui/contracts/services'
 
 /** One settled read result: its arguments, its single text block and its own metadata. */
 function readResult(text: string, meta?: unknown): HostChatBlock {

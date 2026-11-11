@@ -9,7 +9,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { chatSendOpaque } from '@dsh-claude-style/client/pure'
+import { chatSendOpaque } from '@dsh-claude-ui/client/pure'
 
 test('a translucent fill is written as the colour the screen paints', () => {
   // The host's own light user bubble over its canvas.

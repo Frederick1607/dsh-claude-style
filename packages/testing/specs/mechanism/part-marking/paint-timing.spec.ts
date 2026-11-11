@@ -9,8 +9,8 @@
  * @risk A large batch is marked one task late: switching sessions paints the host's own line height and table widths for a frame and then reflows, which the reader sees as a jump (#178).
  */
 import { expect, test } from 'vitest'
-import { installParts } from '@dsh-claude-style/engine/parts'
-import { CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
+import { CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { partRegion } from '../../fixtures/part-region'
 import { hostElement } from '../../fixtures/host-markup'
 import { pageCleanups } from '../../fixtures/page'

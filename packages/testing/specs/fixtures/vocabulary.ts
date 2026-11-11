@@ -1,5 +1,5 @@
-import type { SkinSeam } from '@dsh-claude-style/engine/skin'
-import type { PartsVocabulary } from '@dsh-claude-style/engine/parts'
+import type { SkinSeam } from '@dsh-claude-ui/engine/skin'
+import type { PartsVocabulary } from '@dsh-claude-ui/engine/parts'
 
 /** The vocabulary the specs hand the engine, the way a skin hands its own over (D73), so no spec leans on the skin's names. */
 export const QUIET_ATTR = 'data-test-quiet'

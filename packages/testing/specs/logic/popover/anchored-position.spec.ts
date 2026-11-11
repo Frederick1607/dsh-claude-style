@@ -10,7 +10,7 @@
  * @risk A card taller than the window keeps the position its trigger resolved and draws its lower rows off the bottom of the page, where no scroll of the page reaches them.
  */
 import { expect, test } from 'vitest'
-import { clampToViewport, resolveAnchoredPosition } from '@dsh-claude-style/client/pure'
+import { clampToViewport, resolveAnchoredPosition } from '@dsh-claude-ui/client/pure'
 
 const viewport = { width: 1000, height: 640 }
 const row = (top: number, height = 32) => new DOMRect(20, top, 200, height)

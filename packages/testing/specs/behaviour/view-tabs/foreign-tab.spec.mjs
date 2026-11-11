@@ -9,7 +9,7 @@
  * @risk A third-party plugin's tab sits above or below the host's tabs, or the
  *   skin overrides the plugin's own look by claiming the whole control.
  */
-import { HEADER_PARTS } from '@dsh-claude-style/engine/parts-table'
+import { HEADER_PARTS } from '@dsh-claude-ui/engine/parts-table'
 import { spec, host, surface } from '../../fixtures/behaviour.mjs'
 import { partClass } from '../../fixtures/parts.mjs'
 

@@ -43,7 +43,7 @@ const MODEL_ID = /deepseek-[a-z0-9_.-]+/i
 async function load(url) {
   const response = await fetch(url, {
     signal: AbortSignal.timeout(15_000),
-    headers: { accept: 'text/html', 'user-agent': 'dsh-claude-style price snapshot' },
+    headers: { accept: 'text/html', 'user-agent': 'dsh-claude-ui price snapshot' },
   })
   if (!response.ok) throw new Error(`${url} answered ${response.status}`)
   return response.text()

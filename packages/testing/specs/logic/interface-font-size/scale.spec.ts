@@ -4,7 +4,7 @@
  * @risk Ordinary interface text ignores the reader's chosen size, or a hand-edited setting draws it outside the usable range.
  */
 import { expect, test } from 'vitest'
-import { interfaceFontSizeOf, interfaceFontSizePercent } from '@dsh-claude-style/client/pure'
+import { interfaceFontSizeOf, interfaceFontSizePercent } from '@dsh-claude-ui/client/pure'
 
 test('the interface font scale reads percentages independently of page zoom', () => {
   expect(interfaceFontSizeOf('100')).toBe(1)

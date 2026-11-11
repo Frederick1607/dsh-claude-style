@@ -1,12 +1,12 @@
 import {
   composerInlineCss, composerInlineBarCss, composerResponsiveCss, composerModelCss,
   composerVarsCss, composerSwappingCss, createComposerResponsive, setSwappingText, releaseSwappingText,
-} from '@dsh-claude-style/client/pure'
+} from '@dsh-claude-ui/client/pure'
 import {
   COMPOSER_CARD_SELECTOR, COMPOSER_SCROLL_SELECTOR, COMPOSER_VARIANT_ATTRIBUTE, CONVERSATION_SCROLL_SELECTOR,
   MODEL_SLOT_SELECTOR as CONVERSATION_MODEL_SLOT_SELECTOR, CONVERSATION_INPUT_RIGHT_SLOT_SELECTOR, CONVERSATION_ACTIVITY_SLOT_SELECTOR,
-} from '@dsh-claude-style/contracts/dom'
-import { installParts } from '@dsh-claude-style/engine/parts'
+} from '@dsh-claude-ui/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
 import { partRegion } from '../../fixtures/part-region'
 import { TEST_PARTS } from '../../fixtures/vocabulary'
 import { attach } from '../../fixtures/host-markup'

@@ -1,4 +1,4 @@
-import type { HostText } from '@dsh-claude-style/engine/host'
+import type { HostText } from '@dsh-claude-ui/engine/host'
 
 /**
  * The numbers, in the host's own words.

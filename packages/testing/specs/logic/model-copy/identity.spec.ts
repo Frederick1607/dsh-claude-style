@@ -9,7 +9,7 @@
  * @risk A model listed under a gateway's own id keeps an empty description line and draws no vendor mark, and a row's name can claim the copy of a model another rule already holds.
  */
 import { expect, test } from 'vitest'
-import { indexModelCopy, modelIdentity, resolveModelBrand, resolveModelCopy } from '@dsh-claude-style/client/pure'
+import { indexModelCopy, modelIdentity, resolveModelBrand, resolveModelCopy } from '@dsh-claude-ui/client/pure'
 
 /** A document shaped as the build validated one, small enough to read. */
 const DOCUMENT = {

@@ -8,7 +8,7 @@
  * @risk The rewrite skips the host release it was checked on, or rewrites the rules of an older host whose rules it was never checked against.
  */
 import { expect, test } from 'vitest'
-import { SODIUM_MEMBERS, versionAtLeast } from '@dsh-claude-style/client/pure'
+import { SODIUM_MEMBERS, versionAtLeast } from '@dsh-claude-ui/client/pure'
 
 test('a release at or after the lowest one is covered, an earlier one is not', () => {
   expect(versionAtLeast('0.2.1-rc.2', '0.2.1-rc.2')).toBe(true)

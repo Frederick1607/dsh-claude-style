@@ -1,7 +1,7 @@
-import { FLOW_KIND_ATTRIBUTE, STREAMING_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { conversationScroller } from '@dsh-claude-style/engine/chat-dom'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { FLOW_KIND_ATTRIBUTE, STREAMING_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { conversationScroller } from '@dsh-claude-ui/engine/chat-dom'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { INTERFACE_FONT_SIZE_ATTR } from '../../constants'
 import { createRowHeightCache, rowHeightKey } from './row-heights'
 

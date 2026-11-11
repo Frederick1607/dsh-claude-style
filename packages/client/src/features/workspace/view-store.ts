@@ -1,10 +1,10 @@
-import type { HostArchivedFilter, HostSessionGroupBy, HostWorkspaceViewSnapshot, HostWorkspaceViewStore } from '@dsh-claude-style/contracts/services'
+import type { HostArchivedFilter, HostSessionGroupBy, HostWorkspaceViewSnapshot, HostWorkspaceViewStore } from '@dsh-claude-ui/contracts/services'
 
 /** The section's view (active / archived), as far as the host's own view store tells it. */
 export type SegmentView = 'active' | 'archived'
 
 /** The reader's 进行中 grouping, outliving a reload spent in 已归档. */
-const GROUP_BY_STORAGE = 'dsh-claude-style.workspaceGroupBy'
+const GROUP_BY_STORAGE = 'dsh-claude-ui.workspaceGroupBy'
 
 /**
  * The grouping the reader last had in 进行中: the store's default until this browser records one.
@@ -40,7 +40,7 @@ export function groupOf(snapshot: HostWorkspaceViewSnapshot): HostSessionGroupBy
  * the one a later 已归档 visit puts back.
  *
  * The store is the registration the host keeps under `sidebar.workspaces`
- * (package `@dsh-claude-style/engine/host.ts` `hostWorkspaceView`), the same
+ * (package `@dsh-claude-ui/engine/host.ts` `hostWorkspaceView`), the same
  * instance its own view menu writes; the grouping the reader had before 已归档
  * is put back on the way out, and kept in this browser for a reload spent
  * inside 已归档.

@@ -9,7 +9,7 @@
  * @risk The sidebar stays over the page after the pointer leaves, and only a click on a session puts it back, because a hidden overlay root in the document reads as an open menu.
  */
 import { afterEach, expect, test } from 'vitest'
-import { findForeground } from '@dsh-claude-style/engine/host'
+import { findForeground } from '@dsh-claude-ui/engine/host'
 
 function overlay(role: 'dialog' | 'menu') {
   const node = document.createElement('div')

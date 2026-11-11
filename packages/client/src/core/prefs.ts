@@ -3,10 +3,10 @@ import { backgroundOpacityOf, projectBackgroundOpacity } from '../shared/backgro
 import { interfaceFontSizeOf, projectInterfaceFontSize } from '../shared/interface-font-size'
 import { pageZoomOf, pageZoomText, projectPageZoomFactor } from '../shared/page-zoom'
 import type { PrefKey, Prefs } from '../constants'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import { clampPrefs, PREFS } from '@dsh-claude-style/contracts/prefs'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
-import { createSettingsBinding } from '@dsh-claude-style/engine/settings-binding'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import { clampPrefs, PREFS } from '@dsh-claude-ui/contracts/prefs'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
+import { createSettingsBinding } from '@dsh-claude-ui/engine/settings-binding'
 import { pageOwner } from '../shared/visual-owner'
 
 /** Defaults hold until the host form answers; the shared table clamps stored values (D73, D75). */
@@ -238,8 +238,8 @@ export function resolveMascot(current: Prefs) {
  * yet is written through the form and the local copy dropped.
  */
 const LOCAL_PREF_KEYS: Partial<Record<PrefKey, string>> = {
-  username: 'dsh-claude-style.username',
-  banLocale: 'dsh-claude-style.banLocale',
+  username: 'dsh-claude-ui.username',
+  banLocale: 'dsh-claude-ui.banLocale',
 }
 let localPrefsMoved = false
 

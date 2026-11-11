@@ -1,7 +1,7 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { SIDEBAR_SEARCH_SLOT_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { cacheFirstMatch } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import { SIDEBAR_SEARCH_SLOT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { cacheFirstMatch } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 
 /**
  * The host's own sidebar search, taken over: the host's search shortcut

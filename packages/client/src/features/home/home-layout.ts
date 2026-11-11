@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
-import { PHASE_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { PHASE_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { HOME_HERO_ATTR, HOME_LAYOUT_ATTR, HOME_LAYOUT_STUDIO, PREF_DEFAULTS } from '../../constants'
 import type { Prefs } from '../../constants'
-import { COMPOSER_STACK, cacheFirstMatch, registerSlotEntries } from '@dsh-claude-style/engine/host'
+import { COMPOSER_STACK, cacheFirstMatch, registerSlotEntries } from '@dsh-claude-ui/engine/host'
 import { readPrefs } from '../../core/prefs'
 import { pageHidden, subscribePageHidden } from '../../core/page-visibility'
 import { motionMs } from '../../shared/motion'
@@ -11,8 +11,8 @@ import { HOME_RANGES, createHomeUsage, homePanelData } from './data'
 import { createGreetingCopy } from './greeting-copy'
 import { createHomeModels } from './models'
 import { createHomeOverview } from './overview'
-import { buildElement } from '@dsh-claude-style/engine/dom'
-import type { HostContext, HostFiber } from '@dsh-claude-style/engine/host'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
+import type { HostContext, HostFiber } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './home-layout.manifest'
 import { copy } from './copy'
@@ -165,7 +165,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
     slotsFiber = registerSlotEntries(ctx, [{
       options: { name: DOCK_SLOT, id: 'claude-style-usage', order: 40 },
       component: HomeUsagePanel,
-    }], 'dsh-claude-style: home usage panel')
+    }], 'dsh-claude-ui: home usage panel')
   }
 
   function unmountColdSeat() {

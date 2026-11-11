@@ -12,8 +12,8 @@ const ROOT = path.resolve(PACKAGE, '..', '..')
 const SOURCE = path.join(PACKAGE, 'src')
 /** The package names a module's build resolves and inlines, each with the directory whose relative imports are inlined with it. */
 const INLINED = [
-  { prefix: '@dsh-claude-style/contracts/', dir: path.join(ROOT, 'packages', 'contracts', 'src') },
-  { prefix: '@dsh-claude-style/engine/node/', dir: path.join(ROOT, 'packages', 'engine', 'node') },
+  { prefix: '@dsh-claude-ui/contracts/', dir: path.join(ROOT, 'packages', 'contracts', 'src') },
+  { prefix: '@dsh-claude-ui/engine/node/', dir: path.join(ROOT, 'packages', 'engine', 'node') },
 ]
 
 /** Resolve shared modules and their relative imports; leave publishable imports external. */

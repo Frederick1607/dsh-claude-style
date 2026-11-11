@@ -6,7 +6,7 @@
 
 ## 决定
 
-- 新增私有路由 `/dsh-claude-style/sound`，与其余路由走同一道请求栅栏（D75）。`GET` 回答本机能不能由宿主播放、能播哪两个；`POST { name, volume }` 播放一次。
+- 新增私有路由 `/dsh-claude-ui/sound`，与其余路由走同一道请求栅栏（D75）。`GET` 回答本机能不能由宿主播放、能播哪两个；`POST { name, volume }` 播放一次。
 - 宿主只在 macOS、`/usr/bin/afplay` 与两个系统文件都在时回答 `system`；播放用 `afplay -v <gain>`，名字取自固定的两个文件，增益钳在 `afplay` 接受的范围里。包内不带任何音频。
 - 浏览器半读宿主自己的两份快照：`uiSession.sessionStatus` 与 `sessions.list`。会话从「不等」变成「等」播 Pop；顶层会话从「在跑」变成「不在跑」播 Tink；子代理只在等待时出声，它的结束不算任务完成。
 - 页面打开时的第一次读数就是基线：已经在等或已经在跑的状态不补一声。两次提示落在 200 毫秒内时合成一次，等待确认优先。

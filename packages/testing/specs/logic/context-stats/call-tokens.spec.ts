@@ -7,7 +7,7 @@
  * @risk A step that only calls a tool streams no text, so the written-back figure prices its call rows alone; one count for every tool overprices a read and underprices a write, and a tool the host adds later would add nothing at all.
  */
 import { expect, test } from 'vitest'
-import { callTokens } from '@dsh-claude-style/client/pure'
+import { callTokens } from '@dsh-claude-ui/client/pure'
 
 test('a tool the table names costs its own figure', () => {
   expect(callTokens('read')).toBe(85)

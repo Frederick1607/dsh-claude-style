@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { BRAND_IMAGE_MAX_BYTES, BRAND_IMAGE_TYPES } from '@dsh-claude-style/contracts/brand'
-import type { BrandImageKind } from '@dsh-claude-style/contracts/brand'
+import { BRAND_IMAGE_MAX_BYTES, BRAND_IMAGE_TYPES } from '@dsh-claude-ui/contracts/brand'
+import type { BrandImageKind } from '@dsh-claude-ui/contracts/brand'
 import { BRAND_CLAUDE, BRAND_INK_ORIGINAL, BRAND_NAME_MAX } from '../../constants'
 import { loadBrandImages, readBrandImages, removeBrandImage, subscribeBrandImages, uploadBrandImage } from '../../shared/custom-brand'
 import type { BrandImage } from '../../shared/custom-brand'

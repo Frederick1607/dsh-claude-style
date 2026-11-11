@@ -6,12 +6,12 @@
  */
 import { beforeAll, beforeEach, expect, test } from 'vitest'
 import { page } from 'vitest/browser'
-import { composerResponsiveCss, createComposerResponsive } from '@dsh-claude-style/client/pure'
-import { installParts } from '@dsh-claude-style/engine/parts'
+import { composerResponsiveCss, createComposerResponsive } from '@dsh-claude-ui/client/pure'
+import { installParts } from '@dsh-claude-ui/engine/parts'
 import {
   COMPOSER_CARD_SELECTOR, COMPOSER_VARIANT_ATTRIBUTE, CONVERSATION_CONTENT_SELECTOR,
   CONVERSATION_MAIN_SLOT_SELECTOR, CONVERSATION_SCROLL_SELECTOR, PHASE_ATTRIBUTE,
-} from '@dsh-claude-style/contracts/dom'
+} from '@dsh-claude-ui/contracts/dom'
 import { attach } from '../../fixtures/host-markup'
 import { pageCleanups } from '../../fixtures/page'
 import { partRegion } from '../../fixtures/part-region'

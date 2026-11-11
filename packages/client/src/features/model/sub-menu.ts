@@ -1,14 +1,14 @@
-import { buildElement } from '@dsh-claude-style/engine/dom'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { copy } from './copy'
 import { modelGroupName } from './provider-name'
 import { byModelId } from './rows'
 import { motionEaseAt, motionMs, motionValue } from '../../shared/motion'
 import { releaseCardHeight, travelCardHeight } from '../../shared/card-resize'
 import { motionReduced } from '../../core/prefs'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { CARET_FIELD_ATTR } from '../../constants'
 import type { createModelRows } from './rows'
-import type { HostModelCatalogSnapshot, HostModelEntry, HostModelGroup } from '@dsh-claude-style/contracts/services'
+import type { HostModelCatalogSnapshot, HostModelEntry, HostModelGroup } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The model picker's second level: the search field at the top of the card and

@@ -1,6 +1,6 @@
 # Notice
 
-This package ships the Sodium rendering engine of dsh-claude-style: every file
+This package ships the Sodium rendering engine of dsh-claude-ui: every file
 under `packages/client/src/features/sodium/` (compiled into `lib/client.js`) and
 `packages/engine/src/sheet-rewrite.ts`. Those files are licensed under the
 PolyForm Shield License 1.0.0 — read, change and redistribute them, but not to

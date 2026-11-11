@@ -1,7 +1,7 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { motionReduced } from '../../core/prefs'
 import { motionMs } from '../../shared/motion'
-import type { HostSessionStatsProjection, HostTokenUsageProjection } from '@dsh-claude-style/contracts/services'
+import type { HostSessionStatsProjection, HostTokenUsageProjection } from '@dsh-claude-ui/contracts/services'
 
 /**
  * The session's figures counting to their new readings.

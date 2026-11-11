@@ -8,8 +8,8 @@
  * @risk The row that hides what the host folded loses its hold, so the off-screen rule skips it, an estimated height stands where the host draws nothing, and a stretch of reasoning is drawn inside the last answer.
  */
 import { expect, test } from 'vitest'
-import { installParts } from '@dsh-claude-style/engine/parts'
-import { ASSISTANT_STEP_KIND, CHAT_FLOW_SELECTOR, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
+import { ASSISTANT_STEP_KIND, CHAT_FLOW_SELECTOR, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { holdRelation, holdsOf, pageCleanups, rowInFlow, settle, TEST_PARTS } from '../../fixtures/hold-mark'
 
 const HOLD = 'hidden-row'

@@ -1,8 +1,8 @@
-import { COMPOSER_CARD_SELECTOR, COMPOSER_STAT_SELECTOR, DIALOG_TRIGGER_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches } from '@dsh-claude-style/engine/bus'
-import { cacheFirstMatch, findComposerCard, findDockedContextMeter, observeComposerCards } from '@dsh-claude-style/engine/host'
+import { COMPOSER_CARD_SELECTOR, COMPOSER_STAT_SELECTOR, DIALOG_TRIGGER_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches } from '@dsh-claude-ui/engine/bus'
+import { cacheFirstMatch, findComposerCard, findDockedContextMeter, observeComposerCards } from '@dsh-claude-ui/engine/host'
 import { removeStrayNodes } from '../../shared/popover'
-import type { MatchList } from '@dsh-claude-style/engine/bus'
+import type { MatchList } from '@dsh-claude-ui/engine/bus'
 
 /**
  * The host's context panel and the marks this feature puts on the host's

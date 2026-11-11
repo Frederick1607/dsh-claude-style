@@ -18,7 +18,7 @@ export function installExternalControls(controls: ClaudeControlMounters): () => 
   const api: ClaudeControlsApi = {
     has,
     mount(id, options) {
-      if (!has(id)) throw new Error(`dsh-claude-style: unknown external control "${id}"`)
+      if (!has(id)) throw new Error(`dsh-claude-ui: unknown external control "${id}"`)
       const mount = controls[id] as (options: ClaudeControlMountMap[ClaudeControlId]) => () => void
       const stop = mount(options)
       let disposed = false

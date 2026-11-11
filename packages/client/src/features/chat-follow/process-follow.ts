@@ -1,6 +1,6 @@
-import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { PROCESS_BODY_SELECTOR, PROCESS_CONTENT_SELECTOR, PROCESS_EXPANDED_MODE_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
-import { easeScrollToEndFor, joinScrollOwner, readerHolds, releaseReader, stopScrollFor } from '@dsh-claude-style/engine/scroll-owner'
+import { observeMatches, observeSize, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { PROCESS_BODY_SELECTOR, PROCESS_CONTENT_SELECTOR, PROCESS_EXPANDED_MODE_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
+import { easeScrollToEndFor, joinScrollOwner, readerHolds, releaseReader, stopScrollFor } from '@dsh-claude-ui/engine/scroll-owner'
 
 /**
  * Keep a capped process body at its end while content streams. Beyond the

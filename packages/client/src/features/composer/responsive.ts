@@ -1,6 +1,6 @@
-import { COMPOSER_VARIANT_ATTRIBUTE, CONVERSATION_CONTENT_SELECTOR, CONVERSATION_MAIN_SLOT_SELECTOR, PHASE_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { COMPOSER_VARIANT_ATTRIBUTE, CONVERSATION_CONTENT_SELECTOR, CONVERSATION_MAIN_SLOT_SELECTOR, PHASE_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 
 const TOOLBAR = 'data-dsh-claude-composer-toolbar'
 const LAYOUT = 'data-dsh-claude-composer-layout'

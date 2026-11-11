@@ -2,7 +2,7 @@ import { HOME_HEAT_RAMP } from '../../constants'
 import { activeLocale } from '../../core/i18n'
 import { homeDayKey } from './home-store'
 import type { HomeUsageState, ListSummary } from './home-store'
-import type { UsageDay, UsageModel, UsageReport, UsageTotals } from '@dsh-claude-style/contracts/usage'
+import type { UsageDay, UsageModel, UsageReport, UsageTotals } from '@dsh-claude-ui/contracts/usage'
 import { copy } from './copy'
 import type { CopyKey } from './copy'
 

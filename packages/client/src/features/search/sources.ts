@@ -1,8 +1,8 @@
 import { SESSION_SEARCH_ROUTE } from '../../constants'
-import { currentSessionId, hostConversation, hostLayout, hostLocale, hostPluginNavigation, hostRemoteSkills, profileBundles, hostSessions, hostShortcuts, hostSlots, hostUiWorkspace, hostWorkspaces } from '@dsh-claude-style/engine/host'
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { ContentHit, SearchAnswer } from '@dsh-claude-style/contracts/usage'
-import type { HostConversationInput, HostConversationService, HostPluginBundle, HostSessionBinding, HostSessionSummary, HostShortcutRow, HostShortcutsService, HostSkill, HostSkillListAnswer, HostSlotsService, HostSlotStore, HostWorkspaceListSnapshot } from '@dsh-claude-style/contracts/services'
+import { currentSessionId, hostConversation, hostLayout, hostLocale, hostPluginNavigation, hostRemoteSkills, profileBundles, hostSessions, hostShortcuts, hostSlots, hostUiWorkspace, hostWorkspaces } from '@dsh-claude-ui/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { ContentHit, SearchAnswer } from '@dsh-claude-ui/contracts/usage'
+import type { HostConversationInput, HostConversationService, HostPluginBundle, HostSessionBinding, HostSessionSummary, HostShortcutRow, HostShortcutsService, HostSkill, HostSkillListAnswer, HostSlotsService, HostSlotStore, HostWorkspaceListSnapshot } from '@dsh-claude-ui/contracts/services'
 import { copy } from './copy'
 
 /** The kinds of thing the palette lists, and the filter that shows them all. */
@@ -25,7 +25,7 @@ export interface SearchRow {
 }
 
 /** One content hit from the host half's message search: the session, the excerpt, the match within it. */
-export type { ContentHit } from '@dsh-claude-style/contracts/usage'
+export type { ContentHit } from '@dsh-claude-ui/contracts/usage'
 
 /** One section of the palette. */
 export interface SearchSection {
@@ -410,15 +410,15 @@ export function createSearchSources(ctx: HostContext, reveal: (sessionId: string
     // The host half reads every stored session once before its first
     // answer; starting that as the palette opens keeps the first query quick.
     searchContent('', undefined).then(() => {}, reason => {
-      console.warn('dsh-claude-style: session content search could not prepare:', reason)
+      console.warn('dsh-claude-ui: session content search could not prepare:', reason)
     })
     loadPlugins(owner).then(settle, reason => {
-      console.warn('dsh-claude-style: search could not list plugins:', reason)
+      console.warn('dsh-claude-ui: search could not list plugins:', reason)
       if (owner === generation) plugins = []
       settle()
     })
     loadSkills(owner).then(settle, reason => {
-      console.warn('dsh-claude-style: search could not list skills:', reason)
+      console.warn('dsh-claude-ui: search could not list skills:', reason)
       if (owner === generation) skills = []
       settle()
     })

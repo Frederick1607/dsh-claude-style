@@ -8,22 +8,22 @@
  * route is registered on its own: one path the web server refuses is reported,
  * and the other routes still register.
  *
- * The paths are the shared contract (`@dsh-claude-style/contracts/routes`, D73):
+ * The paths are the shared contract (`@dsh-claude-ui/contracts/routes`, D73):
  * the browser half addresses the same names.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
-import { HDSL_PATH, HDSL_SKIN_PATH, PEAKRATE_PATH, PRICES_PATH, ROUTE_PREFIX, SESSION_COST_PATH, SESSION_DELETE_PATH, SESSION_SEARCH_PATH, SOUND_PATH, USAGE_PATH, USERNAME_PATH, WEBFONTS_PATH } from '@dsh-claude-style/contracts/routes'
-import { OPTIONAL_WEBFONTS } from '@dsh-claude-style/contracts/webfonts'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
+import { HDSL_PATH, HDSL_SKIN_PATH, PEAKRATE_PATH, PRICES_PATH, ROUTE_PREFIX, SESSION_COST_PATH, SESSION_DELETE_PATH, SESSION_SEARCH_PATH, SOUND_PATH, USAGE_PATH, USERNAME_PATH, WEBFONTS_PATH } from '@dsh-claude-ui/contracts/routes'
+import { OPTIONAL_WEBFONTS } from '@dsh-claude-ui/contracts/webfonts'
 import { existsSync, readFileSync, readdirSync, realpathSync, rmSync, statSync } from 'node:fs'
 import { userInfo } from 'node:os'
 import { dirname, join, resolve, sep } from 'node:path'
 import { brandRoutes } from './brand.js'
-import type { DshContext, DshRequest, DshResponse, DshRoute, DshScope } from '@dsh-claude-style/engine/node/dsh'
-import { harnessPath } from '@dsh-claude-style/engine/node/harness-home'
+import type { DshContext, DshRequest, DshResponse, DshRoute, DshScope } from '@dsh-claude-ui/engine/node/dsh'
+import { harnessPath } from '@dsh-claude-ui/engine/node/harness-home'
 import { pluginPath } from './harness-home.js'
-import { fenceRefused, methodRefused, readRequestBody, refusalOf, sendJson } from '@dsh-claude-style/engine/node/http'
+import { fenceRefused, methodRefused, readRequestBody, refusalOf, sendJson } from '@dsh-claude-ui/engine/node/http'
 import { clampSoundVolume, isSoundName, playSystemSound, soundCapability } from './sound.js'
-import { createStaticFiles } from '@dsh-claude-style/engine/node/static-files'
+import { createStaticFiles } from '@dsh-claude-ui/engine/node/static-files'
 import { createHdslAccount } from './hdsl.js'
 import type { HdslReading } from './hdsl.js'
 import { packageRoot } from './package-root.js'
@@ -86,7 +86,7 @@ async function playSoundRequest(req: DshRequest, res: DshResponse) {
  * contract, so no path outside the two directories below is reachable.
  *
  * A name is looked up in the user's own drop point first — the harness home's
- * `dsh-claude-style/fonts/` — and then in the package's `lib/fonts/` (D75). The
+ * `dsh-claude-ui/fonts/` — and then in the package's `lib/fonts/` (D75). The
  * Anthropic faces are not in the npm package (copyright), so only a copy the user
  * dropped in answers them; a name neither directory holds is absent, and the
  * browser half registers no `@font-face` for a name this route does not report.

@@ -8,8 +8,8 @@
  * @risk A flash model inherits its family's peak rate, a reseller's model shows no rate at all, or an unrelated model is shown a DeepSeek peak badge.
  */
 import { expect, test } from 'vitest'
-import { matchProfile } from '@dsh-claude-style/client/pure'
-import type { RateProfile } from '@dsh-claude-style/contracts/peakrate'
+import { matchProfile } from '@dsh-claude-ui/client/pure'
+import type { RateProfile } from '@dsh-claude-ui/contracts/peakrate'
 
 function profile(id: string, provider: string): RateProfile {
   return {

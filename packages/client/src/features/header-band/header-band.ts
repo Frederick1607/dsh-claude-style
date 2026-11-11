@@ -8,15 +8,15 @@ import {
   HEADER_TITLE_SELECTOR,
   HEADER_UTILITIES_SELECTOR,
   VIEW_TABS_STRIP_SELECTOR,
-} from '@dsh-claude-style/contracts/dom'
-import { observeMatches, observeSize } from '@dsh-claude-style/engine/bus'
-import { desktopBand } from '@dsh-claude-style/engine/desktop-band'
-import { findRightbarToggle, findWindowsMenu, registerSlotEntries } from '@dsh-claude-style/engine/host'
-import { createStamp, setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+} from '@dsh-claude-ui/contracts/dom'
+import { observeMatches, observeSize } from '@dsh-claude-ui/engine/bus'
+import { desktopBand } from '@dsh-claude-ui/engine/desktop-band'
+import { findRightbarToggle, findWindowsMenu, registerSlotEntries } from '@dsh-claude-ui/engine/host'
+import { createStamp, setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 import { contentBox } from '../../shared/content-box'
 import { inPageBox, inPagePixels } from '../../shared/page-zoom'
 import type { FeatureUi } from '../../core/feature'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type manifest from './header-band.manifest'
 import { copy } from './copy'
 
@@ -165,7 +165,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
     return registerSlotEntries(ctx, [{
       options: { name: UTILITIES_SLOT, id: 'claude-style-rightbar-close', order: 90 },
       component: RightbarClose,
-    }], 'dsh-claude-style: right panel control')
+    }], 'dsh-claude-ui: right panel control')
   }
 
   /**

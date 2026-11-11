@@ -109,7 +109,7 @@
       r.pressLeaveClosesMenu = !accountMenuOpen()
       // Read through the CSSOM: the sheet's text is minified, and the parsed
       // rules are what the page applies.
-      var styleEl = document.getElementById('dsh-claude-style-style')
+      var styleEl = document.getElementById('dsh-claude-ui-style')
       var sheetRules = styleEl && styleEl.sheet ? Array.prototype.slice.call(styleEl.sheet.cssRules) : []
       // The entrance is the shared menu preset (shared/motion.css, D9): the host
       // menu's own rule plays dsh-claude-dropdown-in, which the stylesheet carries.

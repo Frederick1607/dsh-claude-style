@@ -1,5 +1,5 @@
-import { SOUND_POP } from '@dsh-claude-style/contracts/sound'
-import type { SoundName } from '@dsh-claude-style/contracts/sound'
+import { SOUND_POP } from '@dsh-claude-ui/contracts/sound'
+import type { SoundName } from '@dsh-claude-ui/contracts/sound'
 
 /** The synth's gain under the setting's: the two system files peak near a third of full scale. */
 const HEADROOM = 0.55

@@ -8,8 +8,8 @@
  * @risk A session's cost is billed at the wrong tier or the wrong model, or a retry is priced twice, so the figure beside the tokens disagrees with the official bill.
  */
 import { expect, test } from 'vitest'
-import { costMicro, formatMoneyMicro, isPeak, priceFor, priceTierAt } from '@dsh-claude-style/contracts/prices'
-import type { PriceDocument, PriceSchedule } from '@dsh-claude-style/contracts/prices'
+import { costMicro, formatMoneyMicro, isPeak, priceFor, priceTierAt } from '@dsh-claude-ui/contracts/prices'
+import type { PriceDocument, PriceSchedule } from '@dsh-claude-ui/contracts/prices'
 
 const schedule: PriceSchedule = {
   timeZone: 'Asia/Shanghai',

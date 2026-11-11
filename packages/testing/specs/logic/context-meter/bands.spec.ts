@@ -8,7 +8,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { contextBandAt, ringDash } from '@dsh-claude-style/client/pure'
+import { contextBandAt, ringDash } from '@dsh-claude-ui/client/pure'
 
 /** The whole arc, as the ring's own geometry makes it. */
 const CIRCUMFERENCE = 2 * Math.PI * 5.5

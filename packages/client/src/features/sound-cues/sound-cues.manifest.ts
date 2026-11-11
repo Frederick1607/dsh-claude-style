@@ -1,4 +1,4 @@
-import { SOUND_LEVEL_CLEAR, SOUND_LEVEL_SOFT } from '@dsh-claude-style/contracts/sound'
+import { SOUND_LEVEL_CLEAR, SOUND_LEVEL_SOFT } from '@dsh-claude-ui/contracts/sound'
 import type { FeatureManifest } from '../../core/feature'
 
 export default {

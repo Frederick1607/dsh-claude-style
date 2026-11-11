@@ -1,6 +1,6 @@
-import { FOOTER_ACTIONS_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { findFootArea } from '@dsh-claude-style/engine/host'
-import { hasSkinClass } from '@dsh-claude-style/engine/dom'
+import { FOOTER_ACTIONS_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { findFootArea } from '@dsh-claude-ui/engine/host'
+import { hasSkinClass } from '@dsh-claude-ui/engine/dom'
 import { FOOTER_SEAT_ATTR, FOOTER_SEATS } from '../../constants'
 import { buildPopoverItem } from '../../shared/popover'
 import { copy } from './copy'
@@ -21,7 +21,7 @@ export function createFooterMirror(options: {
   /** The popover body, while sync and its helpers run (sync returns early without one). */
   function openBody() {
     const body = options.body()
-    if (body === null) throw new Error('dsh-claude-style: the footer mirror has no popover body')
+    if (body === null) throw new Error('dsh-claude-ui: the footer mirror has no popover body')
     return body
   }
 

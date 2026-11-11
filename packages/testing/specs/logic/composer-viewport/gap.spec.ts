@@ -4,7 +4,7 @@
  * @risk A mobile keyboard hides the composer, leaves an extra gap, or moves it during pinch zoom and on desktop.
  */
 import { expect, test } from 'vitest'
-import { composerViewportGap } from '@dsh-claude-style/client/pure'
+import { composerViewportGap } from '@dsh-claude-ui/client/pure'
 
 test("the composer follows the visible viewport's bottom by the occluded height", () => {
   expect(composerViewportGap({ layoutHeight: 800, height: 500, offsetTop: 0, scale: 1, narrow: true })).toBe(300)

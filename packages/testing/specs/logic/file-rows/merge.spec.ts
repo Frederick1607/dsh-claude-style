@@ -9,9 +9,9 @@
  * @risk The same file edited three times shows three rows with partial numbers, two files are folded into one row, or the figures of an edit vanish once the file is read again.
  */
 import { expect, test } from 'vitest'
-import { byDocumentOrder, createFileMerge, mergeViews, rowCarrier } from '@dsh-claude-style/client/pure'
-import type { FileHunk, FileMergeRow, FileReadCard, FileToolOperation, FileRowState } from '@dsh-claude-style/client/pure'
-import { CHAT_CALL_SELECTOR, FLOW_BLOCK_SELECTOR, PROCESS_CONTENT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { byDocumentOrder, createFileMerge, mergeViews, rowCarrier } from '@dsh-claude-ui/client/pure'
+import type { FileHunk, FileMergeRow, FileReadCard, FileToolOperation, FileRowState } from '@dsh-claude-ui/client/pure'
+import { CHAT_CALL_SELECTOR, FLOW_BLOCK_SELECTOR, PROCESS_CONTENT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from '../../fixtures/host-markup'
 
 /** One change of the shape the row model derives: the path, what it replaced and what it wrote. */

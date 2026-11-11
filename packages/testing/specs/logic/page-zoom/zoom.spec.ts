@@ -14,8 +14,8 @@
  *   upgrade.
  */
 import { expect, test } from 'vitest'
-import { PAGE_ZOOM_MAX, PAGE_ZOOM_MIN, clampPrefs } from '@dsh-claude-style/contracts/prefs'
-import { pageZoomOf, pageZoomPercent, pageZoomText } from '@dsh-claude-style/client/pure'
+import { PAGE_ZOOM_MAX, PAGE_ZOOM_MIN, clampPrefs } from '@dsh-claude-ui/contracts/prefs'
+import { pageZoomOf, pageZoomPercent, pageZoomText } from '@dsh-claude-ui/client/pure'
 
 test('a stored percentage becomes the factor the page is drawn at', () => {
   expect(pageZoomOf('125')).toBe(1.25)

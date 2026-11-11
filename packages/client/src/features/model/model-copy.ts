@@ -1,7 +1,7 @@
 import { MODEL_COPY_FALLBACK_LOCALE, MODEL_COPY_ROUTE } from './model-labels'
-import { createHostResource } from '@dsh-claude-style/engine/resource'
+import { createHostResource } from '@dsh-claude-ui/engine/resource'
 import { textOf } from '../../shared/format'
-import type { HostAnswer } from '@dsh-claude-style/engine/resource'
+import type { HostAnswer } from '@dsh-claude-ui/engine/resource'
 
 /** One `{ locale: text }` pair of the copy document. */
 export type CopyPair = Record<string, string>

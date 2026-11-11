@@ -3,7 +3,7 @@ import { readPrefs, resolveMascot } from '../../core/prefs'
 import { createMascotCrab } from './crab'
 import { createMascotWhaleGirl } from './whale-girl'
 import { createMascotWhale } from './whale'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './mascot.manifest'
 

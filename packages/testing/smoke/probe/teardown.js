@@ -61,7 +61,7 @@
       r.leftAttrs = Array.prototype.filter.call(document.body.attributes, function (a) { return /^data-dsh-(claude|window)/.test(a.name) }).map(function (a) { return a.name })
       // The custom brand's values ride <body>'s own style (features/brand/brand.ts).
       r.leftBrandProperties = Array.prototype.filter.call(document.body.style, function (name) { return name.indexOf('--dsh-claude-custom-') === 0 })
-      r.leftStylesheet = !!document.getElementById('dsh-claude-style-style')
+      r.leftStylesheet = !!document.getElementById('dsh-claude-ui-style')
       if (probe.viewStrip) r.viewPill.left = probe.viewStrip.list.hasAttribute('data-dsh-claude-pill') || probe.viewStrip.row.hasAttribute('data-dsh-view-tabs') || probe.viewStrip.row.style.length > 0
       if (probe.viewRow) {
         // The row's own rules are off again: it centres nothing, takes presses,
@@ -73,7 +73,7 @@
       }
       if (r.search) {
         r.search.left = (window.__slots || []).filter(function (entry) {
-          return entry.id === 'dsh-claude-style.search' || entry.seat === 'dsh-claude-style.search'
+          return entry.id === 'dsh-claude-ui.search' || entry.seat === 'dsh-claude-ui.search'
         }).length
         r.search.rootUnmounted = !!probe.searchRoot && probe.searchRoot.unmounted
       }
@@ -91,7 +91,7 @@
       // not be among them, whether that step runs before or after the teardown.
       var tagsOwned = document.querySelectorAll('style[data-plugin]')
       for (var to = 0; to < tagsOwned.length; to++) {
-        if (tagsOwned[to].getAttribute('data-plugin') === 'dsh-claude-style') tagsOwned[to].remove()
+        if (tagsOwned[to].getAttribute('data-plugin') === 'dsh-claude-ui') tagsOwned[to].remove()
       }
       r.siblingSheetSurvives = !!probe.siblingSheet && probe.siblingSheet.isConnected
       if (probe.siblingSheet) probe.siblingSheet.remove()

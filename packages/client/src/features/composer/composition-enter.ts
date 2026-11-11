@@ -1,4 +1,4 @@
-import { COMPOSER_INPUT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { COMPOSER_INPUT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { swallowsCompositionEnter } from './ime-enter'
 
 /**

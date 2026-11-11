@@ -7,7 +7,7 @@
  * @risk The reader cannot restore continuous reasoning, or switching modes leaves a clipped, masked or translated row behind.
  */
 import { spec } from '../../fixtures/behaviour.mjs'
-import { EXPANDED_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, RUNNING_STATE } from '@dsh-claude-style/contracts/dom'
+import { EXPANDED_ATTRIBUTE, ROW_PHASE_ATTRIBUTE, RUNNING_STATE } from '@dsh-claude-ui/contracts/dom'
 
 export default spec({ page: 'chat-fold' }, ({ test }) => {
   test('continuous and stepped reasoning switch without leaving a window behind', async (t) => {

@@ -10,8 +10,8 @@
  * @risk A kept height answers for another row, or never leaves the cache: the transcript stands at a wrong scroll height on a switch, or the page's memory follows the number of messages ever seen.
  */
 import { expect, test } from 'vitest'
-import { CHAT_GROUP_PART_ATTRIBUTE, CHAT_NODE_KEY_ATTRIBUTE, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
-import { createRowHeightCache, ROW_HEIGHT_CACHE_LIMIT, rowHeightKey } from '@dsh-claude-style/client/pure'
+import { CHAT_GROUP_PART_ATTRIBUTE, CHAT_NODE_KEY_ATTRIBUTE, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
+import { createRowHeightCache, ROW_HEIGHT_CACHE_LIMIT, rowHeightKey } from '@dsh-claude-ui/client/pure'
 
 function row(nodeKey: string | null, kind: string, part?: string) {
   const element = document.createElement('div')

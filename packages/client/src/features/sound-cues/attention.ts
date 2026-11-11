@@ -1,4 +1,4 @@
-import type { HostSessionListSnapshot, HostSessionStatusSnapshot } from '@dsh-claude-style/contracts/services'
+import type { HostSessionListSnapshot, HostSessionStatusSnapshot } from '@dsh-claude-ui/contracts/services'
 
 /** The two readings a session's state has for the cues. */
 export interface AttentionReading {

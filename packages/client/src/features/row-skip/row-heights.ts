@@ -1,4 +1,4 @@
-import { CHAT_GROUP_PART_ATTRIBUTE, CHAT_NODE_KEY_ATTRIBUTE, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { CHAT_GROUP_PART_ATTRIBUTE, CHAT_NODE_KEY_ATTRIBUTE, FLOW_KIND_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 
 /**
  * The height a chat row was laid out at, kept across the rows the host unmounts

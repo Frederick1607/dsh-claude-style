@@ -7,7 +7,7 @@
  * @risk The line under a running command shows a half-arrived argument, a multi-line description, or the wrong file name while the model works on another one.
  */
 import { expect, test } from 'vitest'
-import { callDescription, fileName, fileToolCall, fileToolOperation } from '@dsh-claude-style/client/pure'
+import { callDescription, fileName, fileToolCall, fileToolOperation } from '@dsh-claude-ui/client/pure'
 
 /** One running call's block: its phase, its tool name and its argument JSON. */
 function running(name: string, args: unknown, phase = 'start') {

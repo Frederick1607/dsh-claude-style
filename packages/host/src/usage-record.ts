@@ -1,6 +1,6 @@
 /**
  * The usage record: this plugin's own account of usage, at
- * `$DSH_HOME/dsh-claude-style/usage.json`.
+ * `$DSH_HOME/dsh-claude-ui/usage.json`.
  *
  * One entry per session: the fingerprint of the log it was folded from, while
  * that log exists, and the days it settled on. An entry whose log is gone stays
@@ -20,9 +20,9 @@
  * the file holds by then. The earlier fold cache is read while it exists and
  * removed once a record holding it is written.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { existsSync, renameSync, unlinkSync } from 'node:fs'
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
 import { cachePath, readJsonDocument, writeJsonDocument } from './cache-file.js'
 import { pluginPath } from './harness-home.js'
 import { BUCKET_KEYS, addBuckets, emptyBuckets } from './usage-ledger.js'

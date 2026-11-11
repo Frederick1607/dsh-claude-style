@@ -1,5 +1,5 @@
 import fc from 'fast-check'
-import { adoptSkin } from '@dsh-claude-style/engine/skin'
+import { adoptSkin } from '@dsh-claude-ui/engine/skin'
 import { TEST_SKIN } from './vocabulary'
 
 // Specs use the test vocabulary unless they provide their own seam (D73).

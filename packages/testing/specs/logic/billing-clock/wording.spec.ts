@@ -9,8 +9,8 @@
  * @risk The badge on a model row reads a rate or countdown that differs from what a screen reader announces, or announces nothing at all.
  */
 import { expect, test } from 'vitest'
-import { buildRateBadge, rateDetail, rateName } from '@dsh-claude-style/client/pure'
-import type { RateState } from '@dsh-claude-style/contracts/peakrate'
+import { buildRateBadge, rateDetail, rateName } from '@dsh-claude-ui/client/pure'
+import type { RateState } from '@dsh-claude-ui/contracts/peakrate'
 
 const PEAK: RateState = { period: 'peak', badge: '2×', minutesUntilSwitch: 80, nextPeriod: 'offPeak', nextBadge: '1×' }
 const CAMPAIGN: RateState = { period: 'campaign', badge: '0.5× credits', minutesUntilSwitch: Number.POSITIVE_INFINITY }

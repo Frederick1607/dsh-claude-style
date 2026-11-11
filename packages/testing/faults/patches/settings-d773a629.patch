@@ -2,7 +2,7 @@ diff --git a/packages/engine/src/settings-binding.ts b/packages/engine/src/setti
 index 0b99a3f..325d1c8 100644
 --- a/packages/engine/src/settings-binding.ts
 +++ b/packages/engine/src/settings-binding.ts
-@@ -13,7 +13,11 @@ import type { HostConfigForm, HostConfigFormsService } from '@dsh-claude-style/c
+@@ -13,7 +13,11 @@ import type { HostConfigForm, HostConfigFormsService } from '@dsh-claude-ui/c
  export interface SettingsBindingOptions {
    /** Namespaces to try after the loader's entry id, best first: the package name, the id the host inserted under. */
    namespaces: string[]

@@ -1,4 +1,4 @@
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 
 /**
  * The rules the sodium rewrite holds right now (D78), for the settings row:

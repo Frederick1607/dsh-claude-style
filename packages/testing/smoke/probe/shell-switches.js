@@ -41,7 +41,7 @@
             (document.body.hasAttribute('data-dsh-claude-permissions') ? 1 : 0),
           workspaceView: document.querySelectorAll('.dsh-claude-ws-segments').length,
           sidebarSearch: (window.__slots || []).filter(function (entry) {
-            return entry.id === 'dsh-claude-style.search' || entry.seat === 'dsh-claude-style.search'
+            return entry.id === 'dsh-claude-ui.search' || entry.seat === 'dsh-claude-ui.search'
           }).length,
           viewTabs: document.querySelectorAll('[data-dsh-view-tabs]').length,
           // The composer restyle's gate: the feature writes it on <body> and

@@ -70,9 +70,9 @@ for (const file of sources.filter((candidate) => /^packages\/engine\/(?:src|node
   const text = fs.readFileSync(file, 'utf8')
   for (const match of text.matchAll(/from '([^']+)'/g)) {
     const specifier = match[1]
-    const intoSkin = specifier.startsWith('@dsh-claude-style/client')
-      || specifier.startsWith('@dsh-claude-style/host')
-      || specifier.startsWith('virtual:dsh-claude-style/')
+    const intoSkin = specifier.startsWith('@dsh-claude-ui/client')
+      || specifier.startsWith('@dsh-claude-ui/host')
+      || specifier.startsWith('virtual:dsh-claude-ui/')
       || specifier.includes('../client/')
       || specifier.includes('../host/')
     if (intoSkin) problems.push(`${relative(file)}: the engine imports ${specifier}; the skin hands what the engine needs over the seam (packages/engine/src/skin.ts, D73)`)
@@ -303,7 +303,7 @@ const require = createRequire(import.meta.url)
 const { AREAS, specFiles, readHeader } = require('./shared/spec-header.mjs')
 const featureDirs = new Set(fs.readdirSync(path.join(ROOT, 'packages', 'client', 'src', 'features'), { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name))
 /** What a spec may import or require by name; a relative path must stay inside packages/testing/specs/. */
-const SPEC_IMPORTS = [/^vitest$/, /^vitest\/browser$/, /^fast-check$/, /^@dsh-claude-style\/client\/pure$/, /^@dsh-claude-style\/contracts\/[\w-]+$/, /^@dsh-claude-style\/engine\/[\w-]+$/]
+const SPEC_IMPORTS = [/^vitest$/, /^vitest\/browser$/, /^fast-check$/, /^@dsh-claude-ui\/client\/pure$/, /^@dsh-claude-ui\/contracts\/[\w-]+$/, /^@dsh-claude-ui\/engine\/[\w-]+$/]
 /** Refuse mocks, global stubs and snapshots, including bracket-call forms (D87). */
 const REFUSED_NAMES = 'mock|doMock|importMock|importActual|hoisted|stubGlobal|stubEnv'
 const SPEC_REFUSED = [
@@ -315,7 +315,7 @@ const SPEC_REFUSED = [
 const SPEC_WATCHES = new RegExp(`\\bvi\\.spyOn\\s*\\(|\\bvi\\[\\s*['"]spyOn['"]\\s*\\]\\s*\\(|\\.prototype\\.\\w+\\s*=(?!=)`)
 /** A host mark spelled out: a skin mark, a host attribute, a host's hashed class name. */
 const SPEC_SPELLED = [
-  { pattern: /(?<![@\w])(?:data-)?dsh-claude-(?!style\/)[a-z][\w-]*/, what: 'a skin mark; read it from packages/testing/data/surface.json' },
+  { pattern: /(?<![@\w])(?:data-)?dsh-claude-(?!style\/|ui\b)[a-z][\w-]*/, what: 'a skin mark; read it from packages/testing/data/surface.json' },
   { pattern: /['"`[]data-(?!test-)[a-z][\w-]*/, what: 'a host attribute; read it from packages/contracts (by constant or by table id)' },
   { pattern: /['"`]\.?_[A-Za-z]+_[A-Za-z0-9]+(?:_\d+)?['"`]/, what: 'a host class name; read it from the engine\'s part tables' },
 ]
@@ -350,7 +350,7 @@ for (const file of specs) {
       continue
     }
     if (file.endsWith('.mjs') && specifier.startsWith('node:')) continue
-    if (!SPEC_IMPORTS.some((allowed) => allowed.test(specifier))) problems.push(`${file}: imports ${specifier}; a spec reaches the product through @dsh-claude-style/client/pure, the contracts and the engine's public modules (D87)`)
+    if (!SPEC_IMPORTS.some((allowed) => allowed.test(specifier))) problems.push(`${file}: imports ${specifier}; a spec reaches the product through @dsh-claude-ui/client/pure, the contracts and the engine's public modules (D87)`)
   }
   lines.forEach((line, at) => {
     if (/^\s*(\*|\/\/|\/\*)/.test(line)) return
@@ -425,7 +425,7 @@ for (const match of new Set(clientText.match(/data-dsh-claude-page-under-\d+/g) 
 // surface table: a count per file that only shrinks (packages/testing/data/skin-literals.json,
 // held against the base by scripts/ci-scope.mjs --ledgers). New code reads the table, except
 // for the smoke's stand-in form, which writes a mark the host would have written.
-const SKIN_MARK = /(?<![@\w/.])(?:data-)?dsh-claude-(?!style\b)[a-z][\w-]*/g
+const SKIN_MARK = /(?<![@\w/.])(?:data-)?dsh-claude-(?!style\b|ui\b)[a-z][\w-]*/g
 const recordedMarks = JSON.parse(fs.readFileSync(path.join(ROOT, 'packages', 'testing', 'data', 'skin-literals.json'), 'utf8')).files
 /** The page that draws the host's own markup, where a skin mark is what the host's copy of it carries. */
 const STAND_IN_FORM = 'packages/testing/smoke/page.mjs'

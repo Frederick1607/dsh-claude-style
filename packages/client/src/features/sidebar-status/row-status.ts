@@ -1,7 +1,7 @@
 import { SIDEBAR_RUNNING_TITLE_ATTR, SIDEBAR_STATUS_ATTR } from '../../constants'
-import { observeSize } from '@dsh-claude-style/engine/bus'
-import { SESSION_PHASE_ATTRIBUTE, SESSION_STATUS_OUTLET_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { setAttributeIfChanged } from '@dsh-claude-style/engine/dom'
+import { observeSize } from '@dsh-claude-ui/engine/bus'
+import { SESSION_PHASE_ATTRIBUTE, SESSION_STATUS_OUTLET_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { setAttributeIfChanged } from '@dsh-claude-ui/engine/dom'
 
 /** Keep the host's primary status, screen-reader labels and event targets in place. */
 export class RightSessionStatus {

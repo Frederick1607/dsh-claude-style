@@ -6,7 +6,7 @@
  * PNG that only exists under the launcher's data directory, so the contract is
  * read here and the routes in routes.ts serve it.
  */
-import type { DshContext } from '@dsh-claude-style/engine/node/dsh'
+import type { DshContext } from '@dsh-claude-ui/engine/node/dsh'
 
 /** The contract version this half understands; any other value voids the whole group. */
 const HDSL_CONTRACT = '1'

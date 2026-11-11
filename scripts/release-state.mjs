@@ -5,7 +5,7 @@ import path from 'node:path'
 import { runner } from './shared/run.mjs'
 
 const ROOT = path.resolve(import.meta.dirname, '..')
-const PACKAGE = 'dsh-claude-style'
+const PACKAGE = 'dsh-claude-ui'
 const version = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8')).version
 const tag = `v${version}`
 const run = runner(ROOT)

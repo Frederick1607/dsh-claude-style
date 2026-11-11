@@ -1,4 +1,4 @@
-import { COMPOSER_COMPOSING_ATTRIBUTE, COMPOSER_INPUT_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { COMPOSER_COMPOSING_ATTRIBUTE, COMPOSER_INPUT_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 
 /** Bare `focus()` moves a contenteditable caret to the draft start; skin-driven focus moves must restore its range. */
 

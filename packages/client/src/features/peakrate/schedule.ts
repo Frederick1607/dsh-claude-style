@@ -1,4 +1,4 @@
-import type { RateOverride, RatePeriod, RateProfile, RateSchedule, RateState, RateWindow } from '@dsh-claude-style/contracts/peakrate'
+import type { RateOverride, RatePeriod, RateProfile, RateSchedule, RateState, RateWindow } from '@dsh-claude-ui/contracts/peakrate'
 
 /**
  * Judge the active rate from real instants in the schedule's zone. Precedence:

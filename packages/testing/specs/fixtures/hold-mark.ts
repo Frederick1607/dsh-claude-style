@@ -3,14 +3,14 @@
  * stylesheet reads by name, the hold words an element carries, and a chat flow
  * to mount rows in.
  */
-import { holdRelations } from '@dsh-claude-style/engine/parts-table'
-import type { HoldRelation } from '@dsh-claude-style/engine/parts-table'
-import { CHAT_FLOW_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { holdRelations } from '@dsh-claude-ui/engine/parts-table'
+import type { HoldRelation } from '@dsh-claude-ui/engine/parts-table'
+import { CHAT_FLOW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { HOLDS_ATTR } from './vocabulary'
 
 export { pageCleanups } from './page'
 export { HOLDS_ATTR, TEST_PARTS } from './vocabulary'
-export type { PartsVocabulary } from '@dsh-claude-style/engine/parts'
+export type { PartsVocabulary } from '@dsh-claude-ui/engine/parts'
 
 /** One turn of the event loop, in which the marking pass runs. */
 export const settle = () => new Promise((resolve) => { setTimeout(resolve, 0) })

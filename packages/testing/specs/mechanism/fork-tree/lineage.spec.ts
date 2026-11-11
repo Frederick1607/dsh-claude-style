@@ -14,7 +14,7 @@
  * 'fork-tree.hidden'.
  */
 import { expect, test } from 'vitest'
-import { forkDepths, forkOrder, forkPairs, forkSourceTitles } from '@dsh-claude-style/client/pure'
+import { forkDepths, forkOrder, forkPairs, forkSourceTitles } from '@dsh-claude-ui/client/pure'
 
 test('a first fork names its source, and a later one names the counter before it', () => {
   expect(forkSourceTitles('Report (1)')).toEqual(['Report'])

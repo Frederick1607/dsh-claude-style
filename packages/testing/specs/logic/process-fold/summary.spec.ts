@@ -9,8 +9,8 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { countProcessItems, summaryForm, summaryParts, summarySeparator, summaryText } from '@dsh-claude-style/client/pure'
-import { ASSISTANT_STEP_KIND, CHAT_GROUP_PART_ATTRIBUTE, CHAT_GROUP_PART_REASONING, FLOW_KIND_ATTRIBUTE, TOOL_CALL_KIND } from '@dsh-claude-style/contracts/dom'
+import { countProcessItems, summaryForm, summaryParts, summarySeparator, summaryText } from '@dsh-claude-ui/client/pure'
+import { ASSISTANT_STEP_KIND, CHAT_GROUP_PART_ATTRIBUTE, CHAT_GROUP_PART_REASONING, FLOW_KIND_ATTRIBUTE, TOOL_CALL_KIND } from '@dsh-claude-ui/contracts/dom'
 
 /** One flow row of a group body, of one kind and optionally one step part. */
 function flowRow(kind: string, part?: string) {

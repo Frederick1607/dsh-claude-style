@@ -7,9 +7,9 @@
  * @risk A phone reader cannot stop a streaming answer, or the follow never resumes after the reader returns to its end.
  */
 import { afterEach, expect, test } from 'vitest'
-import { adoptSkin } from '@dsh-claude-style/engine/skin'
-import { easeScrollToEndFor, readerHolds, writeScroll } from '@dsh-claude-style/engine/scroll-owner'
-import { CHAT_FLOW_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { adoptSkin } from '@dsh-claude-ui/engine/skin'
+import { easeScrollToEndFor, readerHolds, writeScroll } from '@dsh-claude-ui/engine/scroll-owner'
+import { CHAT_FLOW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { MOTION_FULL, MOTION_REDUCED, READER_HOLD_ATTR, TEST_SKIN } from '../../fixtures/vocabulary'
 import { attach } from '../../fixtures/host-markup'
 import { createScrollOwnerFixture } from '../../fixtures/scroll-owner'

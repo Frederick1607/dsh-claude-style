@@ -1,7 +1,7 @@
-import { BRAND_IMAGE_KINDS } from '@dsh-claude-style/contracts/brand'
-import type { BrandAnswer, BrandImageKind, BrandImageState } from '@dsh-claude-style/contracts/brand'
+import { BRAND_IMAGE_KINDS } from '@dsh-claude-ui/contracts/brand'
+import type { BrandAnswer, BrandImageKind, BrandImageState } from '@dsh-claude-ui/contracts/brand'
 import { BRAND_MARK_ROUTE, BRAND_ROUTE, BRAND_WORDMARK_ROUTE } from '../constants'
-import { notifyAll } from '@dsh-claude-style/engine/notify'
+import { notifyAll } from '@dsh-claude-ui/engine/notify'
 
 /** Painting and settings share this host-backed image state; URLs change with image bytes (D30). */
 
@@ -80,7 +80,7 @@ function measure(kind: BrandImageKind, state: BrandImageState | null): Promise<B
   return new Promise(settle => {
     image.onload = () => settle({ url, ratio: image.naturalWidth > 0 && image.naturalHeight > 0 ? image.naturalWidth / image.naturalHeight : 1 })
     image.onerror = () => {
-      console.warn(`dsh-claude-style: the custom ${kind} image could not be loaded and is not shown: ${url}`)
+      console.warn(`dsh-claude-ui: the custom ${kind} image could not be loaded and is not shown: ${url}`)
       settle(null)
     }
     image.src = url

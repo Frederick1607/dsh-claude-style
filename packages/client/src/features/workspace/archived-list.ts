@@ -1,6 +1,6 @@
-import { buildElement } from '@dsh-claude-style/engine/dom'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
-import type { HostSessionSummary, HostSessionsService, HostWorkspacesService } from '@dsh-claude-style/contracts/services'
+import { buildElement } from '@dsh-claude-ui/engine/dom'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
+import type { HostSessionSummary, HostSessionsService, HostWorkspacesService } from '@dsh-claude-ui/contracts/services'
 import type { HostTooltip, HostTooltipOptions } from '../../shared/host-tooltip'
 import { copy } from './copy'
 

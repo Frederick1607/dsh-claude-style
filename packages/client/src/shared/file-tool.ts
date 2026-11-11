@@ -1,5 +1,5 @@
 import { callArgsOf, callString } from './call-args'
-import type { HostChatBlock } from '@dsh-claude-style/contracts/services'
+import type { HostChatBlock } from '@dsh-claude-ui/contracts/services'
 
 
 

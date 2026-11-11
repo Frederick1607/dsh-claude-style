@@ -4,8 +4,8 @@
  * @risk Marking unread replaces native row controls, consumes foreign accessibility descriptions, or draws a marker over the row's trailing menu in either reading direction.
  */
 import { afterEach, beforeEach, expect, test } from 'vitest'
-import { MANUAL_UNREAD_SHEET, UnreadRowMark, unreadRowSessionId } from '@dsh-claude-style/client/pure'
-import { DARK_THEME_ATTRIBUTE, SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
+import { MANUAL_UNREAD_SHEET, UnreadRowMark, unreadRowSessionId } from '@dsh-claude-ui/client/pure'
+import { DARK_THEME_ATTRIBUTE, SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { literalThemeSheet } from '../../fixtures/theme-tokens'
 import { surfaceAttribute, surfaceSelector } from '../../fixtures/surface'
 

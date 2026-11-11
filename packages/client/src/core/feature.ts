@@ -1,9 +1,9 @@
 import type * as React from 'react'
 import type { Prefs } from '../constants'
 import { peerPresent } from '../shared/peer-plugin'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { CopyEntries } from './i18n'
-import type { SchedulerCalls } from '@dsh-claude-style/engine/scheduler'
+import type { SchedulerCalls } from '@dsh-claude-ui/engine/scheduler'
 import type { HandleName, Handles, Ui } from './scheduler'
 
 /** Data-only manifests are evaluated by the build and projected into the browser registry (D72). */

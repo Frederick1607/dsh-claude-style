@@ -1,6 +1,6 @@
-import { SESSION_ONGOING_SELECTOR, SESSION_ROW_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches, subscribeMutations } from '@dsh-claude-style/engine/bus'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { SESSION_ONGOING_SELECTOR, SESSION_ROW_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 
 /**
  * The rows whose session is running, kept at the head of the list they stand in.

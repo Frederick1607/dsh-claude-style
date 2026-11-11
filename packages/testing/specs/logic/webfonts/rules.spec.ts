@@ -9,9 +9,9 @@
  * @risk A face the reader supplied is never declared and the stacks keep their look-alikes, or a face that is not there is declared and the page requests a file it cannot get.
  */
 import { expect, test } from 'vitest'
-import { OPTIONAL_WEBFONTS } from '@dsh-claude-style/contracts/webfonts'
-import { FONT_FILES_PATH } from '@dsh-claude-style/contracts/routes'
-import { webfontRules } from '@dsh-claude-style/client/pure'
+import { OPTIONAL_WEBFONTS } from '@dsh-claude-ui/contracts/webfonts'
+import { FONT_FILES_PATH } from '@dsh-claude-ui/contracts/routes'
+import { webfontRules } from '@dsh-claude-ui/client/pure'
 
 test('a drop point with no face in place declares nothing, so the page asks for no font', () => {
   expect(webfontRules([])).toBe('')

@@ -1,4 +1,4 @@
-import { MOTION } from 'virtual:dsh-claude-style/generated'
+import { MOTION } from 'virtual:dsh-claude-ui/generated'
 
 /** Generated tokens keep script and CSS values identical; unknown names fail immediately (D9, D12).
  * Non-animation timers belong beside their features.

@@ -1,6 +1,6 @@
-import { COMPOSER_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { observeMatches } from '@dsh-claude-style/engine/bus'
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { COMPOSER_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { observeMatches } from '@dsh-claude-ui/engine/bus'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { PAGE_UNDER_480_ATTR } from '../../constants'
 
 /** The bottom occlusion in layout pixels, or zero for desktop and pinch zoom. */

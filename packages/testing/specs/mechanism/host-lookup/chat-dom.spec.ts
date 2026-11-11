@@ -9,8 +9,8 @@
  * @risk After a session switch the skin keeps scrolling a conversation that has left the page, or a drag on the scrollbar is taken for a click inside the conversation.
  */
 import { afterEach, expect, test } from 'vitest'
-import { conversationColumn, conversationScroller, isScrollbarStrip } from '@dsh-claude-style/engine/chat-dom'
-import { CHAT_FLOW_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { conversationColumn, conversationScroller, isScrollbarStrip } from '@dsh-claude-ui/engine/chat-dom'
+import { CHAT_FLOW_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from '../../fixtures/host-markup'
 
 const cleanups: (() => void)[] = []

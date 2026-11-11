@@ -11,7 +11,7 @@
  */
 import { expect, test } from 'vitest'
 import fc from 'fast-check'
-import { createWaveField } from '@dsh-claude-style/client/pure'
+import { createWaveField } from '@dsh-claude-ui/client/pure'
 
 // How many cells a ring covers in a quarter second when it has slowed to the far end of its click's profile,
 // against the ground the same click carries it over: the two differ by the ratio of the profile's two speeds.

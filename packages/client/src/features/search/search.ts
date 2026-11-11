@@ -1,18 +1,18 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import * as React from 'react'
 import * as primitives from '@deepseek-ai/dsh-client-ui-primitives'
 import * as reactDom from 'react-dom/client'
-import { conversationSessionId, findConversationSession, sessionOutline, turnForSeq } from '@dsh-claude-style/engine/host'
+import { conversationSessionId, findConversationSession, sessionOutline, turnForSeq } from '@dsh-claude-ui/engine/host'
 import { createSearchSources } from './sources'
 import type { ContentHit, SearchFilter, SearchRow } from './sources'
-import { buildElement, createStamp } from '@dsh-claude-style/engine/dom'
+import { buildElement, createStamp } from '@dsh-claude-ui/engine/dom'
 import { motionMs } from '../../shared/motion'
 import { closeOtherPopovers, registerPopover, unregisterPopover } from '../../shared/popover'
 import { createSlidingPill } from '../../shared/sliding-pill'
 import { createTurnNavHost } from '../turn-nav/turn-nav-host'
 import { createSearchTrigger } from './search-trigger'
 import { createHostSearchTakeover } from './search-host-takeover'
-import type { HostContext } from '@dsh-claude-style/engine/host'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type { FeatureUi } from '../../core/feature'
 import type manifest from './search.manifest'
 import { copy } from './copy'
@@ -305,7 +305,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
         if (controller.signal.aborted) return
         // A deployment can switch the index off; the title matches stand
         // alone, and the list stops saying it is still searching.
-        console.warn('dsh-claude-style: session content search failed:', reason)
+        console.warn('dsh-claude-ui: session content search failed:', reason)
         contentHits = []
         contentQuery = q
         render()

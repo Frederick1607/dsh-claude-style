@@ -1,5 +1,5 @@
-import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-style/contracts/dom'
-import { CHAT_ROW_SELECTOR, CHAT_USER_ROW_SELECTOR } from '@dsh-claude-style/engine/chat-dom'
+import { SUBMISSION_ECHO_SELECTOR } from '@dsh-claude-ui/contracts/dom'
+import { CHAT_ROW_SELECTOR, CHAT_USER_ROW_SELECTOR } from '@dsh-claude-ui/engine/chat-dom'
 
 /** Mark every fresh echo handled so only the newest is used and none repeats in a later frame. */
 export function takeFreshEcho(handled: WeakSet<Element>) {

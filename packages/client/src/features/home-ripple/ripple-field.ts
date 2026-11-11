@@ -1,4 +1,4 @@
-import { resolveColour } from '@dsh-claude-style/engine/colour'
+import { resolveColour } from '@dsh-claude-ui/engine/colour'
 import { fractalNoise, hash } from './ripple-noise'
 import { RIPPLE } from './ripple-params'
 import type { WaveField } from './ripple-wave'

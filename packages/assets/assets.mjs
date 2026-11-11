@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto'
 import { brotliCompressSync } from 'node:zlib'
 
 export const INLINE_LIMIT_BYTES = 16 * 1024
-export const ASSETS_ROUTE = '/dsh-claude-style/assets/'
+export const ASSETS_ROUTE = '/dsh-claude-ui/assets/'
 export const ASSETS_MANIFEST = 'manifest.json'
 export const FONT_DIR = 'fonts'
 /** Anthropic's fonts are repository-only and never enter the package. */

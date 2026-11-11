@@ -1,4 +1,4 @@
-import type { HostSlotsService } from '@dsh-claude-style/contracts/services'
+import type { HostSlotsService } from '@dsh-claude-ui/contracts/services'
 
 /** Host slot registered by ui-model-selection. */
 export const MODEL_SLOT_KEY = 'conversation.input.model'

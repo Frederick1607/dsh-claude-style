@@ -9,8 +9,8 @@
  * @risk The words inside a sent message jump to a new line-break mid-flight, overflow the shell, or leave a stripe at the row's foot where the shell lands shorter than the message.
  */
 import { afterEach, expect, test } from 'vitest'
-import { CHAT_DRAFT_HANDOFF_AT, CHAT_MAX_TEXT_LAYERS, CHAT_SHAPE_SAMPLES, chatSendMorphProgress, chatSendTextWindows } from '@dsh-claude-style/client/pure'
-import type { ShapeSample } from '@dsh-claude-style/client/pure'
+import { CHAT_DRAFT_HANDOFF_AT, CHAT_MAX_TEXT_LAYERS, CHAT_SHAPE_SAMPLES, chatSendMorphProgress, chatSendTextWindows } from '@dsh-claude-ui/client/pure'
+import type { ShapeSample } from '@dsh-claude-ui/client/pure'
 
 const cleanups: (() => void)[] = []
 afterEach(() => {

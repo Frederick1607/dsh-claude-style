@@ -29,8 +29,8 @@ export default {
     basicChecks(r)
     const brand = r.customBrand || {}
     const images = brand.images || {}
-    const markUrl = '/dsh-claude-style/brand/mark?v=1-1'
-    const wordUrl = '/dsh-claude-style/brand/wordmark?v=1-1'
+    const markUrl = '/dsh-claude-ui/brand/mark?v=1-1'
+    const wordUrl = '/dsh-claude-ui/brand/wordmark?v=1-1'
     check('the mark the host half holds replaces the brand\'s art in the sidebar, on the hero and as the account row\'s fallback picture',
       images.markAttr === '' && images.hostArt === 'none' &&
         images.mark.image.includes(markUrl) && images.mark.mask === 'none' && images.mark.width === '18px' &&

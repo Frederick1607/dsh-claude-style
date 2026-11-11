@@ -7,8 +7,8 @@
  * @risk Opening or folding a thinking row animates the wrong element: the accessory beside the row, or a neighbouring control's content, slides instead of the reasoning body.
  */
 import { afterEach, expect, test } from 'vitest'
-import { foldExpandedBody } from '@dsh-claude-style/client/pure'
-import { DISCLOSURE_HEADER_SELECTOR, DISCLOSURE_ROW_SELECTOR, FOLD_TOGGLE_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { foldExpandedBody } from '@dsh-claude-ui/client/pure'
+import { DISCLOSURE_HEADER_SELECTOR, DISCLOSURE_ROW_SELECTOR, FOLD_TOGGLE_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { hostElement } from '../../fixtures/host-markup'
 
 afterEach(() => {

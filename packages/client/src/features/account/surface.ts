@@ -1,6 +1,6 @@
-import { requestFrame } from '@dsh-claude-style/engine/frame'
+import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { ACCOUNT_MENU_ATTR, ACCOUNT_READY_ATTR } from '../../constants'
-import { createStamp } from '@dsh-claude-style/engine/dom'
+import { createStamp } from '@dsh-claude-ui/engine/dom'
 
 /** Where the skin's account rows live: the host's own account menu, or the skin's self-built popover. */
 export type AccountSurfaceMode = 'host' | 'synthetic'

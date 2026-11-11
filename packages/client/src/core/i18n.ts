@@ -1,5 +1,5 @@
 import { hostCtx } from './host-context'
-import type { HostContext, HostText } from '@dsh-claude-style/engine/host'
+import type { HostContext, HostText } from '@dsh-claude-ui/engine/host'
 
 /** Values for a copy string's `{name}` slots. */
 export type CopyParams = Record<string, string | number>

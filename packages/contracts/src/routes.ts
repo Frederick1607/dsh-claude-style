@@ -1,7 +1,7 @@
 /** Private route names registered by the host and addressed by the browser (D73). */
 
 /** Route prefix this plugin owns. */
-export const ROUTE_PREFIX = '/dsh-claude-style'
+export const ROUTE_PREFIX = '/dsh-claude-ui'
 
 /** One-shot host OS user route; the browser half caches the response and never polls. */
 export const USERNAME_PATH = `${ROUTE_PREFIX}/username`

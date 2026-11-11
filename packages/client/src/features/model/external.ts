@@ -1,5 +1,5 @@
-import type { HostContext } from '@dsh-claude-style/engine/host'
-import type { HostModelDirectory } from '@dsh-claude-style/contracts/services'
+import type { HostContext } from '@dsh-claude-ui/engine/host'
+import type { HostModelDirectory } from '@dsh-claude-ui/contracts/services'
 import type { FeatureUi } from '../../core/feature'
 import { install as installModel } from './model-picker'
 import type modelManifest from './model-picker.manifest'

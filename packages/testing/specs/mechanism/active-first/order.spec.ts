@@ -8,8 +8,8 @@
  * @risk A session works quietly in the middle of the list while the reader reads an older conversation, and the row he wants is the one he has to hunt for.
  */
 import { expect, test } from 'vitest'
-import { SESSION_ONGOING_STATE, SESSION_ONGOING_SELECTOR, SESSION_PHASE_ATTRIBUTE, SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-style/contracts/dom'
-import { installActiveFirst } from '@dsh-claude-style/client/pure'
+import { SESSION_ONGOING_STATE, SESSION_ONGOING_SELECTOR, SESSION_PHASE_ATTRIBUTE, SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
+import { installActiveFirst } from '@dsh-claude-ui/client/pure'
 import { cleanupWith, frames } from '../../fixtures/teardown'
 
 

@@ -9,9 +9,9 @@
  * @risk While the host expands the composer's activity seat, the seat stops reading as the skin's own part, so the entry a plugin mounts in it (the microphone button a reader presses to record) loses the seat's rules and leaves the composer.
  */
 import { expect, test } from 'vitest'
-import { installParts } from '@dsh-claude-style/engine/parts'
-import { holdRelations } from '@dsh-claude-style/engine/parts-table'
-import { CONVERSATION_ACTIVITY_SLOT_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-style/contracts/dom'
+import { installParts } from '@dsh-claude-ui/engine/parts'
+import { holdRelations } from '@dsh-claude-ui/engine/parts-table'
+import { CONVERSATION_ACTIVITY_SLOT_SELECTOR, CONVERSATION_SCROLL_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { partRegion } from '../../fixtures/part-region'
 import { hostElement } from '../../fixtures/host-markup'
 import { pageCleanups } from '../../fixtures/page'

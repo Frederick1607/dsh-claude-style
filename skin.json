@@ -4,7 +4,7 @@
   "tagline": "Claude Code Desktop 深度定制化主题",
   "accent": "#d97757",
   "bodyAttr": "data-dsh-claude-style",
-  "package": "dsh-claude-style",
+  "package": "dsh-claude-ui",
   "wiring": {
     "id": "ui-skin-claude-style"
   }

@@ -1,5 +1,5 @@
 /**
- * Host half of dsh-claude-style: the surfaces a browser-only plugin cannot
+ * Host half of dsh-claude-ui: the surfaces a browser-only plugin cannot
  * provide. It serves the model copy document, the code font and the reader's
  * own text faces, the OS username, the animation sheets, the reader's brand
  * images and the usage figures; the browser half fetches each.
@@ -12,9 +12,9 @@
  * The routes live in routes.ts, the HDSL account contract in hdsl.ts, and the
  * settings surface in settings.ts; this file only mounts them.
  */
-import { PACKAGE_NAME } from '@dsh-claude-style/contracts/package'
+import { PACKAGE_NAME } from '@dsh-claude-ui/contracts/package'
 import { registerRoutes } from './routes.js'
-import type { DshContext, DshScope } from '@dsh-claude-style/engine/node/dsh'
+import type { DshContext, DshScope } from '@dsh-claude-ui/engine/node/dsh'
 import { registerSettings } from './settings.js'
 import { registerWidgetUsage } from './widget-usage.js'
 

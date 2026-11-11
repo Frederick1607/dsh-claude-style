@@ -1,5 +1,5 @@
 import { AUTO_POPOVER_OFF } from '../../constants'
-import { findSidebarRoot } from '@dsh-claude-style/engine/host'
+import { findSidebarRoot } from '@dsh-claude-ui/engine/host'
 import { getUsername } from '../../shared/identity'
 import { readPrefs } from '../../core/prefs'
 import { POPOVER_CLOSE_DELAY, POPOVER_OPEN_DELAY, closeOtherPopovers, createHoverIntent, positionAnchoredPopover, removeStrayNodes } from '../../shared/popover'

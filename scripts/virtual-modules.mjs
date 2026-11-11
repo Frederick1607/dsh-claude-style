@@ -33,7 +33,7 @@ export function featuresModule(manifests, chunks) {
   return {
     name: 'features',
     setup(build) {
-      build.onResolve({ filter: /^virtual:dsh-claude-style\/features$/ }, (args) => ({ path: args.path, namespace: 'features' }))
+      build.onResolve({ filter: /^virtual:dsh-claude-ui\/features$/ }, (args) => ({ path: args.path, namespace: 'features' }))
       build.onLoad({ filter: /.*/, namespace: 'features' }, () => ({ contents, loader: 'js', resolveDir: SRC }))
     },
   }
@@ -52,7 +52,7 @@ export function chunkModulesModule(ids) {
   return {
     name: 'chunk-modules',
     setup(build) {
-      build.onResolve({ filter: /^virtual:dsh-claude-style\/chunk-modules$/ }, (args) => ({ path: args.path, namespace: 'chunk-modules' }))
+      build.onResolve({ filter: /^virtual:dsh-claude-ui\/chunk-modules$/ }, (args) => ({ path: args.path, namespace: 'chunk-modules' }))
       build.onLoad({ filter: /.*/, namespace: 'chunk-modules' }, () => ({ contents, loader: 'js', resolveDir: SRC }))
     },
   }
@@ -67,7 +67,7 @@ export function settingsControlsModule(manifests) {
   return {
     name: 'settings-controls',
     setup(build) {
-      build.onResolve({ filter: /^virtual:dsh-claude-style\/settings-controls$/ }, (args) => ({ path: args.path, namespace: 'settings-controls' }))
+      build.onResolve({ filter: /^virtual:dsh-claude-ui\/settings-controls$/ }, (args) => ({ path: args.path, namespace: 'settings-controls' }))
       build.onLoad({ filter: /.*/, namespace: 'settings-controls' }, () => ({ contents, loader: 'js', resolveDir: SRC }))
     },
   }
@@ -84,7 +84,7 @@ export function generatedModule(values) {
   return {
     name: 'generated',
     setup(build) {
-      build.onResolve({ filter: /^virtual:dsh-claude-style\/generated$/ }, (args) => ({ path: args.path, namespace: 'generated' }))
+      build.onResolve({ filter: /^virtual:dsh-claude-ui\/generated$/ }, (args) => ({ path: args.path, namespace: 'generated' }))
       build.onLoad({ filter: /.*/, namespace: 'generated' }, () => ({ contents, loader: 'js' }))
     },
   }

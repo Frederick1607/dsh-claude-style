@@ -1,6 +1,6 @@
 import { SOUND_ROUTE } from '../../constants'
 import { createSynth } from './synth'
-import type { HostSoundCapability, SoundName } from '@dsh-claude-style/contracts/sound'
+import type { HostSoundCapability, SoundName } from '@dsh-claude-ui/contracts/sound'
 
 /**
  * Whether the page is served from this machine. Host audio plays on the host,

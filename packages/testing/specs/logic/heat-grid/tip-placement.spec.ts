@@ -14,7 +14,7 @@ import { userEvent } from 'vitest/browser'
 import {
   HEAT_CELL_SELECTOR, HEAT_HINT_CLASS, HEAT_HINT_SHOWN_ATTR, HEAT_HINT_SIDE_ATTR, HEAT_HINT_TEXT_CLASS, HEAT_TIP_ATTR, HEAT_TIP_GAP,
   HOME_OVERVIEW_SHEET, hideHeatTip, placeHeatTip, showHeatTip,
-} from '@dsh-claude-style/client/pure'
+} from '@dsh-claude-ui/client/pure'
 import { surfaceAttribute, surfaceClass } from '../../fixtures/surface'
 
 const ROOT = surfaceAttribute('skin.root')
