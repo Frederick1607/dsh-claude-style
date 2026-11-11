@@ -85,6 +85,8 @@ export function install(ctx: HostContext) {
   /** The opener's own copy, taken while the desktop column still hides it: the glyph the ghost stands. */
   let openerTemplate: HTMLElement | null = null
   let ghostFrame = 0
+  /** When the standing copy gives up waiting for the host's opener; unset while the peek is open. */
+  let ghostUntil: number | null = null
   let openTimer: number | undefined
   let leaveTimer: number | undefined
   let closeTimer: number | undefined
@@ -187,13 +189,23 @@ export function install(ctx: HostContext) {
     if (left !== '') copy.style.left = left
     if (top !== '') copy.style.top = top
     copy.style.margin = '0'
+    // The copy answers a press the way the control does — the sidebar stays —
+    // and it keeps the host's own hover paint, since the pointer rests on it
+    // while the column hides the control it stands for.
+    copy.addEventListener('click', (event) => {
+      event.preventDefault()
+      event.stopPropagation()
+      pin()
+    })
     frame.append(copy)
     ghost = copy
-    const until = Date.now() + GHOST_MS
+    ghostUntil = null
     const poll = () => {
       ghostFrame = 0
       if (ghost === null) return
-      if (findSidebarOpener() !== null || !ghost.isConnected || Date.now() > until) {
+      // While the peek stands the host's opener is away and the copy is the
+      // button on screen; only the close waits for that opener to come back.
+      if (!ghost.isConnected || (ghostUntil !== null && (Date.now() > ghostUntil || findSidebarOpener() !== null))) {
         unmountGhost()
         return
       }
@@ -221,12 +233,7 @@ export function install(ctx: HostContext) {
       // with the copy taken while it stood, so the control never leaves the
       // frame. A pin leaves the column open, and the toggle it keeps needs no
       // copy behind it.
-      if (frame.hasAttribute(SIDEBAR_COLLAPSED_ATTRIBUTE)) {
-        mountGhost(
-          frame.style.getPropertyValue(SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY),
-          frame.style.getPropertyValue(SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY),
-        )
-      }
+      if (frame.hasAttribute(SIDEBAR_COLLAPSED_ATTRIBUTE)) ghostUntil = Date.now() + GHOST_MS
       frame.removeAttribute(SIDEBAR_PEEK_ATTR)
       frame.style.removeProperty(SIDEBAR_PEEK_RAIL_PROPERTY)
       frame.style.removeProperty(SIDEBAR_PEEK_WIDTH_PROPERTY)
@@ -288,7 +295,6 @@ export function install(ctx: HostContext) {
       if (col === null || !col.contains(control)) {
         openerTemplate = control.cloneNode(true) as HTMLElement
         openerTemplate.removeAttribute(OPENER_ATTRIBUTE)
-        openerTemplate.setAttribute('aria-hidden', 'true')
         openerTemplate.setAttribute('tabindex', '-1')
       }
     }
@@ -315,6 +321,7 @@ export function install(ctx: HostContext) {
   /** Keep the sidebar open: the column goes back into the grid and the page makes room, as a click on the toggle always does. */
   function pin() {
     clearTimers()
+    unmountGhost()
     finish()
   }
 

@@ -43,7 +43,6 @@ body[data-dsh-claude-style] [data-dsh-claude-sidebar-peek-ghost] {
   position: fixed;
   z-index: var(--dsh-claude-layer-peek);
   margin: 0;
-  pointer-events: none;
 }
 
 body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-claude-sidebar-peek] > [data-dsh-claude-part~="center-column"] {

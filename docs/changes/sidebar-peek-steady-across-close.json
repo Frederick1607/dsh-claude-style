@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-11",
+  "group": "fixes",
+  "order": 34,
+  "external": false,
+  "zh": "悬停浮出时按钮从出现到收起都由同一份按钮的画面接住，展开和收起不再闪一下",
+  "en": "Keep one button painting from the hover through the close, so neither the open nor the collapse blinks"
+}
