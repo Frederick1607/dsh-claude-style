@@ -58,7 +58,18 @@ async function collapseRail(page) {
     const frame = document.querySelector(rail.frame)
     return frame !== null && frame.hasAttribute('data-sidebar-collapsed')
   }, RAIL)
-  if (!collapsed) await page.locator(RAIL.column).locator(RAIL.toggle).first().click()
+  if (!collapsed) {
+    // By coordinates: the skin's peek may stand its own copy over the toggle's
+    // box (packages/client/src/features/sidebar-peek/), and a press on that copy
+    // is the press on the toggle.
+    const point = await page.evaluate((rail) => {
+      const button = document.querySelector(`${rail.column} ${rail.toggle}`)
+      if (button === null) return null
+      const rect = button.getBoundingClientRect()
+      return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) }
+    }, RAIL)
+    if (point !== null) await page.mouse.click(point.x, point.y)
+  }
   await page.waitForFunction((rail) => {
     const frame = document.querySelector(rail.frame)
     const button = document.querySelector(rail.newSession)

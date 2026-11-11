@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.2] - 2026-11-11
+
+[中文](#cn-0.21.2) | [English](#en-0.21.2)
+
+<h3 id="cn-0.21.2">问题修复</h3>
+
+- 重写浮出侧栏的按钮，从悬停到收起都由皮肤自己画的那颗按钮占住原来的位置，宿主换按钮的那几帧盒子不再空，e2e 逐帧盯着这颗按钮，打开和收起各加一条不闪的检查
+
+<h3 id="en-0.21.2">Bug Fixes</h3>
+
+- Rewrite the peek's button so one copy the skin draws holds the box from the hover through the close, the frames in which the host swaps its own button no longer leave it empty, and the lane watches that button frame by frame with a check each for the open and the close
+
 ## [0.21.1] - 2026-11-11
 
 [中文](#cn-0.21.1) | [English](#en-0.21.1)

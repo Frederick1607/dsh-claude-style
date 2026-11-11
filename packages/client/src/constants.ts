@@ -54,11 +54,9 @@ export const FOOTER_SEATS = [
 export const SIDEBAR_PEEK_ATTR = 'data-dsh-claude-sidebar-peek'
 export const SIDEBAR_PEEK_OPEN = 'open'
 export const SIDEBAR_PEEK_CLOSING = 'closing'
-export const SIDEBAR_PEEK_GHOST_ATTR = 'data-dsh-claude-sidebar-peek-ghost'
+export const SIDEBAR_PEEK_STAND_ATTR = 'data-dsh-claude-sidebar-peek-stand'
 export const SIDEBAR_PEEK_RAIL_PROPERTY = '--dsh-claude-sidebar-peek-rail'
 export const SIDEBAR_PEEK_WIDTH_PROPERTY = '--dsh-claude-sidebar-peek-width'
-export const SIDEBAR_PEEK_TOGGLE_LEFT_PROPERTY = '--dsh-claude-sidebar-peek-toggle-left'
-export const SIDEBAR_PEEK_TOGGLE_TOP_PROPERTY = '--dsh-claude-sidebar-peek-toggle-top'
 /** The fork lineage's marks (features/fork-tree): the source row, the child row, its depth, the fold, and the rows a folded source keeps out of sight. */
 export const FORK_PARENT_ATTR = 'data-dsh-claude-fork-parent'
 export const FORK_CHILD_ATTR = 'data-dsh-claude-fork-child'

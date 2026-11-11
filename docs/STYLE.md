@@ -463,6 +463,7 @@ edit the JSON, not the table.
 | `--dsh-claude-layer-float` | `99999` | a floating card or menu over everything the host draws: the popover cards, the hero menu |
 | `--dsh-claude-layer-tooltip` | `100000` | the host's own tooltip bubble while it explains a control inside a card the skin floats: over those cards, under a takeover |
 | `--dsh-claude-layer-takeover` | `2147483000` | a surface that covers the whole window: the account-hold page, the sent message's stand-in in flight |
+| `--dsh-claude-layer-peek-control` | `41` | the copy of the toggle the peek stands in the pointer’s box, over the layer that opens the sidebar |
 <!-- /generated:layers -->
 
 ## Text selection

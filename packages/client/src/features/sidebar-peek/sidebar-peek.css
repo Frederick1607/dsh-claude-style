@@ -26,22 +26,18 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-clau
   box-shadow: var(--dsw-alias-shadow-lv2);
   animation: dsh-claude-sidebar-peek-in var(--dsh-claude-duration-open) var(--dsh-claude-ease-out);
 }
-/* The control the pointer rests on keeps its box: the column's own toggle takes
-   the opener's place as the layer opens, so a hover moves nothing under the
-   hand and only a press changes the button's place (sidebar-peek.ts writes the
-   two properties from the opener's box). */
+/* While the layer stands, the copy the peek draws is the button on screen: the
+   host's own toggle steps out of sight rather than standing beside it
+   (sidebar-peek.ts puts the copy in the toggle's box). */
 body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-claude-sidebar-peek] [data-dsh-claude-part~="sidebar-toggle"] {
-  position: fixed;
-  left: var(--dsh-claude-sidebar-peek-toggle-left, auto);
-  top: var(--dsh-claude-sidebar-peek-toggle-top, auto);
-  margin: 0;
+  visibility: hidden;
 }
-/* The copy of the opener the close leaves standing while the host mounts the
-   real one (sidebar-peek.ts): painted in the box the control kept, never a
-   target, so the button is on screen in every frame of the close. */
-body[data-dsh-claude-style] [data-dsh-claude-sidebar-peek-ghost] {
+/* The copy of the control the peek stands in the box under the pointer
+   (sidebar-peek.ts): painted over the layer, a press goes to it, and it carries
+   the host's classes so the host's own paint and hover hold it. */
+body[data-dsh-claude-style] [data-dsh-claude-sidebar-peek-stand] {
   position: fixed;
-  z-index: var(--dsh-claude-layer-peek);
+  z-index: var(--dsh-claude-layer-peek-control);
   margin: 0;
 }
 

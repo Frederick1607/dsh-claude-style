@@ -81,21 +81,73 @@ const waitForSidebar = (page, collapsed) => page.waitForFunction(([peek, folded,
   return !frame.hasAttribute('data-sidebar-collapsed') && column.getBoundingClientRect().width >= wide
 }, [PEEK, collapsed, OPEN_WIDTH_PX], { timeout: 5000 }).then(() => true, () => false)
 
+/**
+ * The point the reader rests on: the centre of the box the host's toggle keeps.
+ * The button painted there is the skin's copy while it stands, so the pointer
+ * is moved by coordinates rather than by asking the host's button to receive it
+ * — the copy is the button on top.
+ */
+const togglePoint = (page) => page.evaluate((peek) => {
+  const button = document.querySelector(peek.toggle)
+  if (button === null) return null
+  const rect = button.getBoundingClientRect()
+  return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) }
+}, PEEK)
+
 /** Rest the pointer on the rail's toggle until the sidebar stands open, its entrance played out. */
 async function openPeek(page) {
-  await page.locator(PEEK.toggle).first().hover()
+  const point = await togglePoint(page)
+  if (point !== null) await page.mouse.move(point.x, point.y)
   const opened = await waitForSidebar(page, false)
   await page.waitForTimeout(400)
   return opened
 }
 
-/** The box of the control the pointer rests on: the column's own toggle in the web rail, and the same button once the layer stands. */
-const toggleBox = (page) => page.evaluate((peek) => {
-  const button = document.querySelector(peek.toggle)
-  if (button === null) return null
-  const rect = button.getBoundingClientRect()
-  return { left: Math.round(rect.left), top: Math.round(rect.top) }
-}, PEEK)
+/**
+ * The box of the button the reader sees under the pointer. The host's toggle is
+ * the anchor — it stays in the DOM while the layer stands, though the layer
+ * hides it — and the button painted there is read by hit-testing its centre:
+ * the skin stands its own copy in that box (sidebar-peek.ts), so the host
+ * button's own box moves with the column while the painted one does not.
+ */
+const paintedBox = (page, point) => page.evaluate(({ point }) => {
+  const painted = document.elementFromPoint(point.x, point.y)?.closest('button') ?? null
+  if (painted === null) return null
+  const box = painted.getBoundingClientRect()
+  return { left: Math.round(box.left), top: Math.round(box.top), width: Math.round(box.width), height: Math.round(box.height) }
+}, { point })
+
+const toggleBox = (page) => togglePoint(page).then((point) => (point === null ? null : paintedBox(page, point)))
+
+/**
+ * Watch the button's box while an action runs: every frame that draws no button
+ * under the point is a blink, and the skin's copy is what keeps every frame
+ * covered (sidebar-peek.ts).
+ *
+ * @returns the moments, in milliseconds from the start, a frame drew no button there.
+ */
+async function watchButton(page, box, ms, run) {
+  const watching = page.evaluate(({ x, y, window: length, peekFrame }) => new Promise((resolve) => {
+    const missing = []
+    const startedAt = performance.now()
+    const tick = () => {
+      const hit = document.elementFromPoint(x, y)
+      const button = hit?.closest('button') ?? null
+      if (hit === null || button === null) missing.push({
+        at: Math.round(performance.now() - startedAt),
+        tag: hit?.tagName ?? null,
+        cls: hit === null ? null : String(hit.className).slice(0, 24),
+        collapsed: document.querySelector(peekFrame)?.hasAttribute('data-sidebar-collapsed') ?? null,
+        buttons: document.querySelectorAll('button').length,
+      })
+      if (performance.now() - startedAt < length) requestAnimationFrame(tick)
+      else resolve(missing)
+    }
+    requestAnimationFrame(tick)
+  }), { x: Math.round(box.left + box.width / 2), y: Math.round(box.top + box.height / 2), window: ms, peekFrame: PEEK.frame })
+  await run()
+  return watching
+}
 
 /** Somewhere in the centre, well clear of the sidebar's open width. */
 async function leave(page) {
@@ -140,26 +192,37 @@ function sidebarPeekScenario({ check }) {
       const before = await settledFrame(page)
 
       const resting = await toggleBox(page)
-      const opened = await openPeek(page)
+      const blinkOnOpen = await watchButton(page, resting, 900, () => openPeek(page).then(() => page.waitForTimeout(200)))
+      const opened = await waitForSidebar(page, false)
       const open = await settledFrame(page)
-      const during = await toggleBox(page)
+      const during = await paintedBox(page, { x: resting.left + resting.width / 2, y: resting.top + resting.height / 2 })
 
-      await leave(page)
+      const blinkOnClose = await watchButton(page, resting, 1200, async () => {
+        await leave(page)
+        await waitForSidebar(page, true)
+        await page.waitForTimeout(300)
+      })
       const held = centerHeldWhileLeaving(page, before.center)
       const closed = await waitForSidebar(page, true)
       const after = await settledFrame(page)
       const moved = await held
 
       await openPeek(page)
-      // While the peek stands, the column's own toggle is the control that pins it.
-      await page.locator(PEEK.toggle).first().click()
+      // While the peek stands, the copy the skin stands there is the control that pins it.
+      await page.mouse.click(Math.round(resting.left + resting.width / 2), Math.round(resting.top + resting.height / 2))
       await leave(page)
       await page.waitForTimeout(800)
       const pinned = await settledFrame(page)
       await collapseRail(page)
 
       await openPeek(page)
-      await page.locator(`${PEEK.column} ${PEEK.sessionRow}`).first().click()
+      const row = await page.evaluate((peek) => {
+        const element = document.querySelector(`${peek.column} ${peek.sessionRow}`)
+        if (element === null) return null
+        const rect = element.getBoundingClientRect()
+        return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) }
+      }, PEEK)
+      if (row !== null) await page.mouse.click(row.x, row.y)
       const picked = await waitForSidebar(page, true)
 
       const same = (a, b) => a !== null && b !== null && a.left === b.left && a.width === b.width
@@ -187,6 +250,12 @@ function sidebarPeekScenario({ check }) {
             pinned.center.left >= pinned.column.width - 1,
           JSON.stringify(pinned)),
         check('在浮起的侧栏里选中会话后侧栏自动收起', picked, ''),
+        check('打开时盒子里始终有按钮，不闪',
+          blinkOnOpen.length === 0,
+          JSON.stringify(blinkOnOpen.slice(0, 5))),
+        check('收起时盒子里始终有按钮，不闪',
+          blinkOnClose.length === 0,
+          JSON.stringify(blinkOnClose.slice(0, 5))),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },
