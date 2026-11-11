@@ -315,12 +315,16 @@ export function install(ctx: HostContext) {
       releaseClearance(frame)
     }
     releaseMenuStart()
+    const hostOpen = frame !== null && !collapsed(frame)
     frame = null
     opened = false
     phase = 'idle'
-    // The copy stays: it is what the reader saw a moment ago, and it is what the
-    // host's own control is once the host has painted it again (see the stand's
-    // watch below). Removing it here is the blink.
+    // The copy stays over a collapsed sidebar: it is what the reader saw a
+    // moment ago, and it is what the host's own control is once the host has
+    // painted it again (the watch above). A pin leaves the sidebar *open*, where
+    // the host keeps its toggle in the column's header: a copy left there would
+    // be a second, dead button.
+    if (hostOpen) unmountStand()
   }
 
   function onFrameChange() {
@@ -499,6 +503,21 @@ export function install(ctx: HostContext) {
 
   const onResize = () => placeStand()
 
+  /**
+   * A host open of its own (its own toggle, the shortcut, a click the copy
+   * forwarded) takes the copy with it: the copy stands for a *collapsed*
+   * control, and an open sidebar keeps its toggle in the column's header. Left
+   * standing, the copy is a second button on the page, and a dead one — the
+   * collapsed control it stands in for is gone.
+   */
+  const onHostOpen = () => {
+    if (phase === 'open' || phase === 'closing') return
+    const box = frames.all()[0] ?? null
+    if (box === null || collapsed(box)) return
+    unmountStand()
+  }
+  const watchHostOpen = subscribeMutations(document.body, { attributes: true, subtree: true, attributeFilter: [SIDEBAR_COLLAPSED_ATTRIBUTE] }, onHostOpen)
+
   document.addEventListener('pointerover', onPointerOver, true)
   document.addEventListener('pointerout', onPointerOut, true)
   document.addEventListener('pointermove', onPointerMove, { capture: true, passive: true })
@@ -513,6 +532,7 @@ export function install(ctx: HostContext) {
     document.removeEventListener('click', onClickCapture, true)
     document.removeEventListener('click', onClick)
     window.removeEventListener('resize', onResize)
+    watchHostOpen()
     // The switch turned off while the sidebar stood over the page: it goes back
     // the way it came, so the page is left as the reader had it.
     if ((phase === 'open' || phase === 'closing') && frame !== null && !collapsed(frame)) hostLayout(ctx).toggleSidebar()

@@ -213,6 +213,12 @@ function sidebarPeekScenario({ check }) {
       await leave(page)
       await page.waitForTimeout(800)
       const pinned = await settledFrame(page)
+      const leftover = await page.evaluate(({ x, y }) => {
+        const button = document.elementFromPoint(x, y)?.closest('button') ?? null
+        if (button === null) return null
+        const box = button.getBoundingClientRect()
+        return { toggle: button.hasAttribute('data-sidebar-toggle'), width: Math.round(box.width), height: Math.round(box.height) }
+      }, { x: resting.left + resting.width / 2, y: resting.top + resting.height / 2 })
       const columns = await page.evaluate((peek) => [...document.querySelectorAll(peek.column)].map((element) => {
         const rect = element.getBoundingClientRect()
         return { left: Math.round(rect.left), width: Math.round(rect.width), position: getComputedStyle(element).position, cls: String(element.className).slice(0, 18) }
@@ -254,6 +260,9 @@ function sidebarPeekScenario({ check }) {
             pinned.center.left >= pinned.column.width - 1,
           JSON.stringify(pinned)),
         check('在浮起的侧栏里选中会话后侧栏自动收起', picked, ''),
+        check('固定展开后，收起时那颗按钮的位置上不再有副本',
+          leftover === null || leftover.toggle === false,
+          JSON.stringify(leftover)),
         check('固定展开后只有一侧栏',
           columns.length === 1 && columns[0].width >= OPEN_WIDTH_PX,
           JSON.stringify(columns)),

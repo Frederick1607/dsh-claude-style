@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.4] - 2026-11-11
+
+[中文](#cn-0.21.4) | [English](#en-0.21.4)
+
+<h3 id="cn-0.21.4">问题修复</h3>
+
+- 侧栏一以固定展开或原生方式打开，浮出的按钮副本立刻让位，页面上不再多出一颗按钮，也不会点到一颗失效的按钮
+
+<h3 id="en-0.21.4">Bug Fixes</h3>
+
+- Take the peek's copy away as soon as the sidebar opens pinned or natively, so the page never shows a second, dead toggle
+
 ## [0.21.3] - 2026-11-11
 
 [中文](#cn-0.21.3) | [English](#en-0.21.3)
