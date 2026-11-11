@@ -76,6 +76,8 @@ export const SESSION_RAIL_PART_ATTR = 'data-dsh-claude-rail-part'
 /** The kind of token a cell of the context matrix stands for, and the legend item that names it. */
 export const SESSION_RAIL_CELL_ATTR = 'data-dsh-claude-rail-cell'
 export const SESSION_RAIL_LEGEND_ATTR = 'data-dsh-claude-rail-legend'
+/** Set on the page while the rail offers the view entries: the conversation's own tab strip stands aside (the entries are the switch). */
+export const SESSION_RAIL_HIDES_TABS_ATTR = 'data-dsh-claude-view-tabs-hidden'
 export const SESSION_RAIL_CLOSED = 'closed'
 /** The rail's own column width, written from the width preference so the scroller beside it keeps what is left. */
 export const SESSION_RAIL_WIDTH_PROPERTY = '--dsh-claude-rail-width'

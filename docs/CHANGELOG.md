@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.5] - 2026-11-12
+
+[中文](#cn-0.22.5) | [English](#en-0.22.5)
+
+<h3 id="cn-0.22.5">体验优化</h3>
+
+- 右栏站着上下文与团队入口时，聊天框上方那排对话与视图标签让位不再显示；再按一次当前视图的入口回到对话视图
+
+<h3 id="en-0.22.5">Improvements</h3>
+
+- Stand the conversation's own view tab strip aside while the rail's entries stand, and let a second press on the shown view's entry return to the conversation
+
 ## [0.22.4] - 2026-11-12
 
 [中文](#cn-0.22.4) | [English](#en-0.22.4)

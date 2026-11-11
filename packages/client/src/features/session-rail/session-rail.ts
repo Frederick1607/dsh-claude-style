@@ -4,7 +4,7 @@ import { buildElement, setAttributeIfChanged, writeTextInPlace } from '@dsh-clau
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { cacheFirstMatch, currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
-import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
+import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_HIDES_TABS_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
 import type { HostContextBreakdownProjection, HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
@@ -350,17 +350,38 @@ export function install(ctx: HostContext) {
     return null
   }
 
-  /** Hand the reader to the view's own tab: the tab is the host's switch, so a press on it is the switch. */
+  /**
+   * Hand the reader to the view's own tab, and back: the tab is the host's
+   * switch, so a press on it is the switch. A press on the view already shown
+   * returns the conversation to its first view, so the entries alone can leave
+   * a view as well as enter it.
+   */
   function openView(link: ViewLink) {
-    viewTab(link)?.click()
+    const seat = tabsSeat()
+    const tab = viewTab(link)
+    if (seat === null || tab === null) return
+    if (tab.getAttribute('aria-selected') === 'true') {
+      const first = seat.querySelector<HTMLElement>('[role="tab"]')
+      if (first !== null) first.click()
+      return
+    }
+    tab.click()
   }
 
-  /** Show each entry only while its view's tab is in the conversation's tablist. */
+  /**
+   * Show each entry only while its view's tab is in the conversation's tablist,
+   * and stand the tab strip aside while one does: the entries are the switch
+   * then, and the strip above the conversation would say the same thing twice.
+   */
   function applyViewLinks() {
+    let shown = false
     for (const link of refs.viewLinks) {
       const available = viewTab(link) !== null
+      if (available) shown = true
       if (link.button.hidden === available) link.button.hidden = !available
     }
+    if (shown) document.body.setAttribute(SESSION_RAIL_HIDES_TABS_ATTR, '')
+    else document.body.removeAttribute(SESSION_RAIL_HIDES_TABS_ATTR)
   }
 
   /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
