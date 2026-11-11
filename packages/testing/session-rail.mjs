@@ -210,12 +210,15 @@ function sessionRailScenario({ check }) {
             return added && before.every((hidden) => hidden === true) && after[0] === false && after[1] === true && restored.every((hidden) => hidden === true)
           })(),
           'the entries do not follow the conversation tablist'),
-        check('会话详情栏挂上后，对话的视图标签条让位',
+        check('会话详情栏挂上后，对话的标签让位、标签行与横线留下',
           await page.evaluate(() => {
-            const strip = document.querySelector('[data-conversation-tabs]')
-            return strip === null || getComputedStyle(strip).visibility === 'hidden'
+            const seat = document.querySelector('[data-conversation-tabs]')
+            if (seat === null) return true
+            const tabs = [...seat.querySelectorAll('[role="tab"]')]
+            const kept = getComputedStyle(seat).visibility !== 'hidden'
+            return kept && tabs.every((tab) => getComputedStyle(tab).visibility === 'hidden')
           }),
-          'the view tab strip still stands'),
+          'the view tabs still stand'),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },

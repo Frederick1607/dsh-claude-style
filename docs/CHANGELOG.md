@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.9] - 2026-11-12
+
+[中文](#cn-0.22.9) | [English](#en-0.22.9)
+
+<h3 id="cn-0.22.9">问题修复</h3>
+
+- 收起的视图标签只藏标签本身，标签所在的那一行连同它的分隔横线一起留下，标题行继续与窗口按钮齐平
+
+<h3 id="en-0.22.9">Bug Fixes</h3>
+
+- Hide only the view tabs themselves when the rail stands, keeping their row and the rule it carries, so the session title stays level with the window's controls
+
 ## [0.22.8] - 2026-11-12
 
 [中文](#cn-0.22.8) | [English](#en-0.22.8)

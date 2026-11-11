@@ -413,10 +413,16 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-view-link[hidden] {
    conversation's own tab strip stands aside: the entries are the switch then,
    and a row of the same three names above the chat would say it twice. */
 body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-conversation-tabs] {
-  /* The tabs themselves step aside, but their row keeps its box and its rules:
-     the row is what keeps the title level with the window's controls, and the
-     strip around the tabs carries the line across the header. Invisible, still
-     mounted, so the rail's entries can press them. */
+  /* The plate the tabs stand on loses its fill; the row itself, its box and the
+     rule it carries stay, so the title keeps its place and the line across the
+     header stays drawn. */
+  background: none;
+  box-shadow: none;
+}
+
+body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-conversation-tabs] > * {
+  /* The tabs step aside: invisible but mounted, so the rail's entries can still
+     press them. */
   visibility: hidden;
   pointer-events: none;
 }
