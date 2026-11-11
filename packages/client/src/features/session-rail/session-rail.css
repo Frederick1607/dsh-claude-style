@@ -374,3 +374,26 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-legend-value {
   line-height: 14px;
   font-variant-numeric: tabular-nums;
 }
+
+/* The entry to the context plugin's own conversation view: the rail names it,
+   the host's tab switches to it. Shown only while that tab is in the tablist. */
+body[data-dsh-claude-style] .dsh-claude-session-rail-context-link {
+  align-self: start;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dsw-alias-state-business-primary);
+  font-size: 11px;
+  line-height: 14px;
+  text-align: start;
+  cursor: pointer;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-context-link:hover {
+  text-decoration: underline;
+}
+
+body[data-dsh-claude-style] .dsh-claude-session-rail-context-link[hidden] {
+  display: none;
+}

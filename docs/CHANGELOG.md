@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.2] - 2026-11-12
+
+[中文](#cn-0.22.2) | [English](#en-0.22.2)
+
+<h3 id="cn-0.22.2">新增功能</h3>
+
+- 右栏上下文段加一个「打开上下文视图」入口，对话里装着上下文视图标签时才出现，点一下由宿主把对话切到那个视图
+
+<h3 id="en-0.22.2">New Features</h3>
+
+- Add an Open the context view entry to the right rail's context section, shown while the conversation carries that view tab and handing the conversation to it when pressed
+
 ## [0.22.1] - 2026-11-12
 
 [中文](#cn-0.22.1) | [English](#en-0.22.1)

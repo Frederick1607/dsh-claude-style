@@ -102,5 +102,13 @@
   "railMatrixLabel": {
     "zh": "上下文窗口的组成",
     "en": "What the context window holds"
+  },
+  "railOpenContext": {
+    "zh": "打开上下文视图",
+    "en": "Open the context view"
+  },
+  "railContextView": {
+    "zh": "上下文",
+    "en": "Context"
   }
 }

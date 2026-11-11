@@ -1,8 +1,8 @@
-import { CONVERSATION_CONTENT_SELECTOR, CONVERSATION_SESSION_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
+import { CONVERSATION_CONTENT_SELECTOR, CONVERSATION_SESSION_ATTRIBUTE, CONVERSATION_TABS_SELECTOR } from '@dsh-claude-ui/contracts/dom'
 import { observeMatches, subscribeMutations } from '@dsh-claude-ui/engine/bus'
 import { buildElement, setAttributeIfChanged, writeTextInPlace } from '@dsh-claude-ui/engine/dom'
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
-import { currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
+import { cacheFirstMatch, currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
 import type { HostContextBreakdownProjection, HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
@@ -57,6 +57,7 @@ interface RailRefs {
   window: HTMLElement
   contextCells: HTMLElement[]
   legendValues: Map<string, HTMLElement>
+  contextLink: HTMLButtonElement
   outputs: RailSection
   outputsTitle: string
   outputsList: HTMLElement
@@ -142,7 +143,13 @@ function buildRail(): RailRefs {
     legend.append(item)
     legendValues.set(key, value)
   }
-  context.body.append(reading, matrix, legend, rows)
+  // The context view the context plugin registers in the conversation's own
+  // tabs is that plugin's React view: the rail cannot draw it, so the section
+  // stands an entry to it and lets the host switch the conversation over.
+  const contextLink = markPart(buildElement('button', 'dsh-claude-session-rail-context-link'), 'context-link')
+  contextLink.type = 'button'
+  contextLink.textContent = copy('railOpenContext')
+  context.body.append(reading, matrix, legend, rows, contextLink)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)
@@ -169,6 +176,7 @@ function buildRail(): RailRefs {
     window,
     contextCells,
     legendValues,
+    contextLink,
     outputs,
     outputsTitle,
     outputsList,
@@ -192,6 +200,7 @@ export function install(ctx: HostContext) {
   let queued: (() => void) | null = null
   let released = false
   const refs = buildRail()
+  refs.contextLink.addEventListener('click', openContextView)
   /** Whether each folded section stands open; the reader's clicks move these. */
   const sectionOpen = new Map<HTMLElement, boolean>()
 
@@ -303,6 +312,34 @@ export function install(ctx: HostContext) {
     })
   }
 
+  /** The conversation's own tablist, resolved once per batch (engine/host.ts). */
+  const tabsSeat = cacheFirstMatch<HTMLElement>(CONVERSATION_TABS_SELECTOR)
+
+  /** The conversation's own view tab that opens the context plugin's view, or null while that tab is not there. */
+  function contextTab(): HTMLElement | null {
+    const seat = tabsSeat()
+    if (seat === null) return null
+    // The tab is the host's, labelled in the host's language; the skin's own copy
+    // answers in the skin's. Both spellings are known, so either side may lead.
+    const names = new Set([copy('railContextView').trim(), '上下文', 'Context'])
+    for (const tab of seat.querySelectorAll<HTMLElement>('[role="tab"]')) {
+      if (names.has((tab.textContent ?? '').trim())) return tab
+    }
+    return null
+  }
+
+  /** Hand the reader to the plugin's own view: the tab is the host's switch, so a press on it is the switch. */
+  function openContextView() {
+    const tab = contextTab()
+    if (tab !== null) tab.click()
+  }
+
+  /** Show the entry only while the plugin's tab is in the conversation's tablist. */
+  function applyContextLink() {
+    const available = contextTab() !== null
+    if (refs.contextLink.hidden === available) refs.contextLink.hidden = !available
+  }
+
   /** Draw the outputs list: one row per delivered file, its name over the description it carried. */
   function writeOutputs() {
     const signature = outputs.map(output => `${output.path}\u0000${output.description}`).join('\u0001')
@@ -373,6 +410,7 @@ export function install(ctx: HostContext) {
     // holds are conversation, and the rest is free.
     const parts = railContextParts(reading.used, breakdown)
       ?? (reading.used === null || reading.used <= 0 ? null : { system: 0, tools: 0, conversation: reading.used })
+    applyContextLink()
     const cells = railMatrixCells(parts, reading.window)
     for (const [at, cell] of refs.contextCells.entries()) {
       const key = cells[at] ?? 'free'

@@ -46,6 +46,7 @@ const RAIL = {
   legend: LEGEND,
   output: part('output'),
   outputsEmpty: part('outputs-empty'),
+  contextLink: part('context-link'),
   scroller: '[data-conversation-scroll]',
 }
 
@@ -140,8 +141,44 @@ function sessionRailScenario({ check }) {
       const matrix = await page.evaluate((marks) => {
         const cells = [...document.querySelectorAll(marks.matrix + ' > [' + marks.cell + ']')].map((cell) => cell.getAttribute(marks.cell))
         const legend = [...document.querySelectorAll('[' + marks.legend + ']')].map((item) => item.getAttribute(marks.legend))
-        return { cells: cells.length, kinds: [...new Set(cells)], legend }
+        const link = document.querySelector(marks.contextLink)
+        const selected = [...document.querySelectorAll('[role="tablist"] [role="tab"]')].find((tab) => tab.getAttribute('aria-selected') === 'true')
+        return {
+          cells: cells.length,
+          kinds: [...new Set(cells)],
+          legend,
+          link: link === null ? null : link.hidden,
+          selected: selected === undefined ? null : (selected.textContent ?? '').trim(),
+        }
       }, RAIL)
+      // The entry to the context view: shown while the conversation carries that
+      // tab, and a press on it hands the conversation to that view.
+      let switched = null
+      if (matrix.link === false) {
+        await page.locator(RAIL.contextLink).click()
+        await page.waitForTimeout(400)
+        switched = await page.evaluate((marks) => {
+          const tabs = [...document.querySelectorAll('[role="tablist"] [role="tab"]')]
+          const listed = document.querySelector('[data-conversation-tabs]')
+          const seatTabs = listed === null ? [] : [...listed.querySelectorAll('[role="tab"]')]
+          const bySeat = seatTabs.find((tab) => (tab.textContent ?? '').trim() === '\u4e0a\u4e0b\u6587') ?? null
+          return {
+            tabs: tabs.map((tab) => (tab.textContent ?? '').trim()),
+            html: tabs.map((tab) => (tab.outerHTML ?? '').slice(0, 220)),
+            lang: document.documentElement.lang,
+            link: document.querySelector(marks.contextLink)?.textContent ?? null,
+          }
+          const selected = [...document.querySelectorAll('[role="tablist"] [role="tab"]')].find((tab) => tab.getAttribute('aria-selected') === 'true')
+          const link = document.querySelector(marks.contextLink)
+          return { selected: selected === undefined ? null : (selected.textContent ?? '').trim(), hidden: link === null ? null : link.hidden }
+        }, RAIL)
+        // Back to the conversation's first view, so the reading above is not left
+        // on another view's page.
+        await page.evaluate(() => {
+          const first = document.querySelector('[role="tablist"] [role="tab"]')
+          if (first instanceof HTMLElement) first.click()
+        })
+      }
       return [
         check('对话正文右侧挂起会话详情栏',
           open.present && open.rail !== null && open.hostBox !== null &&
@@ -179,6 +216,9 @@ function sessionRailScenario({ check }) {
             matrix.kinds.includes('free') &&
             matrix.legend.length === 4,
           JSON.stringify(matrix)),
+        check('上下文视图入口把对话切到那个视图',
+          matrix.link === true || (switched !== null && switched.selected !== null && switched.selected !== matrix.selected && switched.hidden === true),
+          JSON.stringify({ before: matrix.selected, after: switched })),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),
       ]
     },
