@@ -184,10 +184,36 @@ function sessionRailScenario({ check }) {
         check('对话里没有上下文与团队视图时，两个入口都藏起来',
           matrix.links.length === 2 && matrix.links.every((hidden) => hidden === true),
           JSON.stringify({ links: matrix.links })),
+        check('对话的标签出现时，右栏入口跟着出现；标签撤走又跟着藏起来',
+          await (async () => {
+            const icons = () => page.evaluate((marks) => [...document.querySelectorAll(marks.viewLink)].map((button) => button.hidden), RAIL)
+            const addFake = () => page.evaluate(() => {
+              const seat = document.querySelector('[data-conversation-tabs]')
+              if (seat === null || document.querySelector('[data-fake-view-tab]') !== null) return false
+              const fake = document.createElement('button')
+              fake.type = 'button'
+              fake.setAttribute('role', 'tab')
+              fake.setAttribute('aria-selected', 'false')
+              fake.setAttribute('data-fake-view-tab', '')
+              fake.textContent = '\u4e0a\u4e0b\u6587'
+              seat.append(fake)
+              return true
+            })
+            const dropFake = () => page.evaluate(() => document.querySelector('[data-fake-view-tab]')?.remove())
+            const before = await icons()
+            const added = await addFake()
+            await page.waitForTimeout(500)
+            const after = await icons()
+            await dropFake()
+            await page.waitForTimeout(500)
+            const restored = await icons()
+            return added && before.every((hidden) => hidden === true) && after[0] === false && after[1] === true && restored.every((hidden) => hidden === true)
+          })(),
+          'the entries do not follow the conversation tablist'),
         check('会话详情栏挂上后，对话的视图标签条让位',
           await page.evaluate(() => {
             const strip = document.querySelector('[data-conversation-tabs]')
-            return strip === null || getComputedStyle(strip).display === 'none'
+            return strip === null || getComputedStyle(strip).visibility === 'hidden'
           }),
           'the view tab strip still stands'),
         check('控制台没有异常', session.problems.length === 0, session.problems.slice(0, 3).join(' | ')),

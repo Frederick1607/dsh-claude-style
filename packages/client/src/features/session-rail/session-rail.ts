@@ -239,6 +239,7 @@ export function install(ctx: HostContext) {
   let pressureSession: string | null = null
   /** The conversation body's own session mark, which changes when the shell switches sessions. */
   let sessionWatchOff: (() => void) | null = null
+  let tabsWatchOff: (() => void) | null = null
   /** The session feed the outputs list follows, and the entries it has folded so far. */
   let outputSession: string | null = null
   let outputOff: (() => void) | null = null
@@ -489,6 +490,8 @@ export function install(ctx: HostContext) {
     sessionOff = null
     sessionSource = null
     document.body.removeAttribute(SESSION_RAIL_HIDES_TABS_ATTR)
+    tabsWatchOff?.()
+    tabsWatchOff = null
     if (host !== null) {
       refs.root.remove()
       host.removeAttribute(SESSION_RAIL_HOST_ATTR)
@@ -521,6 +524,9 @@ export function install(ctx: HostContext) {
     // The body carries the shown session: a switch rewrites that mark rather
     // than the body, so the rail hears the switch here.
     sessionWatchOff = subscribeMutations(host, { attributes: true, attributeFilter: [CONVERSATION_SESSION_ATTRIBUTE] }, schedule)
+    // The conversation's tablist renders after the rail does, and re-renders on a
+    // switch: the entries follow it without a full read.
+    tabsWatchOff = subscribeMutations(document.body, { childList: true, subtree: true }, applyViewLinks)
     followSources()
     write()
   }

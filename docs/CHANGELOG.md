@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.7] - 2026-11-12
+
+[中文](#cn-0.22.7) | [English](#en-0.22.7)
+
+<h3 id="cn-0.22.7">问题修复</h3>
+
+- 收起的标签条改成隐形而不是不占位，会话标题那一行重新与窗口按钮齐平；右栏的上下文与团队入口跟着对话标签条的出现与重绘更新，不再一次判死
+
+<h3 id="en-0.22.7">Bug Fixes</h3>
+
+- Hide the stood-aside tab strip without collapsing its row, so the session title row levels with the window's controls again, and let the rail's Context and Team entries follow the conversation tablist as it appears and re-renders instead of being judged once
+
 ## [0.22.6] - 2026-11-12
 
 [中文](#cn-0.22.6) | [English](#en-0.22.6)
