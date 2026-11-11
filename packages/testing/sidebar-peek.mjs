@@ -213,6 +213,10 @@ function sidebarPeekScenario({ check }) {
       await leave(page)
       await page.waitForTimeout(800)
       const pinned = await settledFrame(page)
+      const columns = await page.evaluate((peek) => [...document.querySelectorAll(peek.column)].map((element) => {
+        const rect = element.getBoundingClientRect()
+        return { left: Math.round(rect.left), width: Math.round(rect.width), position: getComputedStyle(element).position, cls: String(element.className).slice(0, 18) }
+      }), PEEK)
       await collapseRail(page)
 
       await openPeek(page)
@@ -250,6 +254,9 @@ function sidebarPeekScenario({ check }) {
             pinned.center.left >= pinned.column.width - 1,
           JSON.stringify(pinned)),
         check('在浮起的侧栏里选中会话后侧栏自动收起', picked, ''),
+        check('固定展开后只有一侧栏',
+          columns.length === 1 && columns[0].width >= OPEN_WIDTH_PX,
+          JSON.stringify(columns)),
         check('打开时盒子里始终有按钮，不闪',
           blinkOnOpen.length === 0,
           JSON.stringify(blinkOnOpen.slice(0, 5))),
