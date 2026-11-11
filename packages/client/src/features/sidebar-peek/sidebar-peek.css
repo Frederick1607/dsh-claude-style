@@ -21,11 +21,11 @@ body[data-dsh-claude-style] [data-dsh-claude-part~="layout-frame"][data-dsh-clau
      (the host paints the floating column with translucent fills of its own). */
   background: var(--dsh-claude-sidebar-canvas);
   /* The layer dissolves toward its right edge, where the page takes over again:
-     the left column stands whole, the far edge keeps half its paint so the
+     the left column stands whole, the far edge keeps nearly all of its paint so the
      titles and times along it stay readable. A vertical fade dimmed every row
      near the bottom instead, which read as broken text rather than as a fade. */
-  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 50%) 100%);
-  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 50%) 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 90%) 100%);
+  mask-image: linear-gradient(to right, #000 0%, rgb(0 0 0 / 90%) 100%);
   box-shadow: var(--dsw-alias-shadow-lv2);
   animation: dsh-claude-sidebar-peek-in var(--dsh-claude-duration-open) var(--dsh-claude-ease-out);
 }

@@ -243,7 +243,7 @@ body[data-dsh-claude-style] :is(.dsh-claude-session-rail-workspace-path, .dsh-cl
   white-space: nowrap;
 }
 
-/* Context: the share over the counts, the bar under them, the figures under that. */
+/* Context: the count, the window matrix under it, the figures under that. */
 body[data-dsh-claude-style] .dsh-claude-session-rail-reading {
   display: flex;
   align-items: baseline;
@@ -251,10 +251,6 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-reading {
   gap: 8px;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-percent {
-  font-size: 13px;
-  font-weight: 500;
-}
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-tokens {
   color: var(--dsw-alias-label-tertiary);
@@ -262,19 +258,7 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-tokens {
   font-variant-numeric: tabular-nums;
 }
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-bar {
-  overflow: hidden;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--dsh-claude-divider);
-}
 
-body[data-dsh-claude-style] .dsh-claude-session-rail-fill {
-  height: 100%;
-  border-radius: inherit;
-  background: var(--dsw-alias-brand-primary);
-  transition: width var(--dsh-claude-duration-surface) var(--dsh-claude-ease-standard);
-}
 
 body[data-dsh-claude-style] .dsh-claude-session-rail-rows {
   display: grid;
@@ -299,7 +283,6 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-row-value {
   text-align: right;
 }
 
-body[data-dsh-claude-style][data-dsh-claude-motion="reduced"] .dsh-claude-session-rail-fill,
 body[data-dsh-claude-style][data-dsh-claude-motion="reduced"] .dsh-claude-session-rail-toggle svg {
   transition: none;
 }

@@ -51,10 +51,7 @@ interface RailRefs {
   workspacePath: HTMLElement
   context: RailSection
   contextTitle: string
-  percent: HTMLElement
   tokens: HTMLElement
-  bar: HTMLElement
-  fill: HTMLElement
   used: HTMLElement
   free: HTMLElement
   window: HTMLElement
@@ -111,17 +108,14 @@ function buildRail(): RailRefs {
   const contextTitle = copy('railContext')
   const context = buildFoldedSection('context', contextTitle)
   const reading = buildElement('div', 'dsh-claude-session-rail-reading')
-  const percent = markPart(buildElement('span', 'dsh-claude-session-rail-percent'), 'percent')
+  // The reading is the count alone: the matrix below says the composition, and a
+  // second horizontal share beside it would only say the same thing twice.
   const tokens = markPart(buildElement('span', 'dsh-claude-session-rail-tokens'), 'tokens')
-  const bar = buildElement('div', 'dsh-claude-session-rail-bar')
-  bar.setAttribute('role', 'img')
-  const fill = markPart(buildElement('div', 'dsh-claude-session-rail-fill'), 'fill')
-  bar.append(fill)
   const rows = buildElement('dl', 'dsh-claude-session-rail-rows')
   const used = buildRow(rows, copy('railUsed'))
   const free = buildRow(rows, copy('railFree'))
   const window = buildRow(rows, copy('railWindow'))
-  reading.append(percent, tokens)
+  reading.append(tokens)
   // The matrix: one cell per fortieth of the window, coloured by the kind of
   // token that fills it (session-rail.css reads the cell's own key), so the
   // section says what the window holds, not only how much of it.
@@ -148,7 +142,7 @@ function buildRail(): RailRefs {
     legend.append(item)
     legendValues.set(key, value)
   }
-  context.body.append(reading, bar, rows, matrix, legend)
+  context.body.append(reading, matrix, legend, rows)
 
   const outputsTitle = copy('railOutputs')
   const outputs = buildFoldedSection('outputs', outputsTitle)
@@ -169,10 +163,7 @@ function buildRail(): RailRefs {
     workspacePath,
     context,
     contextTitle,
-    percent,
     tokens,
-    bar,
-    fill,
     used,
     free,
     window,
@@ -370,12 +361,9 @@ export function install(ctx: HostContext) {
 
     const pressure = currentSession(ctx)?.projections?.faceOf('contextPressure')?.getSnapshot() as HostContextPressureProjection | null | undefined
     const reading = railReading(pressure)
-    const percentText = reading.percent === null ? copy('railUnknown') : copy('railPercentUsed', { percent: reading.percent })
-    writeTextInPlace(refs.percent, percentText)
     const windowText = reading.window === null ? copy('railUnknown') : formatCompactTokens(reading.window)
     writeTextInPlace(refs.tokens, `${reading.used === null ? copy('railUnknown') : formatCompactTokens(reading.used)} / ${windowText}`)
-    setAttributeIfChanged(refs.bar, 'aria-label', `${percentText} · ${reading.used === null ? copy('railUnknown') : formatCompactTokens(reading.used)} / ${windowText}`)
-    refs.fill.style.width = `${reading.percent === null ? 0 : reading.percent}%`
+    setAttributeIfChanged(refs.tokens, 'aria-label', copy('railPercentUsed', { percent: reading.percent ?? 0 }))
     writeTextInPlace(refs.used, reading.used === null ? copy('railUnknown') : formatCompactTokens(reading.used))
     writeTextInPlace(refs.free, reading.free === null ? copy('railUnknown') : formatCompactTokens(reading.free))
     writeTextInPlace(refs.window, reading.window === null ? copy('railUnknown') : formatCompactTokens(reading.window))

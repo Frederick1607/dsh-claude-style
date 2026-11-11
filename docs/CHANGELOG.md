@@ -2,6 +2,20 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.6] - 2026-11-11
+
+[中文](#cn-0.21.6) | [English](#en-0.21.6)
+
+<h3 id="cn-0.21.6">体验优化</h3>
+
+- 右栏上下文段去掉进度横线与百分比，只留已用除以窗口的数字、窗口矩阵和下面的图例与读数
+- 浮出侧栏右边缘的实度从一半提到九成，整体不再显得太虚
+
+<h3 id="en-0.21.6">Improvements</h3>
+
+- Drop the context section's progress bar and percentage, leaving the used-over-window figure, the window matrix and the legend and readings under it
+- Raise the floating sidebar's right-edge paint from half to ninety percent, so the whole layer no longer reads as washed out
+
 ## [0.21.5] - 2026-11-11
 
 [中文](#cn-0.21.5) | [English](#en-0.21.5)
