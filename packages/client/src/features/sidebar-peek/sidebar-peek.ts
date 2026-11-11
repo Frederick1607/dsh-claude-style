@@ -269,12 +269,31 @@ export function install(ctx: HostContext) {
   function watchStand() {
     if (stand === null) return
     const control = findSidebarOpenControl()
-    if (control === null || !control.isConnected) {
-      if (standMissedAt === 0) standMissedAt = Date.now()
-      else if (Date.now() - standMissedAt > STAND_GRACE_MS) unmountStand()
+    const missing = control === null || !control.isConnected
+    // While the layer stands the copy is the button on screen: the host's own
+    // control is hidden and may sit anywhere, so its box says nothing yet.
+    if (phase !== 'idle') {
+      standMissedAt = 0
+      if (missing) return
       return
     }
-    standMissedAt = 0
+    // Idle, the host's control is the button the reader is owed: the copy only
+    // stands while that control keeps the copy's box. A sidebar opened natively
+    // moves the control to the column's header, and a copy left behind would be
+    // a second button on the page.
+    const box = standBox
+    const frameEl = frames.all()[0] ?? null
+    const openNatively = frameEl !== null && !collapsed(frameEl)
+    const kept = !missing && box !== null && within(control.getBoundingClientRect(), {
+      x: box.left + box.width / 2,
+      y: box.top + box.height / 2,
+    })
+    if (!missing && !openNatively && kept) {
+      standMissedAt = 0
+      return
+    }
+    if (standMissedAt === 0) standMissedAt = Date.now()
+    else if (Date.now() - standMissedAt > STAND_GRACE_MS) unmountStand()
   }
 
   /** Whether a node is the control the pointer rests on: the host's own toggle, or the copy standing in its box. */

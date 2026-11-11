@@ -2,6 +2,20 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.21.3] - 2026-11-11
+
+[中文](#cn-0.21.3) | [English](#en-0.21.3)
+
+<h3 id="cn-0.21.3">问题修复</h3>
+
+- 浮出的按钮副本在宿主自己的控件离开那个盒子之后让位，固定展开或用原生按钮打开时不再多出一颗按钮
+- 记住读者拖出来的侧栏宽度，下一次打开时放回去，宿主每次打开都回到默认宽度的问题不再出现
+
+<h3 id="en-0.21.3">Bug Fixes</h3>
+
+- Let the peek's copy step away once the host's own control leaves its box, so a pinned or natively opened sidebar no longer shows a second toggle
+- Remember the width a reader drags the sidebar to and put it back on the next open, ending the host's return to its default width on every open
+
 ## [0.21.2] - 2026-11-11
 
 [中文](#cn-0.21.2) | [English](#en-0.21.2)

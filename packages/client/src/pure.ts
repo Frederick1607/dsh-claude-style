@@ -102,3 +102,5 @@ export { default as themePropertiesCss } from './theme/properties.css?raw'
 export { fileBasename, railOutputs, railOutputsAfter, railPath, railReading, railWidthPx, railWorkspace } from './features/session-rail/reading'
 
 export { forkDepths, forkOrder, forkPairs, forkSourceTitles } from './features/fork-tree/tree'
+
+export { rememberedWidth, restoredWidth, SIDEBAR_DEFAULT_WIDTH, SIDEBAR_MAX_WIDTH, SIDEBAR_MIN_WIDTH } from './features/sidebar-width/widths'
