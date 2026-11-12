@@ -32,13 +32,13 @@ body[data-dsh-claude-style] [data-phase="hero"] > [data-dsh-claude-session-rail-
   display: none;
 }
 
-body[data-dsh-claude-style] [data-phase="hero"] > [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail] > [data-conversation-scroll] {
+body[data-dsh-claude-style] [data-phase="hero"] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail] [data-conversation-scroll] {
   margin-right: 0;
 }
 
 /* The scroller keeps the band: the messages, the composer and the mascot all
    stand inside it, so nothing draws under the rail. */
-body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="open"] > [data-conversation-scroll] {
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="open"] [data-conversation-scroll] {
   margin-right: var(--dsh-claude-rail-width, 264px);
 }
 
@@ -48,7 +48,7 @@ body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-
   align-items: center;
 }
 
-body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] > [data-conversation-scroll] {
+body[data-dsh-claude-style] [data-dsh-claude-session-rail-host][data-dsh-claude-session-rail="closed"] [data-conversation-scroll] {
   margin-right: 40px;
 }
 
@@ -409,29 +409,8 @@ body[data-dsh-claude-style] .dsh-claude-session-rail-view-link[hidden] {
 
 
 
-/* While the rail stands the entries to the conversation's views, the
-   conversation's own tab strip stands aside: the entries are the switch then,
-   and a row of the same three names above the chat would say it twice. */
-body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-conversation-tabs] {
-  /* The plate the tabs stand on loses its fill; the row itself, its box and the
-     rule it carries stay, so the title keeps its place and the line across the
-     header stays drawn. */
-  background: none;
-  box-shadow: none;
-}
-
-body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-conversation-tabs] > * {
-  /* The tabs step aside: invisible but mounted, so the rail's entries can still
-     press them. */
-  visibility: hidden;
-  pointer-events: none;
-}
-
 /* While the tabs stand aside, the header keeps the line across it: that border is
    what separates the title row from the conversation, and with the strip gone it
    is the only thing left saying where the header ends. The skin's own header
    rule (theme/chrome.css) hands the line to a fade while the strip is its own;
    with the strip yielding, the line comes back. */
-body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-dsh-claude-part~="conversation-header"] {
-  border-bottom: 1px solid var(--dsw-alias-border-l1);
-}

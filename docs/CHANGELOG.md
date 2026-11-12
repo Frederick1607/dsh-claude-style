@@ -2,6 +2,28 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.11] - 2026-11-12
+
+[中文](#cn-0.22.11) | [English](#en-0.22.11)
+
+<h3 id="cn-0.22.11">体验优化</h3>
+
+- 对话的视图标签条照常立在标题行下面，不再随右栏让位；右栏的上下文与团队入口保留，两处都能切视图
+
+### 问题修复
+
+- 运行时把对话的滚动区收进一层包裹后，右栏让出的宽度没再落到滚动区上，正文会压到右栏下面；改成在右栏宿主里任意深度找滚动区，正文重新让出整幅宽度
+- 分叉会话一律只缩进一级，分叉的分叉不再一级一级往右排
+
+<h3 id="en-0.22.11">Improvements</h3>
+
+- Let the conversation's view tab strip stand under the title row again instead of standing aside for the rail; the rail keeps its Context and Team entries, and either place switches the view
+
+### Bug Fixes
+
+- The runtime now nests the conversation's scroll area one wrapper deeper, so the rail's reserved width missed it and the text slid under the rail; find the scroll area at any depth inside the rail's host and let the conversation keep its band again
+- Indent every forked session one step, so a fork of a fork no longer steps further right
+
 ## [0.22.10] - 2026-11-12
 
 [中文](#cn-0.22.10) | [English](#en-0.22.10)

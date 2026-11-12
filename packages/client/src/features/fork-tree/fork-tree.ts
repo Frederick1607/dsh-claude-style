@@ -7,7 +7,7 @@ import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { FORK_CHILD_ATTR, FORK_COLLAPSED_ATTR, FORK_DEPTH_PROPERTY, FORK_HIDDEN_ATTR, FORK_PARENT_ATTR, FORK_TOGGLE_ATTR } from '../../constants'
 import { buildChevron } from '../../shared/chevron'
 import { copy } from './copy'
-import { forkDepths, forkOrder, forkPairs } from './tree'
+import { forkOrder, forkPairs } from './tree'
 import type { ForkRow } from './tree'
 
 /**
@@ -168,7 +168,6 @@ export function install(ctx: HostContext) {
     }
     const listed = listedRows()
     const pairs = forkPairs(listed)
-    const depths = forkDepths(pairs)
     for (const [list, seats] of seatsOf(rows)) orderList(list, seats, pairs)
 
     // A child only stands as one where the list holds its source's row.
@@ -202,7 +201,10 @@ export function install(ctx: HostContext) {
       }
       const source = live.get(id)
       if (source === undefined) continue
-      const depth = depths.get(id) ?? 1
+      // Every branch stands one step in from its source, however deep the lineage
+      // runs: a fork of a fork keeps the same step, so the list stays a column of
+      // rows rather than a staircase of them.
+      const depth = 1
       row.setAttribute(FORK_CHILD_ATTR, String(depth))
       row.style.setProperty(FORK_DEPTH_PROPERTY, String(depth))
       let ancestor: string | undefined = source

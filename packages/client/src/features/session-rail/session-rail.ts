@@ -4,7 +4,7 @@ import { buildElement, setAttributeIfChanged, writeTextInPlace } from '@dsh-clau
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { cacheFirstMatch, currentSession, currentSessionId, hostSessions, hostUiSession, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
-import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_HIDES_TABS_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
+import { SESSION_RAIL_CELL_ATTR, SESSION_RAIL_LEGEND_ATTR } from '../../constants'
 import type { HostContextBreakdownProjection, HostContextPressureProjection } from '@dsh-claude-ui/contracts/services'
 import { SESSION_RAIL_ATTR, SESSION_RAIL_CLOSED, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN, SESSION_RAIL_PART_ATTR, SESSION_RAIL_WIDTH_PROPERTY } from '../../constants'
 import { readPrefs, subscribePrefs } from '../../core/prefs'
@@ -489,7 +489,6 @@ export function install(ctx: HostContext) {
     sessionOff?.()
     sessionOff = null
     sessionSource = null
-    document.body.removeAttribute(SESSION_RAIL_HIDES_TABS_ATTR)
     tabsWatchOff?.()
     tabsWatchOff = null
     if (host !== null) {
@@ -517,10 +516,6 @@ export function install(ctx: HostContext) {
     applySection(refs.context, refs.contextTitle)
     applySection(refs.outputs, refs.outputsTitle)
     host.append(refs.root)
-    // The entry to a view the rail stands (the context and team entries) is the
-    // switch, so the conversation's own tab strip stands aside for as long as the
-    // rail does: the same row of names above the chat would say it twice.
-    document.body.setAttribute(SESSION_RAIL_HIDES_TABS_ATTR, '')
     // The body carries the shown session: a switch rewrites that mark rather
     // than the body, so the rail hears the switch here.
     sessionWatchOff = subscribeMutations(host, { attributes: true, attributeFilter: [CONVERSATION_SESSION_ATTRIBUTE] }, schedule)
