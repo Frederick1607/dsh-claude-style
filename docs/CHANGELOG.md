@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.10] - 2026-11-12
+
+[中文](#cn-0.22.10) | [English](#en-0.22.10)
+
+<h3 id="cn-0.22.10">问题修复</h3>
+
+- 标签让位时，标题行与对话之间补回一条贯穿的横线，宽度与颜色取自皮肤的边框色
+
+<h3 id="en-0.22.10">Bug Fixes</h3>
+
+- Draw the line back under the conversation header while the tabs stand aside, one pixel in the skin's own border colour
+
 ## [0.22.9] - 2026-11-12
 
 [中文](#cn-0.22.9) | [English](#en-0.22.9)

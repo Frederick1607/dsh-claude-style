@@ -11,7 +11,6 @@
  * carries, the fold that leaves the toggle alone, and the way back. Every mark
  * comes from the surface table (packages/testing/data/surface.json).
  */
-import surfaceTable from './data/surface.json' with { type: 'json' }
 
 const surfaceAttribute = (id) => surfaceTable.surface.find((entry) => entry.id === id).attribute
 

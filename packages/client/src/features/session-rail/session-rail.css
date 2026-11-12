@@ -426,3 +426,12 @@ body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-conversation
   visibility: hidden;
   pointer-events: none;
 }
+
+/* While the tabs stand aside, the header keeps the line across it: that border is
+   what separates the title row from the conversation, and with the strip gone it
+   is the only thing left saying where the header ends. The skin's own header
+   rule (theme/chrome.css) hands the line to a fade while the strip is its own;
+   with the strip yielding, the line comes back. */
+body[data-dsh-claude-style][data-dsh-claude-view-tabs-hidden] [data-dsh-claude-part~="conversation-header"] {
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+}
