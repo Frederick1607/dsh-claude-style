@@ -12,7 +12,9 @@
    presses that one (header-band.ts). Its `display` is the whole of its
    visibility and is written on the node by the pass — hidden here, shown while
    the panel is open. */
-body[data-dsh-claude-style] .dsh-claude-rightbar-close {
+/* Both controls share one face: the right panel's collapse and the session
+   rail's toggle, both utilities-seat buttons the pass shows or hides. */
+body[data-dsh-claude-style] .dsh-claude-header-button {
   display: none;
   align-items: center;
   justify-content: center;
@@ -27,10 +29,18 @@ body[data-dsh-claude-style] .dsh-claude-rightbar-close {
   cursor: pointer;
   -webkit-app-region: no-drag;
 }
-body[data-dsh-claude-style] .dsh-claude-rightbar-close:hover,
-body[data-dsh-claude-style] .dsh-claude-rightbar-close:focus-visible {
+body[data-dsh-claude-style] .dsh-claude-header-button[aria-pressed="true"],
+body[data-dsh-claude-style] .dsh-claude-header-button:hover,
+body[data-dsh-claude-style] .dsh-claude-header-button:focus-visible {
   color: var(--dsw-alias-label-primary, #161616);
   background: var(--dsh-claude-hover-bg, rgba(0, 0, 0, 0.08));
+}
+
+/* The session rail's own control: the icon set carries a left-panel artwork
+   only; the rail stands at the right edge, so the artwork is mirrored to read
+   as a right panel. */
+body[data-dsh-claude-style] .dsh-claude-rail-toggle svg {
+  transform: scaleX(-1);
 }
 
 /* The two pieces the caption row holds — the session title, and the cluster the

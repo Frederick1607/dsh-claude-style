@@ -96,6 +96,10 @@
   "packages/client/src/features/fork-tree/fork-tree.ts": {
    "count": 1,
    "reason": "The session-order account keys are read off the browser's own row keys (`workspace:<key>` group rows followed by `session:<id>` rows under one role=tree). The workspaces service membership cannot answer this — group keys in tree mode are renderer-derived, not workspace ids — and the engine's cache registry only serves stamped part matches, not the host's key attribute walk. The read happens in the same mutation-scheduled pass as the lineage marks, once per refresh, so the page pays one tree walk per sidebar change rather than per frame."
+  },
+  "packages/client/src/features/header-band/header-band.ts": {
+   "count": 1,
+   "reason": "The rail-toggle button reads the rail's host element and its rendered face (offsetParent) — a cross-feature seat: the rail mounts under the conversation body, and its open/closed mark on that host is what the button's pressed state and visibility answer. The engine's part registry cannot serve it because the host element carries no skin part stamp. One read per header pass, and the pass already runs on row mutations."
   }
  }
 }

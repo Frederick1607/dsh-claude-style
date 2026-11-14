@@ -71,6 +71,9 @@ interface RailRefs {
   outputsEmpty: HTMLElement
 }
 
+/** The document event that flips the rail's fold: the header's own rail button fires it (header-band), so one press opens the band and the next closes it. */
+export const SESSION_RAIL_TOGGLE_EVENT = 'dsh-claude-toggle-session-rail'
+
 /** The part mark each element of the rail carries, so a lane reads the element it means without spelling a class name. */
 function markPart<T extends HTMLElement>(element: T, part: string) {
   element.setAttribute(SESSION_RAIL_PART_ATTR, part)
@@ -531,10 +534,14 @@ export function install(ctx: HostContext) {
   // child (the hero page keeps the rail folded away through the stylesheet).
   const bodies = observeMatches<HTMLElement>(CONVERSATION_CONTENT_SELECTOR, attach)
 
-  refs.toggle.addEventListener('click', () => {
+  const flipFold = () => {
     folded = !folded
     applyFold()
-  })
+  }
+
+  refs.toggle.addEventListener('click', flipFold)
+  // The header's rail button: the same flip, reached from the row it names.
+  document.addEventListener(SESSION_RAIL_TOGGLE_EVENT, flipFold)
 
   for (const [section, title] of [[refs.context, refs.contextTitle], [refs.outputs, refs.outputsTitle]] as const) {
     section.toggle.addEventListener('click', () => {
@@ -557,6 +564,7 @@ export function install(ctx: HostContext) {
     queued = null
     stopPrefs()
     bodies.release()
+    document.removeEventListener(SESSION_RAIL_TOGGLE_EVENT, flipFold)
     detach()
   }
 }

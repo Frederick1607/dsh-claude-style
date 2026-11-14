@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.15] - 2026-11-14
+
+[中文](#cn-0.22.15) | [English](#en-0.22.15)
+
+<h3 id="cn-0.22.15">新增功能</h3>
+
+- 顶栏新增会话详情栏开关按钮，与右栏收起按钮同位；栏隐藏时按钮自动消失
+
+<h3 id="en-0.22.15">New Features</h3>
+
+- A session-details rail toggle now sits in the header next to the right-panel close; the button hides itself whenever the rail is not rendered
+
 ## [0.22.14] - 2026-11-14
 
 [中文](#cn-0.22.14) | [English](#en-0.22.14)

@@ -19,6 +19,8 @@ import type { FeatureUi } from '../../core/feature'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
 import type manifest from './header-band.manifest'
 import { copy } from './copy'
+import { SESSION_RAIL_ATTR, SESSION_RAIL_HOST_ATTR, SESSION_RAIL_OPEN } from '../../constants'
+import { SESSION_RAIL_TOGGLE_EVENT } from '../session-rail/session-rail'
 
 /**
  * The conversation header's title row, lifted into the desktop caption row.
@@ -103,6 +105,8 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   const UTILITIES_SLOT = 'conversation.session.header.utilities'
   /** The skin's own control there, which the stylesheet paints and the pass shows. */
   const CLOSE_CLASS = 'dsh-claude-rightbar-close'
+  /** The skin's own control for the session rail, seated beside the right panel's. */
+  const RAIL_CLASS = 'dsh-claude-rail-toggle'
 
   const rowStamp = createStamp<HTMLElement>(ROW_ATTR)
   const titleStamp = createStamp<HTMLElement>(TITLE_ATTR)
@@ -121,6 +125,8 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   let bandHost: HTMLElement | null = null
   /** Every control the skin registered for the right panel, kept current by the bus (D40). */
   const closeButtons = observeMatches<HTMLElement>(`.${CLOSE_CLASS}`)
+  /** Every rail control the skin registered, kept current by the bus (D40). */
+  const railButtons = observeMatches<HTMLElement>(`.${RAIL_CLASS}`)
 
   /**
    * The skin's own control for the right panel, in the header's utilities seat.
@@ -131,19 +137,23 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
    * that control cannot be lifted into the header's row. This button stands
    * there instead and presses it, and the host's own copy stays where it is.
    */
-  function RightbarClose() {
-    const label = copy('rightbarClose')
+  /** One utilities-seat button: the tooltip, the chrome the stylesheet paints, and the press this caller answers for. */
+  function UtilitiesButton(className: string, label: string, press: () => void) {
     return React.createElement(primitives.Tooltip, {
       label,
       side: 'bottom',
       delayMs: 500,
       children: React.createElement('button', {
         type: 'button',
-        className: CLOSE_CLASS,
+        className: `dsh-claude-header-button ${className}`,
         'aria-label': label,
-        onClick: () => { findRightbarToggle()?.click() },
+        onClick: press,
       }, React.createElement(primitives.IconPanelLeftOutlineRegular, { size: 16 })),
     })
+  }
+
+  function RightbarClose() {
+    return UtilitiesButton(CLOSE_CLASS, copy('rightbarClose'), () => { findRightbarToggle()?.click() })
   }
 
   /**
@@ -166,6 +176,45 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
       options: { name: UTILITIES_SLOT, id: 'claude-style-rightbar-close', order: 90 },
       component: RightbarClose,
     }], 'dsh-claude-ui: right panel control')
+  }
+
+  /**
+   * The skin's own control for the session rail, in the same seat. The rail's
+   * own fold leaves a 40px strip standing; this button flips that fold from
+   * the header's row, which is where the reader looks for a column's control.
+   * Its pressed face reads the host element's open/closed mark at click time,
+   * and the fire is the document event the rail listens for (session-rail.ts):
+   * the button and the rail's own toggle stay one state.
+   */
+  function RailToggle() {
+    return UtilitiesButton(RAIL_CLASS, copy('railToggle'), () => { document.dispatchEvent(new CustomEvent(SESSION_RAIL_TOGGLE_EVENT)) })
+  }
+
+  /**
+   * Show the skin's rail control wherever a rail stands — open or folded, the
+   * strip keeps its host element, so the mark answers for either face; the
+   * rail's own pref can hide it entirely, where no control belongs in the row.
+   */
+  function syncRailToggle() {
+    const host = document.querySelector<HTMLElement>(`[${SESSION_RAIL_HOST_ATTR}]`)
+    const rail = host?.querySelector<HTMLElement>('.dsh-claude-session-rail') ?? null
+    // The rail's root stays mounted through the pages that paint it away (hero,
+    // the under-1000 page): offsetParent answers for those, so the control
+    // stands only where a press has a face to move.
+    const standing = rail !== null && rail.offsetParent !== null
+    for (const button of railButtons.all()) {
+      const wanted = standing ? 'inline-flex' : 'none'
+      if (button.style.display !== wanted) button.style.display = wanted
+      if (host !== null) setAttributeIfChanged(button, 'aria-pressed', host.getAttribute(SESSION_RAIL_ATTR) === SESSION_RAIL_OPEN ? 'true' : 'false')
+    }
+  }
+
+  /** Register that control in the same seat, ahead of the right panel's. */
+  function registerRailToggle() {
+    return registerSlotEntries(ctx, [{
+      options: { name: UTILITIES_SLOT, id: 'claude-style-rail-toggle', order: 85 },
+      component: RailToggle,
+    }], 'dsh-claude-ui: session rail control')
   }
 
   /**
@@ -342,6 +391,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
     // The right panel's control is placed on every page, not only where the
     // caption row exists: whether it shows is the panel's own state.
     syncRightbarClose()
+    syncRailToggle()
     const current = reading
     if (current === null) {
       watch(null)
@@ -523,6 +573,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
   // The slot entry is this generation's: the fiber is what takes it back when
   // the reader switches the band off, or another owner hands the page over.
   const closeButtonSlot = registerRightbarClose()
+  const railButtonSlot = registerRailToggle()
 
   return () => {
     const row = rowStamp.current()
@@ -549,7 +600,9 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
     watch(null)
     titleRows.release()
     closeButtons.release()
+    railButtons.release()
     if (closeButtonSlot !== null) closeButtonSlot.dispose()
+    if (railButtonSlot !== null) railButtonSlot.dispose()
     keptRow = null
     delete ui.headerBand
   }
