@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.19] - 2026-11-14
+
+[中文](#cn-0.22.19) | [English](#en-0.22.19)
+
+<h3 id="cn-0.22.19">问题修复</h3>
+
+- 运行中的分叉被 host 钉到源会话上面时，折线镜像向下接到源会话，不再向上戳向工作区标题
+
+<h3 id="en-0.22.19">Bug Fixes</h3>
+
+- When a running branch is pinned above its source, the branch line mirrors downward to meet the source instead of reaching up toward the workspace header
+
 ## [0.22.18] - 2026-11-14
 
 [中文](#cn-0.22.18) | [English](#en-0.22.18)

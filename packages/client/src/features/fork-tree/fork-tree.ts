@@ -4,7 +4,7 @@ import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
 import { hostSessionList, hostWorkspaceView, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
-import { FORK_CHILD_ATTR, FORK_COLLAPSED_ATTR, FORK_DEPTH_PROPERTY, FORK_HIDDEN_ATTR, FORK_PARENT_ATTR, FORK_TOGGLE_ATTR } from '../../constants'
+import { FORK_ABOVE_ATTR, FORK_CHILD_ATTR, FORK_COLLAPSED_ATTR, FORK_DEPTH_PROPERTY, FORK_HIDDEN_ATTR, FORK_PARENT_ATTR, FORK_TOGGLE_ATTR } from '../../constants'
 import { buildChevron } from '../../shared/chevron'
 import { copy } from './copy'
 import { forkOrder, forkPairs } from './tree'
@@ -218,6 +218,7 @@ export function install(ctx: HostContext) {
     row.removeAttribute(FORK_CHILD_ATTR)
     row.removeAttribute(FORK_COLLAPSED_ATTR)
     row.removeAttribute(FORK_HIDDEN_ATTR)
+    row.removeAttribute(FORK_ABOVE_ATTR)
     row.style.removeProperty(FORK_DEPTH_PROPERTY)
     row.querySelector(`[${FORK_TOGGLE_ATTR}]`)?.remove()
   }
@@ -249,6 +250,17 @@ export function install(ctx: HostContext) {
     }
 
     const sources = new Set(live.values())
+    // Where each row stands: a branch the host seats above its source — a
+    // running session leads its own list — needs the branch line turned down
+    // to meet the source rather than up, so the mark follows the seat.
+    const at = new Map<string, number>()
+    {
+      let index = 0
+      for (const id of rows.keys()) {
+        at.set(id, index)
+        index += 1
+      }
+    }
     for (const [id, row] of rows) {
       if (!sources.has(id) && !live.has(id)) {
         if (marked.has(row)) {
@@ -262,6 +274,7 @@ export function install(ctx: HostContext) {
       row.removeAttribute(FORK_CHILD_ATTR)
       row.removeAttribute(FORK_COLLAPSED_ATTR)
       row.removeAttribute(FORK_HIDDEN_ATTR)
+      row.removeAttribute(FORK_ABOVE_ATTR)
       if (sources.has(id)) {
         row.setAttribute(FORK_PARENT_ATTR, '')
         ensureToggle(row, id)
@@ -277,6 +290,7 @@ export function install(ctx: HostContext) {
       const depth = 1
       row.setAttribute(FORK_CHILD_ATTR, String(depth))
       row.style.setProperty(FORK_DEPTH_PROPERTY, String(depth))
+      if ((at.get(id) ?? 0) < (at.get(source) ?? 0)) row.setAttribute(FORK_ABOVE_ATTR, '')
       let ancestor: string | undefined = source
       const seen = new Set<string>([id])
       while (ancestor !== undefined && !seen.has(ancestor)) {

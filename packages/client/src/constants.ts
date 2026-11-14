@@ -62,6 +62,8 @@ export const FORK_PARENT_ATTR = 'data-dsh-claude-fork-parent'
 export const FORK_CHILD_ATTR = 'data-dsh-claude-fork-child'
 export const FORK_COLLAPSED_ATTR = 'data-dsh-claude-fork-collapsed'
 export const FORK_HIDDEN_ATTR = 'data-dsh-claude-fork-hidden'
+/** A child the list drew above its source — the host seats a running session first — whose branch line turns down to it rather than up. */
+export const FORK_ABOVE_ATTR = 'data-dsh-claude-fork-above'
 export const FORK_TOGGLE_ATTR = 'data-dsh-claude-fork-toggle'
 export const FORK_DEPTH_PROPERTY = '--dsh-claude-fork-depth'
 /** The host's own padding for the conversation's title row while the collapsed column stands hidden (the desktop's caption row); held at its collapsed value for the peek. */

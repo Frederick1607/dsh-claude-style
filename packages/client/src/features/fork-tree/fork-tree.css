@@ -69,6 +69,19 @@ body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh
   left: calc(20px + var(--dsh-workspace-indent, 0px) + 1.5em);
 }
 
+/* A branch the host seats above its source — a running session leads the list
+   (fork-tree.ts's above mark) — turns the branch down toward the source
+   standing under it rather than up at a row that is not there: the same stem,
+   mirrored, so the line ends where the source is. */
+body[data-dsh-claude-style] [data-dsh-claude-fork-child][data-dsh-claude-fork-above]::before {
+  top: 50%;
+  bottom: 0;
+  border-bottom: none;
+  border-top: 1px solid var(--dsw-alias-border-l2);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 5px;
+}
+
 /* A folded source keeps its whole lineage out of sight; the reader's own click
    is the only state this survives. */
 body[data-dsh-claude-style] [data-dsh-claude-fork-child][data-dsh-claude-fork-hidden] {
