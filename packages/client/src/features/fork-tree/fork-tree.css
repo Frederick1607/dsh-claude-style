@@ -61,6 +61,14 @@ body[data-dsh-claude-style] [data-dsh-claude-fork-child]::before {
   pointer-events: none;
 }
 
+/* With the running mark on the trailing side the row's own start is the 20px
+   seat (sidebar-status.css), so the branch stem rides inside that band rather
+   than under the seat's own first characters. */
+body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh-claude-fork-child][data-dsh-claude-row-status="active"]::before,
+body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh-claude-fork-child][data-dsh-claude-row-status="idle"]::before {
+  left: calc(20px + var(--dsh-workspace-indent, 0px) + 1.5em);
+}
+
 /* A folded source keeps its whole lineage out of sight; the reader's own click
    is the only state this survives. */
 body[data-dsh-claude-style] [data-dsh-claude-fork-child][data-dsh-claude-fork-hidden] {

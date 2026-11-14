@@ -21,6 +21,13 @@ body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh
 body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh-claude-part~="session-row"][data-dsh-claude-row-status="idle"] {
   padding-inline-start: calc(20px + var(--dsh-workspace-indent, 0px));
 }
+/* A fork's child already pays its own step in on top of the base start
+   (fork-tree.css): with the mark on the trailing side the band moves with it,
+   so the step adds to the 20px seat rather than being replaced by it. */
+body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh-claude-part~="session-row"][data-dsh-claude-fork-child][data-dsh-claude-row-status="active"],
+body[data-dsh-claude-style]:not([data-dsh-claude-ongoing-side="left"]) [data-dsh-claude-part~="session-row"][data-dsh-claude-fork-child][data-dsh-claude-row-status="idle"] {
+  padding-inline-start: calc(20px + var(--dsh-workspace-indent, 0px) + 1.5em + 14px);
+}
 /* The list's own overflow row — “Show N more sessions” — carries the host's
    inset for a row that still holds the leading status band, so its words stand
    past the titles above it. It takes each row's own text start: the skin's 6px

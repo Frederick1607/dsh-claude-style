@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.16] - 2026-11-14
+
+[中文](#cn-0.22.16) | [English](#en-0.22.16)
+
+<h3 id="cn-0.22.16">问题修复</h3>
+
+- 动效图标设为右侧时，进行中的分叉子会话保留缩进与折线
+
+<h3 id="en-0.22.16">Bug Fixes</h3>
+
+- With the running indicator on the trailing side, a forked child that is running keeps its indent and branch line
+
 ## [0.22.15] - 2026-11-14
 
 [中文](#cn-0.22.15) | [English](#en-0.22.15)
