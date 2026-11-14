@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.13] - 2026-11-14
+
+[中文](#cn-0.22.13) | [English](#en-0.22.13)
+
+<h3 id="cn-0.22.13">问题修复</h3>
+
+- 对话标签条恢复宿主原样，靠左文字标签加选中下划线（皮肤的胶囊样式改为可选默认关）。分叉排序修正，上下颠倒时后续周期会重试收敛。分叉折线的竖茎落在行内约 1.5 字符处，子行文字随整体缩进右移
+
+<h3 id="en-0.22.13">Bug Fixes</h3>
+
+- The conversation tab strip is back to the host's own look, left-aligned text tabs with the underline (the skin's pill segment is now opt-in, default off). Fork ordering converges, a re-sorted list is asked again on later passes instead of once. The branch line's stem stands about 1.5 characters into the row and the child's title follows the deeper indent
+
 ## [0.22.12] - 2026-11-14
 
 [中文](#cn-0.22.12) | [English](#en-0.22.12)

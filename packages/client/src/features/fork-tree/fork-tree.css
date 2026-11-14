@@ -40,10 +40,12 @@ body[data-dsh-claude-style] [data-dsh-claude-fork-parent][data-dsh-claude-fork-c
 }
 
 /* A child's text starts one step in, and the step is the branch's own: the line
-   runs down the step's edge and turns into the row at its middle. */
+   stems one and a half characters into the row — inside its first word, clear
+   of the edge — and turns into the row at its middle, so the child's title sits
+   past the turn rather than on it. */
 body[data-dsh-claude-style] [data-dsh-claude-fork-child] {
   position: relative;
-  padding-inline-start: calc(var(--dsh-sidebar-row-padding, 8px) + var(--dsh-claude-fork-indent, 12px) * var(--dsh-claude-fork-depth, 1));
+  padding-inline-start: calc(var(--dsh-sidebar-row-padding, 8px) + 1.5em + 14px);
 }
 
 body[data-dsh-claude-style] [data-dsh-claude-fork-child]::before {
@@ -51,8 +53,8 @@ body[data-dsh-claude-style] [data-dsh-claude-fork-child]::before {
   position: absolute;
   top: 0;
   bottom: 50%;
-  left: calc(var(--dsh-sidebar-row-padding, 8px) + var(--dsh-claude-fork-indent, 12px) * (var(--dsh-claude-fork-depth, 1) - 1) + 3px);
-  width: 10px;
+  left: calc(var(--dsh-sidebar-row-padding, 8px) + 1.5em);
+  width: 12px;
   border-left: 1px solid var(--dsw-alias-border-l2);
   border-bottom: 1px solid var(--dsw-alias-border-l2);
   border-bottom-left-radius: 5px;

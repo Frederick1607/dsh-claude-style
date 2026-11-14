@@ -32,6 +32,11 @@
   // default; the two popover cases ask the numbers back into the panel.
   if (CASE === 'stats-inline') formValue.statsPosition = 'inline'
   if (CASE === 'context-stats' || CASE === 'stats-compact') formValue.statsPosition = 'context'
+  // The shipped default leaves the host's own tab strip standing (the switch is
+  // off); the pages that read the skin's pill or drive its switch turn it on
+  // themselves so the checks still have a strip to read.
+  if (CASE === 'shell' || CASE === 'view-tabs' || CASE === 'view-tabs-row' ||
+      CASE === 'switches' || CASE === 'header-band') formValue.viewTabs = true
   // The switches-off case starts with every feature switch off.
   if (CASE === 'switches-off') {
     Object.assign(formValue, { permissionsControl: false, workspaceView: false, sidebarSearch: false, viewTabs: false, chatAnimations: false, composerScope: 'off' })

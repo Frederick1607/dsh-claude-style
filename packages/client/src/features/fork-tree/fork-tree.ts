@@ -82,12 +82,20 @@ export function install(ctx: HostContext) {
    * clickable; moving the seats in the DOM instead fought the renderer for its
    * own children, and its keyed re-renders could leave dead rows.
    *
-   * Each pass issues the orders the displayed rows still lack. A state the
-   * write cannot reach (another sorter owns the order, or the store shape is
-   * absent) is remembered so the pass does not write on every refresh; a new
-   * lineage or order retries once.
+   * Each pass issues the orders the displayed rows still lack. A write the host
+   * answers is never repeated — the displayed order already is the asked one —
+   * while a write another sorter keeps undoing is asked again on later passes,
+   * a handful of times, rather than once or forever.
    */
-  const ordered = new Set<string>()
+  /**
+   * How many passes may ask for the same order: a write that lands is never
+   * repeated (the displayed order equals the asked one), and a write another
+   * sorter keeps undoing stops after a handful of asks rather than fighting it
+   * on every refresh. The attempt count is keyed on both sides of the ask, so a
+   * new lineage or a new base order retries from zero.
+   */
+  const pending = new Map<string, number>()
+  const PENDING_LIMIT = 4
 
   /**
    * The order each account's rows stand in on the page: the DOM is the truth
@@ -133,10 +141,21 @@ export function install(ctx: HostContext) {
 
     for (const [key, order] of displayed) {
       const desired = forkOrder(order, pairs)
+      if (desired.every((id, at) => order[at] === id)) continue
       const signature = `${key}:${order.join(',')}>${desired.join(',')}`
-      if (ordered.has(signature) || desired.every((id, at) => order[at] === id)) continue
-      ordered.add(signature)
+      const asked = pending.get(signature) ?? 0
+      if (asked >= PENDING_LIMIT) continue
+      pending.set(signature, asked + 1)
       setOrder(key, desired, initial)
+    }
+    // An order that converged (its account's rows now stand as asked) drops its
+    // count, so a list that regresses to the same state asks for it fresh; a
+    // signature whose account is gone drops with it.
+    for (const signature of [...pending.keys()]) {
+      const sep = signature.indexOf('>')
+      const key = signature.slice(0, signature.indexOf(':'))
+      const order = displayed.get(key)
+      if (order === undefined || order.join(',') === signature.slice(sep + 1)) pending.delete(signature)
     }
   }
 

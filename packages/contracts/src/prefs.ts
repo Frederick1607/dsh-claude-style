@@ -321,7 +321,7 @@ export const PREFS = {
   turnNav: { type: 'boolean', default: true },
   /** Whether a message the reader sent carries edit and retract beside its copy button (features/message-actions). */
   messageActions: { type: 'boolean', default: true },
-  viewTabs: { type: 'boolean', default: true },
+  viewTabs: { type: 'boolean', default: false },
   headerBand: { type: 'boolean', default: true },
   /** The legacy choices all mean on except `off`. */
   chatAnimations: { type: 'boolean', default: true, legacy: { [CHAT_ANIMATIONS_OFF]: false, enhanced: true, redraw: true } },
