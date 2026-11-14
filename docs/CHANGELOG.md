@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.12] - 2026-11-14
+
+[中文](#cn-0.22.12) | [English](#en-0.22.12)
+
+<h3 id="cn-0.22.12">问题修复</h3>
+
+- 多个分叉的对话行点不开。皮肤之前直接搬动渲染器列表的座位，React 重绘后行会失效；改为走宿主自己的工作区会话排序（拖动行用的同一个 setSessionOrder 写），行由渲染器自己摆，点击始终有效；嵌套顺序也随重启保留（排序模式随写入手动）
+
+<h3 id="en-0.22.12">Bug Fixes</h3>
+
+- Forked session rows could go unclickable - the skin moved the renderer's list seats itself, and React's keyed re-render could leave dead rows. The lineage now writes the workspace view's own session-order store - the same write a row drag makes - so the renderer keeps owning its rows and clicks always work; the nesting also survives reloads (the write puts the order mode on manual)
+
 ## [0.22.11] - 2026-11-12
 
 [中文](#cn-0.22.11) | [English](#en-0.22.11)
