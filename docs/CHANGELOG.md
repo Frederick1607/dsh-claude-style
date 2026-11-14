@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.17] - 2026-11-14
+
+[中文](#cn-0.22.17) | [English](#en-0.22.17)
+
+<h3 id="cn-0.22.17">体验优化</h3>
+
+- 详情栏开关改用仪表盘图标，与原生右栏面板图标区分开
+
+<h3 id="en-0.22.17">Improvements</h3>
+
+- The details-rail toggle now carries the gauge icon, told apart from the native right-panel glyph
+
 ## [0.22.16] - 2026-11-14
 
 [中文](#cn-0.22.16) | [English](#en-0.22.16)

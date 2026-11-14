@@ -36,12 +36,9 @@ body[data-dsh-claude-style] .dsh-claude-header-button:focus-visible {
   background: var(--dsh-claude-hover-bg, rgba(0, 0, 0, 0.08));
 }
 
-/* The session rail's own control: the icon set carries a left-panel artwork
-   only; the rail stands at the right edge, so the artwork is mirrored to read
-   as a right panel. */
-body[data-dsh-claude-style] .dsh-claude-rail-toggle svg {
-  transform: scaleX(-1);
-}
+/* The session rail's own control carries the gauge — the rail's face is the
+   context reading — so it does not read as the host's own right-panel control
+   beside it; the pressed face is the hover fill, shared in the rule above. */
 
 /* The two pieces the caption row holds — the session title, and the cluster the
    host keeps beside it (the preset picker and the chips the session mounts

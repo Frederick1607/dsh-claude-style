@@ -138,7 +138,7 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
    * there instead and presses it, and the host's own copy stays where it is.
    */
   /** One utilities-seat button: the tooltip, the chrome the stylesheet paints, and the press this caller answers for. */
-  function UtilitiesButton(className: string, label: string, press: () => void) {
+  function UtilitiesButton(className: string, label: string, press: () => void, icon: React.ReactNode) {
     return React.createElement(primitives.Tooltip, {
       label,
       side: 'bottom',
@@ -148,12 +148,12 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
         className: `dsh-claude-header-button ${className}`,
         'aria-label': label,
         onClick: press,
-      }, React.createElement(primitives.IconPanelLeftOutlineRegular, { size: 16 })),
+      }, icon),
     })
   }
 
   function RightbarClose() {
-    return UtilitiesButton(CLOSE_CLASS, copy('rightbarClose'), () => { findRightbarToggle()?.click() })
+    return UtilitiesButton(CLOSE_CLASS, copy('rightbarClose'), () => { findRightbarToggle()?.click() }, React.createElement(primitives.IconPanelLeftOutlineRegular, { size: 16 }))
   }
 
   /**
@@ -187,7 +187,10 @@ export function install(ctx: HostContext, ui: FeatureUi<typeof manifest>) {
    * the button and the rail's own toggle stay one state.
    */
   function RailToggle() {
-    return UtilitiesButton(RAIL_CLASS, copy('railToggle'), () => { document.dispatchEvent(new CustomEvent(SESSION_RAIL_TOGGLE_EVENT)) })
+    // The gauge, not a panel glyph: the rail's face is the context reading it
+    // carries, and a second panel icon at the same seat read as the host's
+    // own right-panel control.
+    return UtilitiesButton(RAIL_CLASS, copy('railToggle'), () => { document.dispatchEvent(new CustomEvent(SESSION_RAIL_TOGGLE_EVENT)) }, React.createElement(primitives.IconGaugeOutlineRegular, { size: 16 }))
   }
 
   /**
