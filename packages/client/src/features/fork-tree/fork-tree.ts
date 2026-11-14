@@ -50,6 +50,19 @@ export function install(ctx: HostContext) {
     })
   }
 
+  /**
+   * One deferred pass, a little after the renderer's own answer to a reorder
+   * write lands: the write and the re-render are separate frames, so the pass
+   * that saw the stale order would otherwise read the same stale order again
+   * and call the still-in-flight write a miss.
+   */
+  const settleSoon = () => {
+    if (released) return
+    window.setTimeout(() => {
+      if (!released) schedule()
+    }, 250)
+  }
+
   /** The rows on the page, by session id. */
   function rowsById() {
     const found = new Map<string, HTMLElement>()
@@ -108,21 +121,28 @@ export function install(ctx: HostContext) {
   function orderAccounts(rows: ReadonlyMap<string, HTMLElement>, pairs: ReadonlyMap<string, string>) {
     const view = hostWorkspaceView(ctx)
     const setOrder = view?.actions?.setSessionOrder
-    const workspaces = hostWorkspaces(ctx)?.list.getSnapshot()
-    if (typeof setOrder !== 'function' || view === null || workspaces === null || workspaces === undefined) return
+    if (view === null || view === undefined || typeof setOrder !== 'function') return
 
+    // The store's account keys are the DOM's own: each session row answers to
+    // the `workspace:<key>` group row the renderer seats it under (`workspace:`
+    // is the ungrouped account), and the flat view keeps no group rows at all,
+    // so every row answers to the flat key.
     const accountOf = new Map<string, string>()
-    if (view.getSnapshot().groupBy === 'flat') {
-      for (const id of rows.keys()) accountOf.set(id, '__flat_session_order__')
-    } else {
-      const members = new Set<string>()
-      for (const item of workspaces.items) {
-        for (const id of item.sessionIds) {
-          accountOf.set(id, item.workspaceId)
-          members.add(id)
+    {
+      const flat = view.getSnapshot().groupBy === 'flat'
+      // The tree draws its keyed rows flat under one role="tree": a session
+      // row's account is the `workspace:<key>` row it follows, and `workspace:`
+      // itself is the ungrouped account.
+      let account = ''
+      for (const node of Array.from(document.querySelectorAll<HTMLElement>(`[${SESSION_ROW_KEY_ATTRIBUTE}]`))) {
+        const key = node.getAttribute(SESSION_ROW_KEY_ATTRIBUTE) ?? ''
+        if (key.startsWith('workspace:')) {
+          account = key.slice('workspace:'.length)
+          continue
         }
+        if (!key.startsWith(KEY_PREFIX)) continue
+        accountOf.set(key.slice(KEY_PREFIX.length), flat ? '__flat_session_order__' : account)
       }
-      for (const id of rows.keys()) if (!members.has(id)) accountOf.set(id, '')
     }
 
     // The displayed order per account, and every account's order as the
@@ -139,6 +159,7 @@ export function install(ctx: HostContext) {
     const initial: Record<string, string[]> = {}
     for (const [key, order] of displayed) initial[key] = [...order]
 
+    let wrote = false
     for (const [key, order] of displayed) {
       const desired = forkOrder(order, pairs)
       if (desired.every((id, at) => order[at] === id)) continue
@@ -147,7 +168,9 @@ export function install(ctx: HostContext) {
       if (asked >= PENDING_LIMIT) continue
       pending.set(signature, asked + 1)
       setOrder(key, desired, initial)
+      wrote = true
     }
+    if (wrote) settleSoon()
     // An order that converged (its account's rows now stand as asked) drops its
     // count, so a list that regresses to the same state asks for it fresh; a
     // signature whose account is gone drops with it.

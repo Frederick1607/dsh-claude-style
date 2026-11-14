@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.14] - 2026-11-14
+
+[中文](#cn-0.22.14) | [English](#en-0.22.14)
+
+<h3 id="cn-0.22.14">问题修复</h3>
+
+- 分叉排序收敛修正，account key 改从侧栏 DOM 的 workspace 行键读取（不再依赖 workspaces 服务成员关系），排序写入未落上时 250ms 后再查并继续重试
+
+<h3 id="en-0.22.14">Bug Fixes</h3>
+
+- Fork ordering convergence fixed, the account key is now read from the sidebar DOM's own workspace row keys (no longer from the workspaces service membership), and a pass is re-checked 250ms after each reorder write so unconverged states get retried
+
 ## [0.22.13] - 2026-11-14
 
 [中文](#cn-0.22.13) | [English](#en-0.22.13)
