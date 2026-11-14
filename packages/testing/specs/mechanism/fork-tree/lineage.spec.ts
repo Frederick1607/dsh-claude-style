@@ -73,6 +73,12 @@ test('a source keeps its place and each branch stands directly behind it', () =>
   expect(forkOrder(['a', 'b', 'x', 'c', 'd'], pairs)).toEqual(['a', 'b', 'c', 'd', 'x'])
 })
 
+test('a running branch lifts its whole cluster, the source riding behind it', () => {
+  const pairs = new Map([['b', 'a'], ['c', 'a'], ['d', 'c']])
+  expect(forkOrder(['x', 'b', 'y', 'a', 'c', 'd'], pairs)).toEqual(['x', 'a', 'b', 'c', 'd', 'y'])
+  expect(forkOrder(['b', 'x', 'a', 'c', 'd'], pairs)).toEqual(['a', 'b', 'c', 'd', 'x'])
+})
+
 test('a branch whose source is not in the list keeps the list order, and every row stands once', () => {
   const pairs = new Map([['b', 'gone']])
   expect(forkOrder(['a', 'b', 'c'], pairs)).toEqual(['a', 'b', 'c'])

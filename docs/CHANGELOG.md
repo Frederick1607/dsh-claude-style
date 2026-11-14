@@ -2,6 +2,18 @@
 
 All notable changes to `dsh-claude-ui` are documented here, newest first.
 
+## [0.22.18] - 2026-11-14
+
+[中文](#cn-0.22.18) | [English](#en-0.22.18)
+
+<h3 id="cn-0.22.18">体验优化</h3>
+
+- 分叉簇锚定簇内最新成员的位置，进行中的子会话会把整个分叉组一起顶到最上面
+
+<h3 id="en-0.22.18">Improvements</h3>
+
+- A fork cluster now anchors at its newest member's seat, so a running branch lifts the whole cluster to the top together
+
 ## [0.22.17] - 2026-11-14
 
 [中文](#cn-0.22.17) | [English](#en-0.22.17)

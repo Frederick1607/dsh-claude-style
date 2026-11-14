@@ -94,11 +94,11 @@ export function forkDepths(pairs: ReadonlyMap<string, string>): Map<string, numb
 }
 
 /**
- * One list's order in the lineage: each source stands where the list had it,
- * its branches directly behind it (and behind each branch's own), and a row the
- * lineage does not place keeps the list's order at the root level. A lineage
- * that closes on itself leaves each member at the root level rather than
- * losing a row.
+ * One list's order in the lineage: a source and its branches stand as one
+ * cluster — the cluster where its earliest member stood, the source first and
+ * each branch's own below it — and a row the lineage does not place keeps the
+ * list's order at the root level. A lineage that closes on itself leaves each
+ * member at the root level rather than losing a row.
  *
  * @param ids - the list's sessions, in the order it stands in.
  * @param pairs - the child-to-source map forkPairs answered.
@@ -106,6 +106,25 @@ export function forkDepths(pairs: ReadonlyMap<string, string>): Map<string, numb
  */
 export function forkOrder(ids: readonly string[], pairs: ReadonlyMap<string, string>): string[] {
   const present = new Set(ids)
+
+  // Each id's family head: the source walk's end. A lineage's whole cluster —
+  // source and every branch — travels to where its earliest member stands,
+  // so a branch that recency lifts to the top takes its source up with it.
+  const head = new Map<string, string>()
+  for (const id of ids) {
+    let at = id
+    let hop = 0
+    while (hop < ids.length) {
+      const source = pairs.get(at)
+      if (source === undefined || !present.has(source)) break
+      at = source
+      hop += 1
+    }
+    // A walk that used every hop still has somewhere to go only inside a
+    // cycle: its members stand as their own heads, so the cluster falls back
+    // to one row per seat rather than dropping a row.
+    head.set(id, hop === ids.length && pairs.get(at) !== undefined && present.has(pairs.get(at)!) ? id : at)
+  }
   const children = new Map<string, string[]>()
   for (const id of ids) {
     const source = pairs.get(id)
@@ -114,6 +133,18 @@ export function forkOrder(ids: readonly string[], pairs: ReadonlyMap<string, str
     found.push(id)
     children.set(source, found)
   }
+
+  // Families in the order their earliest member stands; inside a family the
+  // lineage's own draw — a source, then its branches, each branch's own below
+  // it — through the same walk the flat order used.
+  const clusterAt = new Map<string, number>()
+  for (const [at, id] of ids.entries()) {
+    const own = head.get(id) ?? id
+    const seen = clusterAt.get(own)
+    if (seen === undefined || at < seen) clusterAt.set(own, at)
+  }
+  const heads = [...clusterAt.entries()].sort((a, b) => a[1] - b[1]).map(([own]) => own)
+
   const order: string[] = []
   const placed = new Set<string>()
   const push = (id: string) => {
@@ -122,10 +153,7 @@ export function forkOrder(ids: readonly string[], pairs: ReadonlyMap<string, str
     order.push(id)
     for (const child of children.get(id) ?? []) push(child)
   }
-  for (const id of ids) {
-    const source = pairs.get(id)
-    if (source === undefined || !present.has(source)) push(id)
-  }
+  for (const own of heads) push(own)
   for (const id of ids) push(id)
   return order
 }
