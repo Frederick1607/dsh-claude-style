@@ -50,9 +50,11 @@ interface HostWorkspaceRow {
   sessionIds: string[]
 }
 
-/** The `workspaces` service: the list, and taking one session back out of the archive. */
+/** The `workspaces` service: the list, reordering inside it, and taking one session back out of the archive. */
 export interface HostWorkspacesService {
   list: HostSnapshotSource<HostWorkspaceListSnapshot>
+  /** Move one session ahead of another in its workspace's order — the host's own drag reorder; absent on hosts that predate it. */
+  insertSessionBefore?(workspaceId: string, sessionId: string, beforeSessionId?: string): Promise<unknown>
   /** Take a session out of the archive; it rejects when the host refuses. */
   unarchiveSession(id: string): Promise<unknown>
 }
@@ -76,6 +78,14 @@ export interface HostWorkspaceViewStore {
   actions: {
     setGroupBy(mode: HostSessionGroupBy): void
     setArchivedFilter(filter: HostArchivedFilter): void
+    /**
+     * The drag reorder's own write: store one account's session order, and turn
+     * the order mode manual. `initialOrders` is the displayed order of every
+     * account key (workspace ids, `''` for ungrouped, `__flat_session_order__`
+     * for the flat view) as the browser itself passes it. Absent on hosts
+     * without manual session order.
+     */
+    setSessionOrder?(accountKey: string, order: string[], initialOrders: Record<string, string[]>): void
   }
 }
 

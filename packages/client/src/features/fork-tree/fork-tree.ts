@@ -2,7 +2,7 @@ import { SESSION_ROW_KEY_ATTRIBUTE } from '@dsh-claude-ui/contracts/dom'
 import { observeMatches } from '@dsh-claude-ui/engine/bus'
 import { buildElement } from '@dsh-claude-ui/engine/dom'
 import { requestFrame } from '@dsh-claude-ui/engine/frame'
-import { hostSessionList } from '@dsh-claude-ui/engine/host'
+import { hostSessionList, hostWorkspaceView, hostWorkspaces } from '@dsh-claude-ui/engine/host'
 import type { HostContext } from '@dsh-claude-ui/engine/host'
 import { FORK_CHILD_ATTR, FORK_COLLAPSED_ATTR, FORK_DEPTH_PROPERTY, FORK_HIDDEN_ATTR, FORK_PARENT_ATTR, FORK_TOGGLE_ATTR } from '../../constants'
 import { buildChevron } from '../../shared/chevron'
@@ -19,8 +19,10 @@ import type { ForkRow } from './tree'
  * renames every fork to the source's title with its counter moved on
  * (`X` -> `X (1)`, `X (1)` -> `X (2)`), so the title is the lineage the list
  * carries (features/fork-tree/tree.ts). The rows are the host's, drawn flat; the
- * feature moves each child's seat under its source and marks both rows
- * (fork-tree.css draws the indent, the branch and the fold).
+ * feature writes the lineage order into the workspace view's own session-order
+ * store — the same write a drag of a row makes — so the renderer keeps owning
+ * its seats and they stay clickable, and marks both rows (fork-tree.css draws
+ * the indent, the branch and the fold).
  *
  * The date grouping arranges the same seats by day: with it on, the feature
  * stands down rather than fight it for the order.
@@ -28,13 +30,6 @@ import type { ForkRow } from './tree'
 
 /** The list's key prefix before a session id. */
 const KEY_PREFIX = 'session:'
-
-/** One list's own seats, as a pass reads them: the session id each belongs to. */
-interface Seat {
-  id: string
-  seat: HTMLElement
-  row: HTMLElement
-}
 
 export function install(ctx: HostContext) {
   /** The sources the reader folded; only this page's click decides, and a reload opens them again. */
@@ -79,41 +74,69 @@ export function install(ctx: HostContext) {
     return listed
   }
 
-  /** One row's seats, by the list they stand in: the host draws every row inside a single-child box, and the boxes are the list's seats. */
-  function seatsOf(rows: Map<string, HTMLElement>) {
-    const lists = new Map<HTMLElement, Seat[]>()
-    for (const [id, row] of rows) {
-      const seat = row.parentElement
-      const list = seat?.parentElement
-      if (seat === null || seat === undefined || list === null || list === undefined) continue
-      const seats = lists.get(list) ?? []
-      seats.push({ id, seat, row })
-      lists.set(list, seats)
-    }
-    return lists
-  }
+  /**
+   * Stand the sidebar's sessions in the lineage's order — a source, then its
+   * branches, each branch's own below it — through the workspace view store's
+   * own reorder write, the same one a drag of a row makes. The write lands in
+   * the store the renderer reads, so the rows keep belonging to it and stay
+   * clickable; moving the seats in the DOM instead fought the renderer for its
+   * own children, and its keyed re-renders could leave dead rows.
+   *
+   * Each pass issues the orders the displayed rows still lack. A state the
+   * write cannot reach (another sorter owns the order, or the store shape is
+   * absent) is remembered so the pass does not write on every refresh; a new
+   * lineage or order retries once.
+   */
+  const ordered = new Set<string>()
 
   /**
-   * Stand one list's seats in the lineage's order: a source, then its branches,
-   * each branch's own below it.
+   * The order each account's rows stand in on the page: the DOM is the truth
+   * the reader sees, so the desired order moves only the lineage's rows among
+   * it and everything else keeps its place.
    *
-   * The seats move among the slots the list already gives them. The list's
-   * other children — the workspace's own header above them, its "show more" row
-   * below — are not seats, and keep their places: a seat written in front of the
-   * list's first child would stand over the workspace's title.
+   * The account keys are the store's own: one per workspace (or the flat
+   * key when the view groups flat), `''` for the sessions no workspace owns.
    */
-  function orderList(list: HTMLElement, seats: Seat[], pairs: ReadonlyMap<string, string>) {
-    const byId = new Map(seats.map((seat) => [seat.id, seat]))
-    const desired = forkOrder(seats.map((seat) => seat.id), pairs).map((id) => byId.get(id)?.seat)
-    const slots = new Set(seats.map((seat) => seat.seat))
-    const current = [...list.children].filter((child): child is HTMLElement => child instanceof HTMLElement && slots.has(child))
-    for (let at = 0; at < desired.length; at += 1) {
-      const want = desired[at]
-      if (want === undefined || current[at] === want) continue
-      list.insertBefore(want, current[at] ?? null)
-      const from = current.indexOf(want)
-      if (from !== -1) current.splice(from, 1)
-      current.splice(at, 0, want)
+  function orderAccounts(rows: ReadonlyMap<string, HTMLElement>, pairs: ReadonlyMap<string, string>) {
+    const view = hostWorkspaceView(ctx)
+    const setOrder = view?.actions?.setSessionOrder
+    const workspaces = hostWorkspaces(ctx)?.list.getSnapshot()
+    if (typeof setOrder !== 'function' || view === null || workspaces === null || workspaces === undefined) return
+
+    const accountOf = new Map<string, string>()
+    if (view.getSnapshot().groupBy === 'flat') {
+      for (const id of rows.keys()) accountOf.set(id, '__flat_session_order__')
+    } else {
+      const members = new Set<string>()
+      for (const item of workspaces.items) {
+        for (const id of item.sessionIds) {
+          accountOf.set(id, item.workspaceId)
+          members.add(id)
+        }
+      }
+      for (const id of rows.keys()) if (!members.has(id)) accountOf.set(id, '')
+    }
+
+    // The displayed order per account, and every account's order as the
+    // store's write wants it: the accounts a pass does not touch keep the
+    // order they show.
+    const displayed = new Map<string, string[]>()
+    for (const [id] of rows) {
+      const key = accountOf.get(id)
+      if (key === undefined) continue
+      const order = displayed.get(key) ?? []
+      order.push(id)
+      displayed.set(key, order)
+    }
+    const initial: Record<string, string[]> = {}
+    for (const [key, order] of displayed) initial[key] = [...order]
+
+    for (const [key, order] of displayed) {
+      const desired = forkOrder(order, pairs)
+      const signature = `${key}:${order.join(',')}>${desired.join(',')}`
+      if (ordered.has(signature) || desired.every((id, at) => order[at] === id)) continue
+      ordered.add(signature)
+      setOrder(key, desired, initial)
     }
   }
 
@@ -168,7 +191,12 @@ export function install(ctx: HostContext) {
     }
     const listed = listedRows()
     const pairs = forkPairs(listed)
-    for (const [list, seats] of seatsOf(rows)) orderList(list, seats, pairs)
+
+    // The order is a view-store write, not a DOM one: the same write the
+    // reader's own drag makes. Where the store's shape is absent the rows keep
+    // their drawn order and the marks still draw the lineage where it happens
+    // to stand.
+    orderAccounts(rows, pairs)
 
     // A child only stands as one where the list holds its source's row.
     const present = new Set(rows.keys())
